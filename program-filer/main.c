@@ -1,6 +1,6 @@
 /*
 * Titel: Automatisk Plagiat Kontrol
-* Software - 1. semester (09/10/2020 - 25/12/2020)
+* Software - 1. semester (09/10/2020 - 18/12/2020)
 * Aalborg universitet CPH
 * 
 * Gruppe: SW0001
