@@ -52,7 +52,7 @@ void open_file() {
 /* Main Loop */
 int main(void) {
     char navn[] = "Markus Frederik";
-    char nytNavn[] = "Oskar Tommy";
+    char nytNavn[] = "Oscar Tommy";
     char pigerne[] = "Sara Alberte";
 
     find_cryptic(nytNavn, pigerne);
