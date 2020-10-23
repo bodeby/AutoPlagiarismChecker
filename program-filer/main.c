@@ -81,6 +81,13 @@ int main(void) {
     int dist = editDist("sitten", "kitten");
     printf("Edit distance: %i\n", dist);
     open_files();
+    char navn[] = "Markus Frederik";
+    char nytNavn[] = "Oscar Tommy";
+    char pigerne[] = "Sara Alberte";
+
+    find_cryptic(nytNavn, pigerne);
+    
+    open_file();
 
     return EXIT_SUCCESS;
 }
