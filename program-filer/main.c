@@ -4,9 +4,9 @@
 * Aalborg universitet CPH
 * 
 * Gruppe: SW0001
-* - Markus Hye Knudsen, Oscar Maxwell
+* - Markus Hye-Knudsen, Oscar Maxwell
 * - Sara Granquist, Tommy Grenaae
-* - Alberte Østergaard Andesen, Frederik Bode Thorbensen
+* - Alberte Østergaard Andersen, Frederik Bode Thorbensen
 */
 
 /* System Headers */
