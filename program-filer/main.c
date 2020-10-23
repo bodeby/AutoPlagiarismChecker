@@ -21,9 +21,18 @@
 void find_cryptic(char str_one[], char str_two[]) {
     print_str(str_one);
     print_str(str_two);
+
+    int diff = editDist(str_one, str_two);
+    printf("edit distance: %i\n", diff);
+
+    int c_val_min = 33;
+    int c_val_max = 126;
+
+    int ch = 'A';
+    printf("Char value: %i\n", ch);
 }
 
-void open_files() {
+void load_files() {
     char fp_one[] = "./test-files/lotr-org.txt";
     char fp_two[] = "./test-files/lotr-plag.txt";
     FILE *file_org;
@@ -78,16 +87,10 @@ void open_files() {
 
 /* Main Loop */
 int main(void) {
-    int dist = editDist("sitten", "kitten");
-    printf("Edit distance: %i\n", dist);
-    open_files();
-    char navn[] = "Markus Frederik";
-    char nytNavn[] = "Oscar Tommy";
-    char pigerne[] = "Sara Alberte";
-
-    find_cryptic(nytNavn, pigerne);
-    
-    open_file();
+    /* Mit navn er Johnny og min fars er det samme */
+    char str_test1[] = ".Mit navn er Johnny og min fars er det samme.";
+    char str_test2[] = ".Mit navn er Johппy og min fars er det samme.";
+    find_cryptic(str_test1, str_test2);
 
     return EXIT_SUCCESS;
 }
