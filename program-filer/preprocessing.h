@@ -1,15 +1,26 @@
 #include <stdio.h>
 #include <string.h>
 
-void preprocessing (char *navn_paa_fil) 
+void preprocessing (/*char *navn_paa_fil*/) 
 {
-    int text_size=10; /*Ændre størrelsen!!*/
+
+    char navn_paa_fil = 'Hej mit navn er Oscar.\n og jeg er 22';
+    int text_size=strnlen(navn_paa_fil);
     char text[text_size]; 
-    strlen(text);
+    char p[text_size];
 
     for (int i = 0; i<=text_size; i++) 
     {
-        text[i]
+        strncpy(text,p,i);
+        if (p[i]=='\\') 
+        {
+        if (p[i+1]=='n') 
+            {
+                p[i] = NULL;
+                p[i+1] = NULL;
+
+            }
+        } 
 
     }
 }
