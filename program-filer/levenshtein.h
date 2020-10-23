@@ -1,9 +1,11 @@
-/* LEVENSHTEIN ALGORITHM */
+/* LEVENSHTEIN ALGORITHM 
+* Made by Ben Bullock
+* link: https://www.lemoda.net/c/levenshtein
+*/
 #include <string.h>
 #include <stdio.h>
 
-static int distance (const char * word1,
-                     const char * word2)
+static int editDist (const char * word1, const char * word2)
 {
     int len1 = strlen (word1);
     int len2 = strlen (word2);
