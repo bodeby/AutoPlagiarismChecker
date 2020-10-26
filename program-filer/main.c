@@ -35,12 +35,25 @@ void find_cryptic(char str_one[], char str_two[]) {
 void load_files() {
     char fp_one[] = "./test-files/lotr-org.txt";
     char fp_two[] = "./test-files/lotr-plag.txt";
+    
 
     /* Open Files */
     FILE *file_org = fopen(fp_one, "r");
-    FILE *file_plag = fopen(fp_two, "r");;
-    char file_org_content[150];
-    char file_plag_content[150];
+    FILE *file_plag = fopen(fp_two, "r");
+
+    /* Size of arrays calculated*/
+    size_t start_pos1 = ftell(file_org);
+    fseek(file_org, 0, SEEK_END);
+    size_t size_of_arr1 = ftell(file_org);
+    fseek(file_org, start_pos1, SEEK_SET);
+
+    size_t start_pos2 = ftell(file_plag);
+    fseek(file_plag, 0, SEEK_END);
+    size_t size_of_arr2 = ftell(file_plag);
+    fseek(file_plag, start_pos2, SEEK_SET);
+
+    char file_org_content[size_of_arr1];
+    char file_plag_content[size_of_arr2];
 
     /* get file one */
     printf("--------- OPEN FILE ---------\n");
