@@ -8,11 +8,16 @@ void preprocessing (/*char *navn_paa_fil*/)
     int text_size=strlen(navn_paa_fil);
     char text[text_size]; 
     char p[text_size];
+    int i=0;
 
-    for (int i = 0; i<=text_size; i++) 
-    {
+    /*for (int i = 0; i<=text_size; i++) 
+    {*/
         p[i]=*strncpy(navn_paa_fil,p,i);
         p[i+1]=*strncpy(navn_paa_fil,p,i+1);
+        char tekst1 = *strncpy(navn_paa_fil,p,i);
+        char tekst2 = *strncpy(navn_paa_fil,p,i+1);
+        printf("%c %c",tekst1,tekst2);
+        /*
         if (p[i]=='\\') 
         {
             if (p[i+1]=='n') 
@@ -24,5 +29,5 @@ void preprocessing (/*char *navn_paa_fil*/)
                 }
         } 
 
-    }
+    }*/
 }
