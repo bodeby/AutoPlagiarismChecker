@@ -33,7 +33,7 @@ void find_cryptic(char str_one[], char str_two[]) {
     printf("Char value: %i\n", ch);
 }
 
-void load_files() {
+void load_files(void) {
     char fp_one[] = "./test-files/lotr-org.txt";
     char fp_two[] = "./test-files/lotr-plag.txt";
     
@@ -77,12 +77,12 @@ void load_files() {
     }
 
     printf("\nFILE ONE: \n");
-    while (fgets(file_org_content, 150, file_org) != NULL) {
+    while (fgets(file_org_content, size_of_arr1, file_org) != NULL) {
         puts(file_org_content);
         
     } 
     printf("\nFILE TWO: \n");
-    while (fgets(file_plag_content, 150, file_plag) != NULL) {
+    while (fgets(file_plag_content, size_of_arr2, file_plag) != NULL) {
         puts(file_plag_content);
     
     }
@@ -99,14 +99,13 @@ void load_files() {
 int main(void) {
     int dist = editDist("sitten", "kitten");
     printf("Edit distance: %i\n", dist);
-    open_files();
     char navn[] = "Markus Frederik";
     char nytNavn[] = "Oscar Tommy";
     char pigerne[] = "Sara Alberte";
 
     find_cryptic(nytNavn, pigerne);
     
-    open_files();
+    load_files();
 
     return EXIT_SUCCESS;
 }
