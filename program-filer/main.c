@@ -60,26 +60,20 @@ void load_files() {
         printf("File contents not NULL.\n");
     }
 
-    while (!feof(file_org)) {
-        fgets(file_org_content, 150, file_org);
-        /*puts(file_org_content);*/
-    }
-
-    while (!feof(file_plag)) {
-        fgets(file_plag_content, 150, file_plag);
-        /*puts(file_plag_content);*/
+    printf("\nFILE ONE: \n");
+    while (fgets(file_org_content, 150, file_org) != NULL) {
+        puts(file_org_content);
+        
+    } 
+    printf("\nFILE TWO: \n");
+    while (fgets(file_plag_content, 150, file_plag) != NULL) {
+        puts(file_plag_content);
+    
     }
 
     /* Close Files*/
     fclose(file_org);
     fclose(file_plag);
-
-    printf("\nFILE ONE: \n");
-    print_str(file_org_content);
-
-    printf("\nFILE TWO: \n");
-    print_str(file_plag_content);
-
     printf("--------- END OPEN FILE ---------\n");
 
     return;
@@ -87,10 +81,16 @@ void load_files() {
 
 /* Main Loop */
 int main(void) {
-    /* Mit navn er Johnny og min fars er det samme */
-    char str_test1[] = ".Mit navn er Johnny og min fars er det samme.";
-    char str_test2[] = ".Mit navn er Johппy og min fars er det samme.";
-    find_cryptic(str_test1, str_test2);
+    int dist = editDist("sitten", "kitten");
+    printf("Edit distance: %i\n", dist);
+    open_files();
+    char navn[] = "Markus Frederik";
+    char nytNavn[] = "Oscar Tommy";
+    char pigerne[] = "Sara Alberte";
+
+    find_cryptic(nytNavn, pigerne);
+    
+    open_files();
 
     return EXIT_SUCCESS;
 }
