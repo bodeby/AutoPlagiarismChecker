@@ -9,7 +9,7 @@ void preprocessing (char *navn_paa_fil)
 
     for (int i = 0; i<=text_size; i++) 
     {
-        text[i]
+        text[i];
 
     }
 }
