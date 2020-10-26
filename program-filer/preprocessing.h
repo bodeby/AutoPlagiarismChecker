@@ -11,7 +11,7 @@ void preprocessing (/*char *navn_paa_fil*/)
     int i=0;
 
     /*for (int i = 0; i<=text_size; i++) 
-    {*/
+    {*/ //https://www.tutorialspoint.com/c_standard_library/c_function_strncpy.htm
         p[i]=*strncpy(navn_paa_fil,p,i);
         p[i+1]=*strncpy(navn_paa_fil,p,i+1);
         char tekst1 = *strncpy(navn_paa_fil,p,i);
