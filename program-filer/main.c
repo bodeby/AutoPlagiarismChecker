@@ -17,6 +17,7 @@
 /* Gruppens Headers */
 #include "helpers.h"
 #include "levenshtein.h" /* external */
+#include "preprocessing.h"
 
 
 void find_cryptic(char str_one[], char str_two[]) {
