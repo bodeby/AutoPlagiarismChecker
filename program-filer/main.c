@@ -21,9 +21,18 @@
 void find_cryptic(char str_one[], char str_two[]) {
     print_str(str_one);
     print_str(str_two);
+
+    int diff = editDist(str_one, str_two);
+    printf("edit distance: %i\n", diff);
+
+    int c_val_min = 33;
+    int c_val_max = 126;
+
+    int ch = 'A';
+    printf("Char value: %i\n", ch);
 }
 
-void open_files() {
+void load_files() {
     char fp_one[] = "./test-files/lotr-org.txt";
     char fp_two[] = "./test-files/lotr-plag.txt";
     FILE *file_org;
