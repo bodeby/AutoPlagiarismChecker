@@ -33,7 +33,7 @@ void find_cryptic(char str_one[], char str_two[]) {
     printf("Char value: %i\n", ch);
 }
 
-void load_files() {
+void load_files(void) {
     char fp_one[] = "./test-files/lotr-org.txt";
     char fp_two[] = "./test-files/lotr-plag.txt";
     
@@ -105,7 +105,7 @@ int main(void) {
 
     find_cryptic(nytNavn, pigerne);
     
-    open_files();
+    load_files();
 
     return EXIT_SUCCESS;
 }
