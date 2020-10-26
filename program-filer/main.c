@@ -18,6 +18,7 @@
 #include "helpers.h"
 #include "levenshtein.h" /* external */
 
+
 void find_cryptic(char str_one[], char str_two[]) {
     print_str(str_one);
     print_str(str_two);
@@ -35,10 +36,8 @@ void find_cryptic(char str_one[], char str_two[]) {
 void load_files() {
     char fp_one[] = "./test-files/lotr-org.txt";
     char fp_two[] = "./test-files/lotr-plag.txt";
-
-    /* Open Files */
-    FILE *file_org = fopen(fp_one, "r");
-    FILE *file_plag = fopen(fp_two, "r");;
+    FILE *file_org;
+    FILE *file_plag;
     char file_org_content[150];
     char file_plag_content[150];
 
@@ -46,10 +45,14 @@ void load_files() {
     printf("--------- OPEN FILE ---------\n");
     printf("File one:  ");
     print_str(fp_one);
-   
+
     /* get file two */
     printf("File two:  ");
     print_str(fp_two);
+
+    /* Open Files */
+    file_org = fopen(fp_one, "r");
+    file_plag = fopen(fp_two, "r");
 
     /* Test if Files are empty */
     if (file_org == NULL || file_plag == NULL) {
@@ -76,18 +79,19 @@ void load_files() {
 
     return;
 }
+
 /* Main Loop */
 int main(void) {
     int dist = editDist("sitten", "kitten");
     printf("Edit distance: %i\n", dist);
-    load_files();
+    open_files();
     char navn[] = "Markus Frederik";
     char nytNavn[] = "Oscar Tommy";
     char pigerne[] = "Sara Alberte";
 
     find_cryptic(nytNavn, pigerne);
     
-    load_files();
+    open_files();
 
     return EXIT_SUCCESS;
 }
