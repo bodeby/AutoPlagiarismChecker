@@ -11,7 +11,8 @@ void preprocessing (/*char *navn_paa_fil*/)
 
     for (int i = 0; i<=text_size; i++) 
     {
-        strncpy(navn_paa_fil,p,i);
+        p[i]=*strncpy(navn_paa_fil,p,i);
+        p[i+1]=*strncpy(navn_paa_fil,p,i+1);
         if (p[i]=='\\') 
         {
             if (p[i+1]=='n') 

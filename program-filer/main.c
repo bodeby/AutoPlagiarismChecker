@@ -18,6 +18,7 @@
 #include "helpers.h"
 #include "levenshtein.h" /* external */
 
+
 void find_cryptic(char str_one[], char str_two[]) {
     print_str(str_one);
     print_str(str_two);
@@ -59,10 +60,14 @@ void load_files() {
     printf("--------- OPEN FILE ---------\n");
     printf("File one:  ");
     print_str(fp_one);
-   
+
     /* get file two */
     printf("File two:  ");
     print_str(fp_two);
+
+    /* Open Files */
+    file_org = fopen(fp_one, "r");
+    file_plag = fopen(fp_two, "r");
 
     /* Test if Files are empty */
     if (file_org == NULL || file_plag == NULL) {
@@ -89,6 +94,7 @@ void load_files() {
 
     return;
 }
+
 /* Main Loop */
 int main(void) {
     int dist = editDist("sitten", "kitten");
@@ -99,7 +105,7 @@ int main(void) {
 
     find_cryptic(nytNavn, pigerne);
     
-    load_files();
+    open_files();
 
     return EXIT_SUCCESS;
 }
