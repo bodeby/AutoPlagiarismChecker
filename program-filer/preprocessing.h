@@ -11,6 +11,9 @@ void preprocessing (/*char *navn_paa_fil*/)
 
     for (int i = 0; i<=text_size; i++) 
     {
+<<<<<<< HEAD
+        text[i];
+=======
         strncpy(text,p,i);
         if (p[i]=='\\') 
         {
@@ -21,6 +24,7 @@ void preprocessing (/*char *navn_paa_fil*/)
 
             }
         } 
+>>>>>>> f589e5dc714b69efdc9a63c40fff643036e8637c
 
     }
 }
