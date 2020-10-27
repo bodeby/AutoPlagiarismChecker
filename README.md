@@ -16,3 +16,9 @@
 
 - https://www.cliffsnotes.com/literature/l/the-lord-of-the-rings/book-summary/the-fellowship-of-the-ring
 - https://www.programiz.com/c-programming/c-file-input-output
+
+## Cryptic:
+
+- https://medium.com/@imjacobclark/working-with-dynamic-arrays-in-c-c7d40a3cea01
+- https://www.geeksforgeeks.org/dynamic-memory-allocation-in-c-using-malloc-calloc-free-and-realloc/
+- https://www.eskimo.com/~scs/cclass/int/sx9b.html

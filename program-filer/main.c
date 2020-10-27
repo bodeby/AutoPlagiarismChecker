@@ -15,23 +15,25 @@
 #include <string.h>
 
 /* Gruppens Headers */
-#include "helpers.h"
 #include "levenshtein.h" /* external */
+#include "helpers.h"
 #include "preprocessing.h"
+#include "cryptic_sub.h"
 
 
 void find_cryptic(char str_one[], char str_two[]) {
-    print_str(str_one);
-    print_str(str_two);
+    /* helpers header */
 
+    /* levenshtein header */
     int diff = editDist(str_one, str_two);
     printf("edit distance: %i\n", diff);
 
-    int c_val_min = 33;
-    int c_val_max = 126;
+    //int c_val_min = 33;
+    //int c_val_max = 126;
 
-    int ch = 'A';
-    printf("Char value: %i\n", ch);
+    /* cryptic_sub header */
+    word_splitter(str_one);
+    //word_splitter(str_two);
 }
 
 void load_files(void) {
@@ -98,15 +100,11 @@ void load_files(void) {
 
 /* Main Loop */
 int main(void) {
-    int dist = editDist("sitten", "kitten");
-    printf("Edit distance: %i\n", dist);
-    char navn[] = "Markus Frederik";
-    char nytNavn[] = "Oscar Tommy";
-    char pigerne[] = "Sara Alberte";
-
-    find_cryptic(nytNavn, pigerne);
+    char test_str1[] = "The quick brown fox jumps over the lazy dog";
+    char test_str2[] = "The quick browп fox jumps over the lazy dog";
+    find_cryptic(test_str1, test_str2);
     
-    load_files();
+    /*load_files();*/
 
     return EXIT_SUCCESS;
 }
