@@ -56,8 +56,8 @@ void load_files(void) {
     size_t size_of_arr2 = ftell(file_plag);
     fseek(file_plag, start_pos2, SEEK_SET);
 
-    char file_org_content[size_of_arr1];
-    char file_plag_content[size_of_arr2];
+    char *file_org_content[size_of_arr1][size_of_arr1];
+    char *file_plag_content[size_of_arr2][size_of_arr2];
 
     /* get file one */
     printf("--------- OPEN FILE ---------\n");
@@ -78,16 +78,15 @@ void load_files(void) {
     } else {
         printf("File contents not NULL.\n");
     }
-
+    /*Reading files*/
     printf("\nFILE ONE: \n");
-    while (fgets(file_org_content, size_of_arr1, file_org) != NULL) {
-        puts(file_org_content);
-        
-    } 
+    for(int i = 0; fgets(file_org_content[i][size_of_arr1], size_of_arr1, file_org) != NULL; i++) {
+        file_org_content[i][size_of_arr1] = fgets(file_org_content[i][size_of_arr1], size_of_arr1, file_org);
+    }
+
     printf("\nFILE TWO: \n");
-    while (fgets(file_plag_content, size_of_arr2, file_plag) != NULL) {
-        puts(file_plag_content);
-    
+    for(int i = 0; fgets(file_plag_content[i][size_of_arr1], size_of_arr1, file_plag) != NULL; i++) {
+        file_plag_content[i][size_of_arr1] = fgets(file_plag_content[i][size_of_arr1], size_of_arr1, file_plag);
     }
 
     /* Close Files*/
