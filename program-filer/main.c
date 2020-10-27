@@ -97,13 +97,13 @@ void load_files(void) {
     return;
 }
 
-/* Main Loop */
+/* Main Function  */
 int main(void) {
-    char test_str1[] = "The quick brown fox jumps over the lazy dog";
-    char test_str2[] = "The quick browп fox jumps over the lazy dog";
-    find_cryptic(test_str1, test_str2);
+    //char test_str1[] = "The quick brown fox jumps over the lazy dog";
+    //char test_str2[] = "The quick browп fox jumps over the lazy dog";
+    //find_cryptic(test_str1, test_str2);
     
-    /*load_files();*/
+    load_files();
 
     return EXIT_SUCCESS;
 }
