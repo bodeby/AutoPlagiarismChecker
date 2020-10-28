@@ -7,22 +7,13 @@
 bool check_string(char str_one[], char str_two[]) {
     double len_one = strlen(str_one);
     double len_two = strlen(str_two);
-    int THRESH;
+    double threshold = 2.50;
     double len_dif = ((fabs(len_one - len_two) / ((len_one + len_two) / 2) ) * 100);
 
     printf("len_one: %.2f\n", len_one);
     printf("len_two: %.2f\n", len_two);
     printf("procent afvigelse %.2f%%\n", len_dif);
-
-    return true;
-}
-
-// Check if string is worth checking
-bool check_word(char input_str[], char str_two[]) {
-    int len_one = strlen(input_str);
-    int len_two = strlen(str_two);
-
-    printf("%i %i\n", len_one, len_two);
+    printf("Threshold: %.2f%%\n", threshold);
 
     return true;
 }
@@ -39,9 +30,9 @@ int checkMem(char *arr) {
 
 // Append character to string
 void append(char *arr, int index, char value, int *size, int *capacity) {
-    if (*size > *capacity) {
-        arr = realloc(arr, sizeof(arr) * 2);
-        *capacity = sizeof(arr) * 2;
+    while (*size > *capacity) {
+        arr = realloc(arr, sizeof(arr) + ((int) sizeof(char) * 256));
+        *capacity = sizeof(arr);
     }
 
     arr[index] = value;
@@ -76,7 +67,7 @@ void loc_crypt(char input_str[]) {
 // Split words in to 2-dim array of words.
 void word_splitter(char input_str[]) {
     int size = 0;
-    int init_capacity = 2;
+    int init_capacity = 256;
     int capacity = init_capacity;
     char *arr = malloc(init_capacity * sizeof(char));
     int word_count = 0;
@@ -94,20 +85,19 @@ void word_splitter(char input_str[]) {
 
     // Loop through string
     for (int i = 0; i < (int) strlen(input_str); i++) {
-
+        int j = 0;
         // if character is not equal to space, append to array
-        if ((int) input_str[i] != 32 || (int) input_str[i] == '\t') {
+        if ((int) input_str[i] != 32 || (int) input_str[i] != '\t') {
             append(arr, (int) i, input_str[i], &size, &capacity);
+            j++;
             printf("Iteration: %d - content: %s\n", i, arr);
         }
         // if character is equal to space
         else {
             printf("Iteration: %d - content: cleared\n", i);
-            strcpy(word_array[word_pos], arr);    // Add Word to list
-            word_pos += 1;                        // Set postion to next vacant spot
-            free(arr);
-            //memset(arr, '\0', (size_t) sizeof(arr)); // Clear the array for new word
-            //arr = realloc(arr, 0);
+            strcpy(word_array[word_pos], arr[0]);    // Add Word to list
+            word_pos += 1;                             // Set postion to next vacant spot
+            j = 0;
         }
     }
 

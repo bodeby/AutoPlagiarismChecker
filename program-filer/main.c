@@ -22,9 +22,9 @@
 
 
 void find_cryptic(char str_one[], char str_two[]) {
-    print_str(str_one);
-    print_str(str_two);
-    check_string(str_one, str_two);
+    //print_str(str_one);
+    //print_str(str_two);
+    //check_string(str_one, str_two);
 
     /* levenshtein header */
 

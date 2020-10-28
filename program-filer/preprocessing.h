@@ -6,7 +6,11 @@ void preprocessing (/*char *navn_paa_fil*/)
 
     char navn_paa_fil[100] = "Hej mit navn er Oscar.\n og jeg er 22";
     int text_size=strlen(navn_paa_fil);
+<<<<<<< Updated upstream
     char test[text_size]
+=======
+    //char text[text_size]; 
+>>>>>>> Stashed changes
     char p[text_size];
     int i=0;
 
