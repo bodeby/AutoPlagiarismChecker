@@ -23,6 +23,7 @@
 
 
 void find_cryptic(char str_one[], char str_two[]) {
+<<<<<<< Updated upstream
     /* helpers header */
 =======
 #include "cryptic_sub.h"
@@ -34,11 +35,11 @@ void find_cryptic(char str_one[], char str_two[]) {
 >>>>>>> Stashed changes
 
     /* levenshtein header */
+=======
+    /* fra levenshtein.h */
+>>>>>>> Stashed changes
     int diff = editDist(str_one, str_two);
     printf("edit distance: %i\n", diff);
-
-    //int c_val_min = 33;
-    //int c_val_max = 126;
 
     /* cryptic_sub header */
     word_splitter(str_one);
@@ -108,11 +109,11 @@ void load_files(void) {
 
 /* Main Function  */
 int main(void) {
-    //char test_str1[] = "The quick brown fox jumps over the lazy dog";
-    //char test_str2[] = "The quick browп fox jumps over the lazy dog";
-    //find_cryptic(test_str1, test_str2);
+    char test_str1[] = "The quick brown fox jumps over the lazy dog";
+    char test_str2[] = "The quick browп fox jumps over the lazy dog";
+    find_cryptic(test_str1, test_str2);
     
-    load_files();
+    //load_files();
 
     return EXIT_SUCCESS;
 }
