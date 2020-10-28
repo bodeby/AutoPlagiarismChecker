@@ -3,7 +3,18 @@
 #include <string.h>
 #include <math.h>
 
-<<<<<<< Updated upstream
+/* Check if string is worth checking */
+bool check_string(char str_one[], char str_two[]) {
+    double len_one = strlen(str_one);
+    double len_two = strlen(str_two);
+    int THRESH;
+    double len_dif = ((abs(len_one - len_two) / ((len_one + len_two) / 2) ) * 100);
+
+    printf("len_one: %.2f\n", len_one);
+    printf("len_two: %.2f\n", len_two);
+    printf("procent afvigelse %.2f%%\n", len_dif);
+}
+
 // Check if string is worth checking
 bool check_word(char input_str[], char str_two[]) {
     int len_one = strlen(input_str);
@@ -112,16 +123,4 @@ void word_splitter(char input_str[]) {
     free(arr);
 
 }
-=======
-/* Check if string is worth checking */
-bool check_string(char str_one[], char str_two[]) {
-    double len_one = strlen(str_one);
-    double len_two = strlen(str_two);
-    int THRESH;
-    double len_dif = ((abs(len_one - len_two) / ((len_one + len_two) / 2) ) * 100);
 
-    printf("len_one: %.2f\n", len_one);
-    printf("len_two: %.2f\n", len_two);
-    printf("procent afvigelse %.2f%%\n", len_dif);
-}
->>>>>>> Stashed changes
