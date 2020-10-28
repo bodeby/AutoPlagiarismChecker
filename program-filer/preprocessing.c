@@ -4,30 +4,31 @@
 int main (void) 
 {
 
-    char navn_paa_fil[100] = "Hej mit navn er Oscar.\n og jeg er 22";
-    int text_size=strlen(navn_paa_fil);
+    char navn_paa_ori_fil[100] = "Hej mit navn er Oscar.\nJeg er 22 aar.\nJeg er en dreng";
+    int text_size1=strlen(navn_paa_ori_fil);
 
-    char p[text_size];
-    int i=0;
+    char navn_paa_ny_fil[text_size1];
+    strncpy (navn_paa_ny_fil, navn_paa_ori_fil, text_size1);
+    int text_size2=strlen(navn_paa_ny_fil);
 
-    /*for (int i = 0; i<=text_size; i++) 
-    {*/ //https://www.tutorialspoint.com/c_standard_library/c_function_strncpy.htm
+    int tæller = 0;
+    int tæller_punktom = 0;
 
+    while (navn_paa_ny_fil[tæller] != '\0'){ // \0 = NULL
 
-        strncpy(navn_paa_fil,p,i);
-        strncpy(navn_paa_fil,p,i+1);
-        printf("%s",p);
-        /*
-        if (p[i]=='\\') 
-        {
-            if (p[i+1]=='n') 
-                {
-                    p[i] = NULL;
-                    p[i+1] = NULL;
-                    i--;
+        if (navn_paa_ny_fil[tæller] == '\n'){
+            navn_paa_ny_fil[tæller] = ' ';
 
-                }
-        } 
+        }
+        if (navn_paa_ny_fil[tæller] == '.'){
+            tæller_punktom += 1;
+        }
+        tæller += 1;
+    }
 
-    }*/
+    printf("\n%d %s\n\n",text_size1, navn_paa_ori_fil);
+    printf("Der er %d punktom i string\n\n", tæller_punktom);
+    printf("%d %s\n\n",text_size2, navn_paa_ny_fil);
+
+    return 0;
 }
