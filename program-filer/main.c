@@ -16,6 +16,7 @@
 
 /* Gruppens Headers */
 #include "levenshtein.h" /* external */
+<<<<<<< Updated upstream
 #include "helpers.h"
 #include "preprocessing.h"
 #include "cryptic_sub.h"
@@ -23,6 +24,14 @@
 
 void find_cryptic(char str_one[], char str_two[]) {
     /* helpers header */
+=======
+#include "cryptic_sub.h"
+
+void find_cryptic(char str_one[], char str_two[]) {
+    print_str(str_one);
+    print_str(str_two);
+    check_string(str_one, str_two);
+>>>>>>> Stashed changes
 
     /* levenshtein header */
     int diff = editDist(str_one, str_two);
