@@ -36,10 +36,8 @@ void find_cryptic(char str_one[], char str_two[]) {
     //word_splitter(str_two);
 }
 
-void load_files(void) {
-    char fp_one[] = "./test-files/lotr-org.txt";
-    char fp_two[] = "./test-files/lotr-plag.txt";   
-
+void load_files(char fp_one[], char fp_two[]) {
+    
     /* Open Files */
     FILE *file_org = fopen(fp_one, "r");
     FILE *file_plag = fopen(fp_two, "r");
@@ -99,11 +97,13 @@ void load_files(void) {
 
 /* Main Function  */
 int main(void) {
+    char fp_one[] = "./test-files/lotr-org.txt";
+    char fp_two[] = "./test-files/lotr-plag.txt";
     //char test_str1[] = "The quick brown fox jumps over the lazy dog";
     //char test_str2[] = "The quick browп fox jumps over the lazy dog";
     //find_cryptic(test_str1, test_str2);
     
-    load_files();
+    load_files(fp_one, fp_two);
 
     return EXIT_SUCCESS;
 }
