@@ -22,14 +22,16 @@
 
 
 void find_cryptic(char str_one[], char str_two[]) {
-    /* helpers header */
+    print_str(str_one);
+    print_str(str_two);
+    check_string(str_one, str_two);
 
     /* levenshtein header */
+
+    /* fra levenshtein.h */
+
     int diff = editDist(str_one, str_two);
     printf("edit distance: %i\n", diff);
-
-    //int c_val_min = 33;
-    //int c_val_max = 126;
 
     /* cryptic_sub header */
     word_splitter(str_one);

@@ -1,13 +1,28 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
+#include <math.h>
+
+/* Check if string is worth checking */
+bool check_string(char str_one[], char str_two[]) {
+    double len_one = strlen(str_one);
+    double len_two = strlen(str_two);
+    int THRESH;
+    double len_dif = ((fabs(len_one - len_two) / ((len_one + len_two) / 2) ) * 100);
+
+    printf("len_one: %.2f\n", len_one);
+    printf("len_two: %.2f\n", len_two);
+    printf("procent afvigelse %.2f%%\n", len_dif);
+
+    return true;
+}
 
 // Check if string is worth checking
 bool check_word(char input_str[], char str_two[]) {
     int len_one = strlen(input_str);
     int len_two = strlen(str_two);
 
-    printf("%i %i %i", len_one, len_two);
+    printf("%i %i\n", len_one, len_two);
 
     return true;
 }
@@ -38,7 +53,7 @@ void count_words(char input_str[], int *word_count) {
     // Count spaces (Eg count the numbers of words)
     for (int i = 0; i < (int) strlen(input_str); i++) {
         // Check for spaces in string
-        if ((int) input_str[i] == 32) {
+        if ((int) input_str[i] == 32 || (int) input_str[i] == '\t') {
             *word_count += 1;
         }
     }
@@ -46,8 +61,11 @@ void count_words(char input_str[], int *word_count) {
 
 // Find Cryptic characters
 void loc_crypt(char input_str[]) {
+    int c_val_min = 32;
+    int c_val_max = 126;
+
     for (int i = 0; i < (int) strlen(input_str); i++) {
-        if ((int) input_str[i] < 32 || (int) input_str[i] > 126) {
+        if ((int) input_str[i] < c_val_min || (int) input_str[i] > c_val_max) {
             printf("Cryp: %c - %i\n", input_str[i], (int) input_str[i]);
         } else {
             printf("Norm: %c - %i\n",input_str[i], (int) input_str[i]);
@@ -74,11 +92,11 @@ void word_splitter(char input_str[]) {
     int word_pos = 0;
     char word_array[word_count][word_max];
 
-    // Loop through string and break on space
+    // Loop through string
     for (int i = 0; i < (int) strlen(input_str); i++) {
 
         // if character is not equal to space, append to array
-        if ((int) input_str[i] != 32 ) {
+        if ((int) input_str[i] != 32 || (int) input_str[i] == '\t') {
             append(arr, (int) i, input_str[i], &size, &capacity);
             printf("Iteration: %d - content: %s\n", i, arr);
         }
@@ -87,7 +105,9 @@ void word_splitter(char input_str[]) {
             printf("Iteration: %d - content: cleared\n", i);
             strcpy(word_array[word_pos], arr);    // Add Word to list
             word_pos += 1;                        // Set postion to next vacant spot
-            memset(arr, 0, (size_t) sizeof(arr)); // Clear the array for new word
+            free(arr);
+            //memset(arr, '\0', (size_t) sizeof(arr)); // Clear the array for new word
+            //arr = realloc(arr, 0);
         }
     }
 
@@ -110,3 +130,4 @@ void word_splitter(char input_str[]) {
     free(arr);
 
 }
+
