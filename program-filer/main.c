@@ -94,11 +94,11 @@ void load_files(char fp_one[], char fp_two[]) {
     }
     /*Reading files*/
     printf("\nFILE ONE: \n");
-    for(int i = 0; i <= size_of_arr1; i++) {
+    for(int i = 0; i <= (int) size_of_arr1; i++) {
         fscanf(file_org, "%1c", &file_org_content[i]);
     }
 
-    for(int j = 0; j <= size_of_arr2; j++) {
+    for(int j = 0; j <= (int) size_of_arr2; j++) {
         fscanf(file_plag, "%1c", &file_plag_content[j]);
     }
 
