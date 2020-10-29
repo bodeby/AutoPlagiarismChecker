@@ -3,6 +3,7 @@
 ## Compile command:
 
 - gcc -std=gnu11 -pedantic -Wall -Wextra main.c -o main.out
+- gcc -std=gnu11 -pedantic -Wall -Wextra main.c -o main.exe
 
 ## Style guide:
 
