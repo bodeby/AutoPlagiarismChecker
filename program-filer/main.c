@@ -98,7 +98,6 @@ void load_files(char fp_one[], char fp_two[]) {
         fscanf(file_org, "%1c", &file_org_content[i]);
     }
 
-    printf("\nFILE TWO: \n");
     for(int j = 0; j <= size_of_arr2; j++) {
         fscanf(file_plag, "%1c", &file_plag_content[j]);
     }
@@ -106,7 +105,5 @@ void load_files(char fp_one[], char fp_two[]) {
     /* Close Files*/
     fclose(file_org);
     fclose(file_plag);
-    printf("--------- END LOAD FILE ---------\n");
-
     return;
 }
