@@ -51,3 +51,5 @@ int main (void)
 
     return 0;
 }
+
+//brug array [string] [mænge på største string]
