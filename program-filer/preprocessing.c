@@ -36,7 +36,7 @@ int main (void)
     char text2[100];
     tal1 = punktom_lokation[0]+2; tal2 = punktom_lokation[1];
     strncpy(text2, navn_paa_ny_fil+tal1, (tal2 - tal1));
-    // navn_paa_ny_fil[tal1] <=> *(navn_paa_ny_fil + tal1)
+
     char text3[100];
     tal1 = punktom_lokation[1]+2; tal2 = punktom_lokation[2];
     strncpy(text3, navn_paa_ny_fil+tal1, (tal2 - tal1));
