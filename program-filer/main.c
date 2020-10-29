@@ -14,12 +14,26 @@
 #include <stdlib.h>
 #include <string.h>
 
-/* Gruppens Headers */
-#include "levenshtein.h" /* external */
+/* Group Headers */
+#include "levenshtein.h"
 #include "helpers.h"
 #include "preprocessing.h"
 #include "cryptic_sub.h"
 
+/*Prototypes of functions*/
+void load_files(char fp_one[], char fp_two[]);
+void find_cryptic(char str_one[], char str_two[]);
+
+/* Main Function  */
+int main(void) {
+    char fp_one[] = "./test-files/lotr-org.txt";
+    char fp_two[] = "./test-files/lotr-plag.txt";
+    load_files(fp_one, fp_two);
+    //char test_str1[] = "The quick brown fox jumps over the lazy dog";
+    //char test_str2[] = "The quick browп fox jumps over the lazy dog";
+    //find_cryptic(test_str1, test_str2);
+    return EXIT_SUCCESS;
+}
 
 void find_cryptic(char str_one[], char str_two[]) {
     //print_str(str_one);
@@ -95,17 +109,4 @@ void load_files(char fp_one[], char fp_two[]) {
     printf("--------- END LOAD FILE ---------\n");
 
     return;
-}
-
-/* Main Function  */
-int main(void) {
-    char fp_one[] = "./test-files/lotr-org.txt";
-    char fp_two[] = "./test-files/lotr-plag.txt";
-    //char test_str1[] = "The quick brown fox jumps over the lazy dog";
-    //char test_str2[] = "The quick browп fox jumps over the lazy dog";
-    //find_cryptic(test_str1, test_str2);
-    
-    load_files(fp_one, fp_two);
-
-    return EXIT_SUCCESS;
 }
