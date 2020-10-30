@@ -21,7 +21,7 @@
 #include "subpreproc.h"
 
 void run_checks();
-void load_files(char fp_one[], char fp_two);
+void load_files(char fp_one[], char fp_two[]);
 void find_cryptic(char str_one[], char str_two[]);
 void find_synonym();
 char eval_results();
@@ -36,16 +36,16 @@ int main(void) {
 
 
 void run_checks() {
-    //char fp_one[] = "./test-files/lotr-org.txt";
-    //char fp_two[] = "./test-files/lotr-plag.txt";
-    char test_str1[] = "The quick brown fox jumps over the lazy dog";
-    char test_str2[] = "The quick browп fox jumps over the lazy dog";
-    find_cryptic(test_str1, test_str2);
-    //load_file(fp_one, fp_two);
+    char fp_one[] = "./test-files/lotr-org.txt";
+    char fp_two[] = "./test-files/lotr-plag.txt";
+    //char test_str1[] = "The quick brown fox jumps over the lazy dog";
+    //char test_str2[] = "The quick browп fox jumps over the lazy dog";
+    //find_cryptic(test_str1, test_str2);
+    load_files(fp_one, fp_two);
 }
 
 
-void load_file(char fp_one[], char fp_two[]) {
+void load_files(char fp_one[], char fp_two[]) {
     
     // Open Files 
     FILE *file_org = fopen(fp_one, "r");
@@ -88,11 +88,11 @@ void load_file(char fp_one[], char fp_two[]) {
     //Reading files
     printf("\nFILE ONE: \n");
     for(int i = 0; i <= (int) size_of_arr1; i++) {
-        fscanf(file_org, "%1c", &file_org_content[i]);
+        fscanf(file_org, "%1c", *file_org_content[i]);
     }
 
     for(int j = 0; j <= (int) size_of_arr2; j++) {
-        fscanf(file_plag, "%1c", &file_plag_content[j]);
+        fscanf(file_plag, "%1c", *file_plag_content[j]);
     }
 
     // Close Files
