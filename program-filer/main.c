@@ -19,7 +19,7 @@
 #include "subtools.h"
 #include "subcryptic.h"
 #include "subloadfile.h"
-#include "subpreproc.h"
+//#include "subpreproc.h"
 
 void run_checks();
 char load_file(char fp_one[]);
@@ -71,9 +71,9 @@ void run_checks() {
 
     //param[in] :
     //param[out]:
-    char *cryptic_res[256];
-    bool *cryptic_check = false;
-    find_cryptic(test_str1, test_str2, *cryptic_res, cryptic_check);
+    char cryptic_res[256];
+    bool cryptic_check = false;
+    find_cryptic(test_str1, test_str2, &cryptic_res, &cryptic_check);
     //find_cryptic(Arr_one_s2, Arr_two_s2, *cryptic_res, *cryptic_check);
 
     //param[in] :
@@ -82,6 +82,8 @@ void run_checks() {
     bool *synonym_check = false;
     find_synonym(Arr_one_s2, Arr_two_s2, *synonym_res, *synonym_check);
     */
+
+   eval_results(cryptic_check);
 }
 
 
@@ -132,10 +134,11 @@ void find_verbatim(char Arr_one_s1, char Arr_two_s1, char *verbatim_res[], bool 
 
 void find_cryptic(char str_one[], char str_two[], char *cryptic_res, bool *cryptic_check) {
     *cryptic_check = true;
-    *cryptic_res = memcpy(cryptic_res,"test",sizeof("test"));;
-    int diff = editDist(str_one, str_two);
-    printf("edit distance: %i\n", diff);
+    *cryptic_res = "l";
+    //int diff = editDist(str_one, str_two);
+    //printf("edit distance: %i\n", diff);
 
+    check_string(str_one, str_two, &cryptic_check);
     // cryptic_sub header 
     word_splitter(str_one);
     word_splitter(str_two);
@@ -154,7 +157,13 @@ void find_synonym(char str_one[], char str_two[], char *synonym_res, bool *synon
 */
 
 
-char eval_results() {
-    printf("Evaluate Results");
+char eval_results(cryptic_check) {
+    printf("Evaluate Results\n");
+
+    if (cryptic_check == false) {
+        printf("Evidence of cryptic substituion not found\n");
+    } else {
+        printf("Evidence of cryptic substituion not found\n");
+    }
     return EXIT_SUCCESS;
 }
