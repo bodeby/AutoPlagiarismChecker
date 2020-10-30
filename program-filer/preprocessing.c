@@ -56,8 +56,7 @@ int main (void)
     {
         maengde = (linje_lokation[lykke_tæller+1] - linje_lokation[lykke_tæller]);
         maengde1 = linje_lokation[lykke_tæller];
-        printf ("%d   ", maengde);
-        printf ("%d\n", lykke_tæller);
+        printf ("%d   ", maengde); printf ("%d   ", maengde1); printf ("%d\n", lykke_tæller);
         strncpy(array[lykke_tæller], navn_paa_ny_fil+maengde1, maengde);
         
         lykke_tæller += 1;
@@ -67,9 +66,12 @@ int main (void)
     strncpy(array[lykke_tæller], navn_paa_ny_fil+maengde1, maengde);
 
     lykke_tæller = 0;
-    while (lykke_tæller < max_size )
+    maengde1 = linje_lokation[1];
+    printf ("%d\n", maengde1);
+    while (maengde1 < max_size )
     {
-        array[0][max_size-lykke_tæller]
+        array[0][max_size-lykke_tæller] = '\0';
+        maengde1 += 1;
     }
 
     printf("\n%s\n", array[0]);
