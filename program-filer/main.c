@@ -38,9 +38,9 @@ int main(void) {
 void run_checks() {
     char fp_one[] = "./test-files/lotr-org.txt";
     char fp_two[] = "./test-files/lotr-plag.txt";
-    //char test_str1[] = "The quick brown fox jumps over the lazy dog";
-    //char test_str2[] = "The quick browп fox jumps over the lazy dog";
-    //find_cryptic(test_str1, test_str2);
+    char test_str1[] = "The quick brown fox jumps over the lazy dog";
+    char test_str2[] = "The quick browп fox jumps over the lazy dog";
+    find_cryptic(test_str1, test_str2);
     load_files(fp_one, fp_two);
 }
 
@@ -52,7 +52,10 @@ void load_files(char fp_one[], char fp_two[]) {
     FILE *file_plag = fopen(fp_two, "r");
 
     // Size of arrays calculated
-    size_t start_pos1 = ftell(file_org);
+    size_t size_of_arr1 = size_of_arrays_calculated(file_org);
+    size_t size_of_arr2 = size_of_arrays_calculated(file_plag);
+    
+    /* size_t start_pos1 = ftell(file_org);
     fseek(file_org, 0, SEEK_END);
     size_t size_of_arr1 = ftell(file_org);
     fseek(file_org, start_pos1, SEEK_SET);
@@ -60,11 +63,11 @@ void load_files(char fp_one[], char fp_two[]) {
     size_t start_pos2 = ftell(file_plag);
     fseek(file_plag, 0, SEEK_END);
     size_t size_of_arr2 = ftell(file_plag);
-    fseek(file_plag, start_pos2, SEEK_SET);
+    fseek(file_plag, start_pos2, SEEK_SET); */
 
     //Array of arrays initialized
-    char *file_org_content[size_of_arr1][size_of_arr1];
-    char *file_plag_content[size_of_arr2][size_of_arr2];
+    char file_org_content[size_of_arr1];
+    char file_plag_content[size_of_arr2];
 
     // get file one 
     printf("--------- LOAD FILES ---------\n");
@@ -88,11 +91,15 @@ void load_files(char fp_one[], char fp_two[]) {
     //Reading files
     printf("\nFILE ONE: \n");
     for(int i = 0; i <= (int) size_of_arr1; i++) {
-        fscanf(file_org, "%1c", *file_org_content[i]);
+        fscanf(file_org, "%c", &file_org_content[i]);
+    }
+
+    for(int i = 0; i <= (int) size_of_arr1; i++) {
+        printf("%c", file_org_content[i]);
     }
 
     for(int j = 0; j <= (int) size_of_arr2; j++) {
-        fscanf(file_plag, "%1c", *file_plag_content[j]);
+        fscanf(file_plag, "%c", &file_plag_content[j]);
     }
 
     // Close Files
