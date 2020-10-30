@@ -87,20 +87,17 @@ void load_file(char fp_one[], char fp_two[]) {
     }
     //Reading files
     printf("\nFILE ONE: \n");
-    for(int i = 0; fgets(file_org_content[i][size_of_arr1], size_of_arr1, file_org) != NULL; i++) {
-        file_org_content[i][size_of_arr1] = fgets(file_org_content[i][size_of_arr1], size_of_arr1, file_org);
+    for(int i = 0; i <= (int) size_of_arr1; i++) {
+        fscanf(file_org, "%1c", &file_org_content[i]);
     }
 
-    printf("\nFILE TWO: \n");
-    for(int i = 0; fgets(file_plag_content[i][size_of_arr1], size_of_arr1, file_plag) != NULL; i++) {
-        file_plag_content[i][size_of_arr1] = fgets(file_plag_content[i][size_of_arr1], size_of_arr1, file_plag);
+    for(int j = 0; j <= (int) size_of_arr2; j++) {
+        fscanf(file_plag, "%1c", &file_plag_content[j]);
     }
 
     // Close Files
     fclose(file_org);
     fclose(file_plag);
-    printf("--------- END LOAD FILE ---------\n");
-
     return;
 }
 
