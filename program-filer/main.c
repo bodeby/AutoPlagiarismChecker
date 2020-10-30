@@ -72,6 +72,7 @@ void run_checks() {
     // TEST ONLY
     char test_str1[] = "The quick brown fox jumps over the lazy dog";
     char test_str2[] = "The quick browп fox jumps over the lazy dog";
+<<<<<<< Updated upstream
 
     //param[in] :
     //param[out]:
@@ -88,6 +89,27 @@ void run_checks() {
     */
 
    eval_results(cryptic_check);
+=======
+    find_cryptic(test_str1, test_str2);
+    //load_file(fp_one, fp_two);
+
+    /*
+
+    //
+    //param[in] : File paht to txt-file.
+    //param[out]: Array with all text in txt.
+    char Arr_one_s1[] = load_file(....);
+    char Arr_one_s1[] = load_file(....);
+
+    //param[in] : Array with all text in txt.
+    //param[out]: 2-dim Array of all sentences.
+    char Arr_one_s2[] = preprocess(Arr_one_s1[]);
+    char Arr_two_s2[] = preprocess(Arr_two_s1[]);
+
+
+    //
+    */
+>>>>>>> Stashed changes
 }
 
 
@@ -134,6 +156,7 @@ char load_file(char fp_one[], char fp_two[]) {
     } else {
         printf("File contents not NULL.\n");
     }
+
     //Reading files
     printf("\nFILE ONE: \n");
     for(int i = 0; i <= (int) size_of_arr1; i++) {
