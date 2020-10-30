@@ -1,10 +1,7 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
-#include "subcryptic.h"
-#include "subloadfile.h"
-#include "subpreproc.h"
-#include "subtools.h"
 
 int main (void) 
 {
@@ -33,7 +30,7 @@ int main (void)
     }
     int lykke_tæller = 0;
     int max_size = 0;
-
+    
     while (lykke_tæller < linje_kontrol)
     {
             printf("%d\n", linje_lokation[lykke_tæller]);
@@ -48,37 +45,36 @@ int main (void)
         max_size = (text_size1 - linje_lokation[lykke_tæller-1]);
     }
     printf("%d\n", lykke_tæller);
-    printf("%d\n", max_size);
+    printf("%d\n\n", max_size);
     char array [linje_kontrol][max_size];
 
-    /*
+    int maengde = 0;
+    int maengde1 = 0;
+    lykke_tæller = 0;
 
-    int tal1 = 0, tal2 = 0;
+    while(lykke_tæller+1 < linje_kontrol)
+    {
+        maengde = (linje_lokation[lykke_tæller+1] - linje_lokation[lykke_tæller]);
+        maengde1 = linje_lokation[lykke_tæller];
+        printf ("%d   ", maengde);
+        printf ("%d\n", lykke_tæller);
+        strncpy(array[lykke_tæller], navn_paa_ny_fil+maengde1, maengde);
+        
+        lykke_tæller += 1;
+    }
+    maengde = (text_size1 - linje_lokation[lykke_tæller-1]);
+    maengde1 = linje_lokation[lykke_tæller];
+    strncpy(array[lykke_tæller], navn_paa_ny_fil+maengde1, maengde);
 
-    
-    char text1[100];
-    tal2 = punktom_lokation[0];
-    strncpy(text1, navn_paa_ny_fil, tal2);
-    
-    char text2[100];
-    tal1 = punktom_lokation[0]+2; tal2 = punktom_lokation[1];
-    strncpy(text2, navn_paa_ny_fil+tal1, (tal2 - tal1));
+    lykke_tæller = 0;
+    while (lykke_tæller < max_size )
+    {
+        array[0][max_size-lykke_tæller]
+    }
 
-    char text3[100];
-    tal1 = punktom_lokation[1]+2; tal2 = punktom_lokation[2];
-    strncpy(text3, navn_paa_ny_fil+tal1, (tal2 - tal1));
+    printf("\n%s\n", array[0]);
+    printf("%s\n", array[1]);
+    printf("%s\n", array[2]);
 
-    int text_size2=strlen(navn_paa_ny_fil);
-    printf("\nOri string: %d størrelse \n%s\n\n",text_size1, navn_paa_ori_fil);
-    printf("Rettet string: %d størrelse \n%s\n\n",text_size2, navn_paa_ny_fil);
-
-    printf("text1: %s\n", text1);
-    printf("text2: %s\n", text2);
-    printf("text3: %s\n", text3);
-
-    */
-
-    return 0;
+    return EXIT_SUCCESS;
 }
-
-//brug array [string] [mænge på største string]
