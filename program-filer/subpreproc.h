@@ -3,7 +3,6 @@
 
 #include "subcryptic.h"
 #include "subloadfile.h"
-#include "subpreproc.h"
 #include "subtools.h"
 
 void preprocessing (/*char *navn_paa_fil*/) 
