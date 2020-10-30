@@ -1,6 +1,11 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "subcryptic.h"
+#include "subloadfile.h"
+#include "subpreproc.h"
+#include "subtools.h"
+
 int main (void) 
 {
 

@@ -3,6 +3,9 @@
 #include <string.h>
 #include <math.h>
 
+// Project Headers
+#include "subtools.h"
+
 /* Check if string is worth checking */
 bool check_string(char str_one[], char str_two[]) {
     double len_one = strlen(str_one);
@@ -16,38 +19,6 @@ bool check_string(char str_one[], char str_two[]) {
     printf("Threshold: %.2f%%\n", threshold);
 
     return true;
-}
-
-// Check if Memory has been properly allocated
-int checkMem(char *arr) {
-    if (arr == NULL) {
-        fprintf(stderr, "Array memory not allocated");
-        return EXIT_FAILURE;
-    } else {
-        return EXIT_SUCCESS;
-    }
-}
-
-// Append character to string
-void append(char *arr, int index, char value, int *size, int *capacity) {
-    while (*size > *capacity) {
-        arr = realloc(arr, sizeof(arr) + ((int) sizeof(char) * 256));
-        *capacity = sizeof(arr);
-    }
-
-    arr[index] = value;
-    *size = *size + 1;
-}
-
-// Count number of words in string
-void count_words(char input_str[], int *word_count) {
-    // Count spaces (Eg count the numbers of words)
-    for (int i = 0; i < (int) strlen(input_str); i++) {
-        // Check for spaces in string
-        if ((int) input_str[i] == 32 || (int) input_str[i] == '\t') {
-            *word_count += 1;
-        }
-    }
 }
 
 // Find Cryptic characters
@@ -84,32 +55,24 @@ void word_splitter(char input_str[]) {
     char word_array[word_count][word_max];
 
     // Loop through string
+    int j = 0;
     for (int i = 0; i < (int) strlen(input_str); i++) {
-        int j = 0;
+        
         // if character is not equal to space, append to array
-        if ((int) input_str[i] != 32 || (int) input_str[i] != '\t') {
-            append(arr, (int) i, input_str[i], &size, &capacity);
+        if ((int) input_str[i] != 32 || (int) input_str[i] == '\t') {
+            append(arr, (int) j, input_str[i], &size, &capacity);
             j++;
-            printf("Iteration: %d - content: %s\n", i, arr);
+            printf("Iteration: %2d - content: %s\n", i, arr);
         }
         // if character is equal to space
         else {
-            printf("Iteration: %d - content: cleared\n", i);
-            strcpy(word_array[word_pos], arr[0]);    // Add Word to list
-            word_pos += 1;                             // Set postion to next vacant spot
+            printf("Iteration: %2d - content: cleared\n", i); 
+            strncpy(word_array[word_pos], arr, j);  // Add Word to list
+            word_array[word_pos][j] = '\0';         // Add \0 to word
+            word_pos++;                             // Set postion to next vacant spot
             j = 0;
         }
     }
-
-    // Just for printing the char array.
-    for (int i = 0; i < (int) strlen(arr); i++) {
-        if (i+1 == (int) strlen(arr)) {
-            printf("%c\n", arr[i]);
-        } else {
-            printf("%c", arr[i]);
-        }
-    }
-
 
     // Print out the words in word array 
     printf("\nWord in sentence: %i\n", word_count);
