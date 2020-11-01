@@ -63,7 +63,7 @@ int main (void)
     }
     maengde = (text_size1 - linje_lokation[lykke_tæller-1]);
     maengde1 = linje_lokation[lykke_tæller];
-    strncpy(array[lykke_tæller], navn_paa_ny_fil+maengde1, maengde);
+    c(array[lykke_tæller], navn_paa_ny_fil+maengde1, maengde);
 
     lykke_tæller = 0;
     maengde1 = linje_lokation[1];
