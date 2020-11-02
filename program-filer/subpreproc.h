@@ -2,11 +2,11 @@
 #include <string.h>
 #include <stdlib.h>
 
-void preprocessing (/*char *navn_paa_fil*/) 
-{}
+char **preprocessing (/*char *navn_paa_fil*/) 
+{
 
     
-    char ori_file[100] = "Hej mit navn er Oscar.\nJeg er 22 aar.\nJeg gaar paa uni.\n Oscar drikker vand\n og aeder hele tiden";
+    char ori_file[] = "Hej mit navn er Oscar.\nJeg er 22 aar.\nJeg gaar paa uni.\n Oscar drikker vand\n og aeder hele tiden";
     int text_size1=strlen(ori_file);
 
     char new_file[text_size1];
@@ -39,3 +39,4 @@ void preprocessing (/*char *navn_paa_fil*/)
     } */
     return EXIT_SUCCESS; 
 }
+
