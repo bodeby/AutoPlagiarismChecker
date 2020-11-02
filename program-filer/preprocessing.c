@@ -3,80 +3,39 @@
 #include <stdlib.h>
 
 
-int main (void) 
+int preprocessing (void) 
 {
 
-    char navn_paa_ori_fil[100] = "Hej mit navn er Oscar.\nJeg er 22 aar.\nJeg gaar paa uni.";
-    int text_size1=strlen(navn_paa_ori_fil);
+    char ori_file[100] = "Hej mit navn er Oscar.\nJeg er 22 aar.\nJeg gaar paa uni.\n Oscar drikker vand\n og aeder hele tiden";
+    int text_size1=strlen(ori_file);
 
-    char navn_paa_ny_fil[text_size1];
-    strncpy (navn_paa_ny_fil, navn_paa_ori_fil, text_size1);
+    char new_file[text_size1];
+    strncpy (new_file, ori_file, text_size1);
 
-    int tæller = 0;
-    int linje_kontrol = 1;
-    char linje_lokation[100];
-    
-    int a = 0;
-    linje_lokation[0] = a;
+    int count = 0;
+    int line_control = 0;
+    int line_location = 0; 
+    char the_file[text_size1][text_size1];
+    int count1 = 0;
 
-    while (navn_paa_ny_fil[tæller] != '\0'){ // \0 = NULL
-
-        if (navn_paa_ny_fil[tæller] == '\n'){
-            navn_paa_ny_fil[tæller] = ' ';
-            linje_lokation[linje_kontrol] = tæller+1;
-            linje_kontrol += 1;
-        }
-        tæller += 1;
-    }
-    int lykke_tæller = 0;
-    int max_size = 0;
-    
-    while (lykke_tæller < linje_kontrol)
+    while (new_file[count] != '\0') 
     {
-            printf("%d\n", linje_lokation[lykke_tæller]);
-        if ((linje_lokation[lykke_tæller+1] - linje_lokation[lykke_tæller]) > max_size)
+        if (new_file[count] == '\n') 
         {
-            max_size = (linje_lokation[lykke_tæller+1] - linje_lokation[lykke_tæller]);
+            new_file[count] = ' ';
+            line_location = count;
+            for (int j = 0;j<line_location;j++) 
+            {
+                the_file[line_control][j] = new_file[j+count1];
+            }
+            line_control++;
+            count1=count;
         }
-        lykke_tæller += 1;
+        count++;
     }
-    if ((text_size1 - linje_lokation[lykke_tæller-1]) > max_size)
+    for (int k=0;k<10;k++) 
     {
-        max_size = (text_size1 - linje_lokation[lykke_tæller-1]);
+        printf("%c",the_file[3][k]);
     }
-    printf("%d\n", lykke_tæller);
-    printf("%d\n\n", max_size);
-    char array [linje_kontrol][max_size];
-
-    int maengde = 0;
-    int maengde1 = 0;
-    lykke_tæller = 0;
-
-    while(lykke_tæller+1 < linje_kontrol)
-    {
-        maengde = (linje_lokation[lykke_tæller+1] - linje_lokation[lykke_tæller]);
-        maengde1 = linje_lokation[lykke_tæller];
-        printf ("%d   ", maengde); printf ("%d   ", maengde1); printf ("%d\n", lykke_tæller);
-        strncpy(array[lykke_tæller], navn_paa_ny_fil+maengde1, maengde);
-        
-        lykke_tæller += 1;
-    }
-    maengde = (text_size1 - linje_lokation[lykke_tæller-1]);
-    maengde1 = linje_lokation[lykke_tæller];
-    c(array[lykke_tæller], navn_paa_ny_fil+maengde1, maengde);
-
-    lykke_tæller = 0;
-    maengde1 = linje_lokation[1];
-    printf ("%d\n", maengde1);
-    while (maengde1 < max_size )
-    {
-        array[0][max_size-lykke_tæller] = '\0';
-        maengde1 += 1;
-    }
-
-    printf("\n%s\n", array[0]);
-    printf("%s\n", array[1]);
-    printf("%s\n", array[2]);
-
     return EXIT_SUCCESS;
 }
