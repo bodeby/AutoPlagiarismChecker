@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 void preprocessing (/*char *navn_paa_fil*/) 
-{
+{}
 
     
     char ori_file[100] = "Hej mit navn er Oscar.\nJeg er 22 aar.\nJeg gaar paa uni.\n Oscar drikker vand\n og aeder hele tiden";
