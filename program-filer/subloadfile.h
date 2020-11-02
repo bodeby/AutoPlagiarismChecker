@@ -4,7 +4,7 @@
 #include "subtools.h"
 
 // Size of arrays calculated
-size_t size_of_arrays_calculated(FILE *text){
+size_t size_of_array_calculated(FILE *text){
     size_t start_pos = ftell(text);
     fseek(text, 0, SEEK_END);
     size_t size_of_arr = ftell(text);

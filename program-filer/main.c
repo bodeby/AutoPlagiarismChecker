@@ -22,7 +22,7 @@
 //#include "subpreproc.h"
 
 void run_checks();
-char load_file(char fp_one[]);
+char *load_file(char fp[]);
 void prep_array(char arr_one[]);
 void find_cryptic(char str_one[], char str_two[],char *cryptic_res, bool *cryptic_check);
 void find_synonym(char str_one[], char str_two[],char *synonym_res, bool *synonym_check);
@@ -39,11 +39,11 @@ int main(void) {
 void run_checks() {
     char fp_one[] = "./test-files/lotr-org.txt";
     char fp_two[] = "./test-files/lotr-plag.txt";
-
+    
     //param[in] : File path to txt-file.
     //param[out]: Array with all text in txt.
-    load_file(fp_one);
-    load_file(fp_two);
+    char arr_txt1 = load_file(fp_one);
+    char arr_txt2 = load_file(fp_two);
 
     //param[in] : Array with all text in txt.
     //param[out]: 2-dim Array of all sentences.
@@ -84,32 +84,34 @@ void run_checks() {
     */
 
    eval_results(cryptic_check);
+   free(arr_txt1);
+   free(arr_txt2);
 }
 
 
-char load_file(char fp_one[]) {
-    FILE *file_org = fopen(fp_one, "r");
+char *load_file(char fp[]) {
+    FILE *file = fopen(fp, "r");
 
     //param[in] : opened file in read mode
-    check_file(file_org);
+    check_file(file);
 
     //param[in] : opened file in read mode
     //param[out]: number of char in file as size_t    
-    size_t size_of_arr1 = size_of_arrays_calculated(file_org);
-    char file_org_content[size_of_arr1];
+    size_t size_of_arr = size_of_array_calculated(file);
+    char *txt_arr = malloc(size_of_arr * sizeof(char));
  
     //param[in] : content of file, array, size of array
     //param[out]: array with content of file
-    write_array(file_org, file_org_content, size_of_arr1);
+    write_array(file, txt_arr, size_of_arr);
 
-    fclose(file_org);
+    fclose(file);
 
-    if (file_org_content != NULL) {
-        printf("File: %s load success\n", fp_one);
+    if (txt_arr != NULL) {
+        printf("File: %s load success\n", fp);
     } else {
-        printf("File: %s load unsuccesfull\n", fp_one);
+        printf("File: %s load unsuccesfull\n", fp);
     }
-    return "c";
+    return txt_arr;
 }
 
 
