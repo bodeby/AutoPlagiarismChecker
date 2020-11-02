@@ -42,8 +42,8 @@ void run_checks() {
     
     //param[in] : File path to txt-file.
     //param[out]: Array with all text in txt.
-    char arr_txt1 = load_file(fp_one);
-    char arr_txt2 = load_file(fp_two);
+    char *arr_txt1 = load_file(fp_one);
+    char *arr_txt2 = load_file(fp_two);
 
     //param[in] : Array with all text in txt.
     //param[out]: 2-dim Array of all sentences.

@@ -34,8 +34,3 @@ int check_file(FILE *file){
         return EXIT_SUCCESS;
     }
 }
-
-
-     
-    
-    

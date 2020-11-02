@@ -3,3 +3,4 @@ program-filer/pg.c
 program-filer/pg.out
 *.exe
 *.out
+*.out
