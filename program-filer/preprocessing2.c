@@ -23,9 +23,9 @@ int main (void)
         count += 1;
     }
     char line_location[line_control];
-    line_location [0] = 10000;
+    line_location[0] = 129;
     int a = line_location[0];
-    printf("%d", a);
+    printf("%d/n", a);
     count = 0;
     line_control = 1;
 
@@ -39,5 +39,4 @@ int main (void)
         count += 1;
     }
     return EXIT_SUCCESS;
-
 }

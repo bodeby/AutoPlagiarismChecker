@@ -7,16 +7,22 @@
 #include "subtools.h"
 
 /* Check if string is worth checking */
-bool check_string(char str_one[], char str_two[]) {
+bool check_string(char str_one[], char str_two[], bool *cryptic_check) {
     double len_one = strlen(str_one);
     double len_two = strlen(str_two);
-    double threshold = 2.50;
+    double threshold = 1.50;
     double len_dif = ((fabs(len_one - len_two) / ((len_one + len_two) / 2) ) * 100);
 
     printf("len_one: %.2f\n", len_one);
     printf("len_two: %.2f\n", len_two);
     printf("procent afvigelse %.2f%%\n", len_dif);
     printf("Threshold: %.2f%%\n", threshold);
+
+    if (len_dif >= threshold) {
+        *cryptic_check = true;
+    } else {
+        *cryptic_check = false;
+    }
 
     return true;
 }
@@ -48,6 +54,7 @@ void word_splitter(char input_str[]) {
 
     // Count number of words in string
     count_words(input_str, &word_count);
+    word_count++;
 
     // Init word_array arr[words counted][space needed for word of max 30 chars]
     int word_max = 30 * (int) sizeof(char);
@@ -62,11 +69,11 @@ void word_splitter(char input_str[]) {
         if ((int) input_str[i] != 32 || (int) input_str[i] == '\t') {
             append(arr, (int) j, input_str[i], &size, &capacity);
             j++;
-            printf("Iteration: %2d - content: %s\n", i, arr);
+            //printf("Iteration: %2d - content: %s\n", i, arr);
         }
         // if character is equal to space
         else {
-            printf("Iteration: %2d - content: cleared\n", i); 
+            //printf("Iteration: %2d - content: cleared\n", i); 
             strncpy(word_array[word_pos], arr, j);  // Add Word to list
             word_array[word_pos][j] = '\0';         // Add \0 to word
             word_pos++;                             // Set postion to next vacant spot
