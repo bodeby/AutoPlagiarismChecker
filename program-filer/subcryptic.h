@@ -63,10 +63,10 @@ void word_splitter(char input_str[]) {
 
     // Loop through string
     int j = 0;
-    for (int i = 0; i < (int) strlen(input_str); i++) {
+    for (int i = 0; i <= (int) strlen(input_str); i++) {
         
         // if character is not equal to space, append to array
-        if ((int) input_str[i] != 32 || (int) input_str[i] == '\t') {
+        if ((input_str[i] != 32 || input_str[i] == '\t') && i != (int) strlen(input_str)) {
             append(arr, (int) j, input_str[i], &size, &capacity);
             j++;
             //printf("Iteration: %2d - content: %s\n", i, arr);
@@ -80,6 +80,7 @@ void word_splitter(char input_str[]) {
             j = 0;
         }
     }
+    printf("%s",arr);
 
     // Print out the words in word array 
     printf("\nWord in sentence: %i\n", word_count);
