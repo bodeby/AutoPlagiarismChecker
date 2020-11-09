@@ -99,7 +99,7 @@ char *load_file(char fp[]) {
 
     //param[in] : opened file in read mode
     //param[out]: number of char in file as size_t    
-    size_t size_of_arr = size_of_array_calculated(file);
+    size_t size_of_arr = calc_sarray(file);
     char *txt_arr = malloc(size_of_arr * sizeof(char));
  
     //param[in] : content of file, array, size of array
