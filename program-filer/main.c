@@ -88,11 +88,13 @@ void run_checks() {
    free(arr_txt2);
 }
 
-
+    //param[in] : text file of type .txt
+    //param[out]: char array (pointer) with text from file in array
 char *load_file(char fp[]) {
     FILE *file = fopen(fp, "r");
 
     //param[in] : opened file in read mode
+    //param[out]: returns if file is empty or not   
     check_file(file);
 
     //param[in] : opened file in read mode
@@ -104,13 +106,12 @@ char *load_file(char fp[]) {
     //param[out]: array with content of file
     write_array(file, txt_arr, size_of_arr);
 
-    fclose(file);
-
     if (txt_arr != NULL) {
         printf("File: %s load success\n", fp);
     } else {
         printf("File: %s load unsuccesfull\n", fp);
     }
+    fclose(file);
     return txt_arr;
 }
 
