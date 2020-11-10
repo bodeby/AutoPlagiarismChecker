@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 
-int preprocessing (void) 
+int main (void) 
 {
 
     char ori_file[100] = "Hej mit navn er Oscar.\nJeg er 22 aar.\nJeg gaar paa uni.\n Oscar drikker vand\n og aeder hele tiden";
@@ -35,7 +35,7 @@ int preprocessing (void)
     }
     for (int k=0;k<10;k++) 
     {
-        printf("%c",the_file[3][k]);
+        printf("%s",the_file[k]);
     }
     return EXIT_SUCCESS;
 }
