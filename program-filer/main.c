@@ -6,7 +6,7 @@
 * Gruppe: SW0001
 * - Markus Hye-Knudsen, Oscar Maxwell
 * - Sara Granquist, Tommy Grenaae
-* - Alberte Østergaard Andersen, Frederik Bode Thorbensen
+* - Frederik Bode Thorbensen
 */
 
 // System Headers 
