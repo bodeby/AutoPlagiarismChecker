@@ -21,10 +21,19 @@
 #include "subloadfile.h"
 //#include "subpreproc.h"
 
+typedef struct PlagMatch {
+    char text[200];
+    int line_num;
+    int word_num;
+    char match_text[200];
+    int match_line_num;
+    int match_word_num;
+} PlagMatch;
+
 void run_checks();
 char *load_file(char fp[]);
 void prep_array(char arr_one[]);
-void find_cryptic(char str_one[], char str_two[],char *cryptic_res, bool *cryptic_check);
+void find_cryptic(char str_one[], char str_two[]);
 void find_synonym(char str_one[], char str_two[],char *synonym_res, bool *synonym_check);
 char eval_results();
 
@@ -39,6 +48,37 @@ int main(void) {
 void run_checks() {
     char fp_one[] = "./test-files/lotr-org.txt";
     char fp_two[] = "./test-files/lotr-plag.txt";
+
+    // List of Verbatim Match Struct elements
+    PlagMatch vMathces[4] = {
+        {"a magic ring that makes its wearer", 10, 5, "a magic ring that makes its wearer", 12,4},
+        {"ring is more than it appears", 5, 5, "ring is more than it appears", 5,4},
+        {"Enemy has learned of the Ring's whereabouts", 43, 5, "Enemy has learned of the Ring's whereabouts", 43,4},
+        {"a magic ring that makes its wearer", 10, 5, "a magic ring that makes its wearer", 12,4},
+    };
+
+    PlagMatch sMathces[4] = {
+        {"a magic ring that makes its wearer", 10, 5, "a magic ring that makes its wearer", 12,4},
+        {"ring is more than it appears", 5, 5, "ring is more than it appears", 5,4},
+        {"Enemy has learned of the Ring's whereabouts", 43, 5, "Enemy has learned of the Ring's whereabouts", 43,4},
+        {"a magic ring that makes its wearer", 10, 5, "a magic ring that makes its wearer", 12,4},
+    };
+
+    PlagMatch cMathces[4] = {
+        {"a magic ring that makes its wearer", 10, 5, "a magic ring that makes its wearer", 12,4},
+        {"ring is more than it appears", 5, 5, "ring is more than it appears", 5,4},
+        {"Enemy has learned of the Ring's whereabouts", 43, 5, "Enemy has learned of the Ring's whereabouts", 43,4},
+        {"a magic ring that makes its wearer", 10, 5, "a magic ring that makes its wearer", 12,4},
+    };
+
+    printf("-------- STRUCT TEST -----------\n");
+    for (int i = 0; i < 4; i++) {
+        printf("- File 1: '%s' at line %d, word %d\n", vMathces[i].text, vMathces[i].line_num, vMathces[i].word_num);
+        printf("- File 2: '%s' at line %d, word %d\n\n", vMathces[i].match_text, vMathces[i].match_line_num, vMathces[i].match_word_num);
+    }
+    printf("-------- STRUCT TEST END -----------\n\n");
+
+
     
     //param[in] : File path to txt-file.
     //param[out]: Array with all text in txt.
@@ -71,10 +111,7 @@ void run_checks() {
 
     //param[in] :
     //param[out]:
-    char cryptic_res[256];
-    bool cryptic_check = false;
-    find_cryptic(test_str1, test_str2, &cryptic_res, &cryptic_check);
-    //find_cryptic(Arr_one_s2, Arr_two_s2, *cryptic_res, *cryptic_check);
+    find_cryptic(test_str1, test_str2);
 
     //param[in] :
     //param[out]:
@@ -83,13 +120,18 @@ void run_checks() {
     find_synonym(Arr_one_s2, Arr_two_s2, *synonym_res, *synonym_check);
     */
 
-   eval_results(cryptic_check);
+   /* [param:in]
+   - vMatches : array of structs,
+   - sMatches : array of structs,
+   - cMatches : array of structs,
+   */
+   eval_results();
    free(arr_txt1);
    free(arr_txt2);
 }
 
-    //param[in] : text file of type .txt
-    //param[out]: char array (pointer) with text from file in array
+//param[in] : text file of type .txt
+//param[out]: char array (pointer) with text from file in array
 char *load_file(char fp[]) {
     FILE *file = fopen(fp, "r");
 
@@ -135,13 +177,11 @@ void find_verbatim(char Arr_one_s1, char Arr_two_s1, char *verbatim_res[], bool 
 */
 
 
-void find_cryptic(char str_one[], char str_two[], char *cryptic_res, bool *cryptic_check) {
-    *cryptic_check = true;
-    *cryptic_res = "l";
+void find_cryptic(char str_one[], char str_two[]) {
     //int diff = editDist(str_one, str_two);
     //printf("edit distance: %i\n", diff);
 
-    check_string(str_one, str_two, &cryptic_check);
+    check_string(str_one, str_two);
     // cryptic_sub header 
     word_splitter(str_one);
     word_splitter(str_two);
@@ -160,13 +200,21 @@ void find_synonym(char str_one[], char str_two[], char *synonym_res, bool *synon
 */
 
 
-char eval_results(cryptic_check) {
-    printf("Evaluate Results\n");
+char eval_results() {
+    printf("\n-----------------------------------------------\n");
+    printf("-----------------------------------------------\n");
+    printf("RESULTS FROM EVALUATION:\n");
+    printf("-----------------------------------------------\n");
+    printf("FILE: file_lotr.txt\n");
+    printf("CHECK AGAINST: file2_lotr.txt, file3_lotr.txt\n");
+    printf("-----------------------------------------------\n\n");
 
-    if (cryptic_check == false) {
-        printf("Evidence of cryptic substituion not found\n");
-    } else {
-        printf("Evidence of cryptic substituion not found\n");
-    }
-    return EXIT_SUCCESS;
+    printf("VERBATIM:\n");
+    printf(" - File 1: 'When the eccentric hobbit Bilbo Baggins leaves his home in the Shire, \nhe gives his greatest treasure to his heir Frodo: a magic ring that makes its wearer invisible'\n");
+    printf(" - File 2: 'When the eccentric hobbit Bilbo Baggins leaves his home in the Shire, \nhe gives his greatest treasure to his heir Frodo: a magic ring that makes its wearer invisible'\n");
+    printf("\n");
+
+    printf("PARAPHRASING: \n Not found\n\n");
+
+    printf("CRYPTIC: \n Not found\n\n");
 }
