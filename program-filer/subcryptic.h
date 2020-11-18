@@ -7,7 +7,7 @@
 #include "subtools.h"
 
 /* Check if string is worth checking */
-bool check_string(char str_one[], char str_two[], bool *cryptic_check) {
+bool check_string(char str_one[], char str_two[]) {
     double len_one = strlen(str_one);
     double len_two = strlen(str_two);
     double threshold = 1.50;
@@ -17,12 +17,6 @@ bool check_string(char str_one[], char str_two[], bool *cryptic_check) {
     printf("len_two: %.2f\n", len_two);
     printf("procent afvigelse %.2f%%\n", len_dif);
     printf("Threshold: %.2f%%\n", threshold);
-
-    if (len_dif >= threshold) {
-        *cryptic_check = true;
-    } else {
-        *cryptic_check = false;
-    }
 
     return true;
 }
