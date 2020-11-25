@@ -1,42 +1,68 @@
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 
-char **preprocessing (/*char *navn_paa_fil*/) 
+char **preprocessing(char *ori_file)
 {
 
-    
-    char ori_file[] = "Hej mit navn er Oscar.\nJeg er 22 aar.\nJeg gaar paa uni.\n Oscar drikker vand\n og aeder hele tiden";
-    int text_size1=strlen(ori_file);
-
-    char new_file[text_size1];
-    strncpy (new_file, ori_file, text_size1);
-
     int count = 0;
-    int line_control = 0;
-    int line_location = 0; 
-    char the_file[text_size1][text_size1];
-    int count1 = 0;
+    int sentence_count = 0;
+    int count_holder = 0;
+    int j;
+    int size_of_string[100];
+    int character_count = 0;
+    int count2 = 0;
 
-    while (new_file[count] != '\0') 
+    while (ori_file[count] != '\0')
     {
-        if (new_file[count] == '\n') 
+        character_count++;
+
+        if (ori_file[count] == '\n')
         {
-            new_file[count] = ' ';
-            line_location = count;
-            for (int j = 0;j<line_location;j++) 
-            {
-                the_file[line_control][j] = new_file[j+count1];
-            }
-            line_control++;
-            count1=count;
+            sentence_count++;
+            size_of_string[count2] = character_count;
+            count2++;
+            character_count = 0;
         }
         count++;
     }
-    /*for (int k=0;k<10;k++) 
-    {
-        printf("%c",the_file[3][k]);
-    } */
-    return EXIT_SUCCESS; 
-}
+    char **sentence_arr = (char **)malloc((sentence_count) * sizeof(char *));
 
+    if (sentence_arr == 0)
+    {
+        printf("Failure accured");
+        exit(EXIT_SUCCESS);
+    }
+    for (int i = 0; i < sentence_count; i++)
+    {
+        sentence_arr[i] = (char *)malloc(size_of_string[i] * sizeof(char));
+        if (sentence_arr == 0)
+        {
+            printf("Failure accured");
+            exit(EXIT_SUCCESS);
+        }
+    }
+
+    sentence_count = 0;
+    count = 0;
+    count_holder = 0;
+    while (ori_file[count] != '\0')
+    {
+        if (ori_file[count] == '\n')
+        {
+            ori_file[count] = ' ';
+            count++;
+            for (j = 0; j < (count - count_holder); j++)
+            {
+                //printf("S: %d  j: %d  B: %c\n", sentence_count, j, ori_file[j + count_holder]);
+                sentence_arr[sentence_count][j] = ori_file[j + count_holder];
+            }
+            sentence_count++;
+            count_holder = count;
+        }
+        count++;
+    }
+
+    return sentence_arr;
+}
