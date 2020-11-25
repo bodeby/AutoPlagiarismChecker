@@ -9,7 +9,6 @@ char **preprocessing(char *ori_file)
     int count = 0;
     int sentence_count = 0;
     int count_holder = 0;
-    int j;
     int size_of_string[100];
     int character_count = 0;
     int count2 = 0;
@@ -53,10 +52,10 @@ char **preprocessing(char *ori_file)
         {
             ori_file[count] = ' ';
             count++;
-            for (j = 0; j < (count - count_holder); j++)
+            for (int i = 0; i < (count - count_holder); i++)
             {
                 //printf("S: %d  j: %d  B: %c\n", sentence_count, j, ori_file[j + count_holder]);
-                sentence_arr[sentence_count][j] = ori_file[j + count_holder];
+                sentence_arr[sentence_count][i] = ori_file[i + count_holder];
             }
             sentence_count++;
             count_holder = count;
