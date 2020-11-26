@@ -7,7 +7,7 @@
 void verbatim(char arr1[][40], char arr2[][40])
 {
     char verb_arr2[1000][40];
-    int size_of_arr1 = (int)strnlen(arr1);
+    int size_of_arr1 = sizeof(arr1);
     int i;
     int j = 0;
     int q = 0;
