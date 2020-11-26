@@ -6,42 +6,37 @@
 
 void verbatim(char arr1[][40], char arr2[][40])
 {
-    char verb_arr2[1000][40];
+    char verb_arr2[1000][40]; //Output arrayet
     int size_of_arr1 = sizeof(arr1);
-    int i;
-    int j = 0;
     int q = 0;
-    int l;
     int m = 0;
-    int n = 0;
-    int largest_array = 0;
-    int p;
+    //int largest_array = 0;
 
-    for (p = 0; p < (int)size_of_arr1 + 1; p++)
+    /*for (int i = 0; i < (int)size_of_arr1 + 1; i++)
     {
-        if (largest_array < (int)strlen(arr1[p]))
+        if (largest_array < (int)strlen(arr1[i]))
         {
-            largest_array = (int)strlen(arr1[p]);
+            largest_array = (int)strlen(arr1[i]);
         }
-    }
+    } Muligvis ligegyldig kode */
 
-    for (i = 0; i <= (int)size_of_arr1; i++)
+    for (int i = 0; i <= (int)size_of_arr1; i++) //i styrer sætninger i det første array
     {
-        for (n = 0; n <= (int)size_of_arr1; n++)
+        for (int n = 0; n <= (int)size_of_arr1; n++) //n styrer sætninger i det andet array
         {
-            q = 0;
-            for (j = 0; j <= (int)strlen(arr1[i]) - 1; j++)
+            q = 0;                                              //q er antal tegn, der er ens i sætningerne
+            for (int j = 0; j <= (int)strlen(arr1[i]) - 1; j++) //j styrer tegn i begge sætninger
             {
-                if (arr1[i][j] == arr2[n][j])
+                if (arr1[i][j] == arr2[n][j]) //Hvis tegnet er det samme i begge sætninger
                 {
-                    q++;
-                    if (q == (int)strlen(arr1[i]))
+                    q++;                           //Så er q antal tegn ens
+                    if (q == (int)strlen(arr1[i])) //Hvis der er lige så mange ens tegn, som der er i sætningen
                     {
 
-                        printf("Its the same!\n");
-                        for (l = 0; l < (int)strlen(arr1[i]); l++)
+                        //printf("Its the same!\n");
+                        for (int l = 0; l < (int)strlen(arr1[i]); l++)
                         {
-                            verb_arr2[m][l] = arr1[i][l];
+                            verb_arr2[m][l] = arr1[i][l]; //Så bliver sætningen sat ind i det nye array
                         }
                         m++;
                     }
