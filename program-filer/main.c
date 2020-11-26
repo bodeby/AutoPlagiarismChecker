@@ -59,7 +59,7 @@ void run_checks()
     char fp_two[] = "./test-files/lotr-plag.txt";
 
     // List of Verbatim Match Struct elements
-    PlagMatch vMathces[4] = {
+    PlagMatch vMatches[4] = {
         {"a magic ring that makes its wearer", 10, 5, "a magic ring that makes its wearer", 12, 4},
         {"ring is more than it appears", 5, 5, "ring is more than it appears", 5, 4},
         {"Enemy has learned of the Ring's whereabouts", 43, 5, "Enemy has learned of the Ring's whereabouts", 43, 4},
@@ -67,7 +67,7 @@ void run_checks()
     };
     int vmSize = (int) (sizeof(vMathces) / sizeof(PlagMatch));
 
-    PlagMatch sMathces[4] = {
+    PlagMatch sMatches[4] = {
         {"a magic ring that makes its wearer", 10, 5, "a magic ring that makes its wearer", 12, 4},
         {"ring is more than it appears", 5, 5, "ring is more than it appears", 5, 4},
         {"Enemy has learned of the Ring's whereabouts", 43, 5, "Enemy has learned of the Ring's whereabouts", 43, 4},
@@ -76,7 +76,7 @@ void run_checks()
     int smSize = (int) (sizeof(sMathces) / sizeof(PlagMatch));
 
 
-    PlagMatch cMathces[4] = {
+    PlagMatch cMatches[4] = {
         {"a magic ring that makes its wearer", 10, 5, "a magic ring that makes its wearer", 12, 4},
         {"ring is more than it appears", 5, 5, "ring is more than it appears", 5, 4},
         {"Enemy has learned of the Ring's whereabouts", 43, 5, "Enemy has learned of the Ring's whereabouts", 43, 4},
@@ -88,8 +88,8 @@ void run_checks()
     printf("-------- STRUCT TEST -----------\n");
     for (int i = 0; i < 4; i++)
     {
-        printf("- File 1: '%s' at line %d, word %d\n", vMathces[i].text, vMathces[i].line_num, vMathces[i].word_num);
-        printf("- File 2: '%s' at line %d, word %d\n\n", vMathces[i].match_text, vMathces[i].match_line_num, vMathces[i].match_word_num);
+        printf("- File 1: '%s' at line %d, word %d\n", vMatches[i].text, vMatches[i].line_num, vMatches[i].word_num);
+        printf("- File 2: '%s' at line %d, word %d\n\n", vMatches[i].match_text, vMatches[i].match_line_num, vMatches[i].match_word_num);
     }
     printf("-------- STRUCT TEST END -----------\n\n");
 
