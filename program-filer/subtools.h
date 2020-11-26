@@ -36,15 +36,21 @@ void append(char *arr, int index, char value, int *size, int *capacity) {
 
 
 // Count number of words in string
-void count_words(char input_str[], int *word_count) {
+int count_words(char input_str[]) {
+    int word_count = 0;
+
     // Count spaces (Eg count the numbers of words)
     for (int i = 0; i < (int) strlen(input_str); i++) {
         // Check for spaces in string
         if ((int) input_str[i] == 32 || (int) input_str[i] == '\t') {
-            *word_count += 1;
+            word_count += 1;
         }
     }
+    word_count += 1;
+
+    return word_count;
 }
+
 
 /* ----------- LEVENSHTEIN ALGORITHM -------------
 * Made by Ben Bullock

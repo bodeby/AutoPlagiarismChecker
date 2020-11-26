@@ -30,12 +30,18 @@ typedef struct PlagMatch {
     int match_word_num;
 } PlagMatch;
 
+
+typedef struct FileInfo {
+    char file_path_one[100];
+    char file_path_two[100];
+} FileInfo;
+
 void run_checks();
 char *load_file(char fp[]);
 void prep_array(char arr_one[]);
 void find_cryptic(char str_one[], char str_two[]);
 void find_synonym(char str_one[], char str_two[],char *synonym_res, bool *synonym_check);
-char eval_results();
+void eval_results(PlagMatch *vMatches, int vmSize, PlagMatch *sMatches, int smSize, PlagMatch *cMatches, int cmSize);
 
 
 // Main Function  
@@ -49,37 +55,38 @@ void run_checks() {
     char fp_one[] = "./test-files/lotr-org.txt";
     char fp_two[] = "./test-files/lotr-plag.txt";
 
+    FileInfo information;
+    strcpy(information.file_path_one, fp_one);
+    strcpy(information.file_path_two, fp_two);
+
     // List of Verbatim Match Struct elements
-    PlagMatch vMathces[4] = {
+    PlagMatch vMatches[5] = {
+        {"a magic ring that makes its wearer", 10, 5, "a magic ring that makes its wearer", 12,4},
+        {"ring is more than it appears", 5, 5, "ring is more than it appears", 5,4},
+        {"Enemy has learned of the Ring's whereabouts", 43, 5, "Enemy has learned of the Ring's whereabouts", 43,4},
+        {"a magic ring that makes its wearer", 10, 5, "a magic ring that makes its wearer", 12,4},
+        {"a magic ring that makes its wearer", 10, 5, "a magic ring that makes its wearer", 12,4},
+    };
+    int vmSize = (int) (sizeof(vMatches) / sizeof(PlagMatch));
+
+
+    PlagMatch sMatches[4] = {
         {"a magic ring that makes its wearer", 10, 5, "a magic ring that makes its wearer", 12,4},
         {"ring is more than it appears", 5, 5, "ring is more than it appears", 5,4},
         {"Enemy has learned of the Ring's whereabouts", 43, 5, "Enemy has learned of the Ring's whereabouts", 43,4},
         {"a magic ring that makes its wearer", 10, 5, "a magic ring that makes its wearer", 12,4},
     };
+    int smSize = (int) (sizeof(sMatches) / sizeof(PlagMatch));
 
-    PlagMatch sMathces[4] = {
+
+    PlagMatch cMatches[4] = {
         {"a magic ring that makes its wearer", 10, 5, "a magic ring that makes its wearer", 12,4},
         {"ring is more than it appears", 5, 5, "ring is more than it appears", 5,4},
         {"Enemy has learned of the Ring's whereabouts", 43, 5, "Enemy has learned of the Ring's whereabouts", 43,4},
         {"a magic ring that makes its wearer", 10, 5, "a magic ring that makes its wearer", 12,4},
     };
+    int cmSize = (int) (sizeof(cMatches) / sizeof(PlagMatch));
 
-    PlagMatch cMathces[4] = {
-        {"a magic ring that makes its wearer", 10, 5, "a magic ring that makes its wearer", 12,4},
-        {"ring is more than it appears", 5, 5, "ring is more than it appears", 5,4},
-        {"Enemy has learned of the Ring's whereabouts", 43, 5, "Enemy has learned of the Ring's whereabouts", 43,4},
-        {"a magic ring that makes its wearer", 10, 5, "a magic ring that makes its wearer", 12,4},
-    };
-
-    printf("-------- STRUCT TEST -----------\n");
-    for (int i = 0; i < 4; i++) {
-        printf("- File 1: '%s' at line %d, word %d\n", vMathces[i].text, vMathces[i].line_num, vMathces[i].word_num);
-        printf("- File 2: '%s' at line %d, word %d\n\n", vMathces[i].match_text, vMathces[i].match_line_num, vMathces[i].match_word_num);
-    }
-    printf("-------- STRUCT TEST END -----------\n\n");
-
-
-    
     //param[in] : File path to txt-file.
     //param[out]: Array with all text in txt.
     char *arr_txt1 = load_file(fp_one);
@@ -100,8 +107,6 @@ void run_checks() {
     //param[in] :
     //param[out]:
     /*
-    char *verbatim_res;
-    bool *verbatim_check = false;
     find_verbatim(Arr_one_s1, Arr_two_s1, *verbatim_res, *verbatim_check);
     */
 
@@ -109,23 +114,13 @@ void run_checks() {
     char test_str1[] = "The quick brown fox jumps over the lazy dog";
     char test_str2[] = "The quick browп fox jumps over the lazy dog";
 
-    //param[in] :
-    //param[out]:
+    //param[in] : the two strings to be compared
+    //param[out]: match on non match;
     find_cryptic(test_str1, test_str2);
 
-    //param[in] :
-    //param[out]:
-    /*char *synonym_res;
-    bool *synonym_check = false;
-    find_synonym(Arr_one_s2, Arr_two_s2, *synonym_res, *synonym_check);
-    */
+   //eval_results(vMatches, vmSize, sMatches, smSize, cMatches, cmSize);
 
-   /* [param:in]
-   - vMatches : array of structs,
-   - sMatches : array of structs,
-   - cMatches : array of structs,
-   */
-   eval_results();
+   // free dynamic allocated file arrays
    free(arr_txt1);
    free(arr_txt2);
 }
@@ -159,13 +154,6 @@ char *load_file(char fp[]) {
 
 
 /*
-void prep_array(char arr_one[]) {
-    printf("test");
-}
-*/
-
-
-/*
 void find_verbatim(char Arr_one_s1, char Arr_two_s1, char *verbatim_res[], bool *verbatim_check) {
     *verbatim_check = true;
     *verbatim_res[4] = "test";
@@ -178,13 +166,16 @@ void find_verbatim(char Arr_one_s1, char Arr_two_s1, char *verbatim_res[], bool 
 
 
 void find_cryptic(char str_one[], char str_two[]) {
-    //int diff = editDist(str_one, str_two);
-    //printf("edit distance: %i\n", diff);
-
     check_string(str_one, str_two);
-    // cryptic_sub header 
-    word_splitter(str_one);
-    word_splitter(str_two);
+    
+    int wc_one = count_words(str_one); // get number of words in string 1
+    int wc_two = count_words(str_two); // get number of words in string 2 
+
+    char **wordlist_one = malloc(wc_one*sizeof(char *)); // create wordlist
+    sentence_splliter(str_one, wordlist_one, wc_one); // Split sentences to words
+
+    free(wordlist_one);
+
 }
 
 
@@ -200,21 +191,36 @@ void find_synonym(char str_one[], char str_two[], char *synonym_res, bool *synon
 */
 
 
-char eval_results() {
+void eval_results(PlagMatch *vMatches, int vmSize, PlagMatch *sMatches, int smSize, PlagMatch *cMatches, int cmSize) {
+
     printf("\n-----------------------------------------------\n");
     printf("-----------------------------------------------\n");
     printf("RESULTS FROM EVALUATION:\n");
     printf("-----------------------------------------------\n");
-    printf("FILE: file_lotr.txt\n");
-    printf("CHECK AGAINST: file2_lotr.txt, file3_lotr.txt\n");
+    //printf("FILE: %s\n", information->file_path_one);
+    //printf("CHECKED AGAINST: %s\n", information->file_path_two);
+    printf("FILE: hej\n");
+    printf("CHECKED AGAINST: hej2\n");
     printf("-----------------------------------------------\n\n");
 
-    printf("VERBATIM:\n");
-    printf(" - File 1: 'When the eccentric hobbit Bilbo Baggins leaves his home in the Shire, \nhe gives his greatest treasure to his heir Frodo: a magic ring that makes its wearer invisible'\n");
-    printf(" - File 2: 'When the eccentric hobbit Bilbo Baggins leaves his home in the Shire, \nhe gives his greatest treasure to his heir Frodo: a magic ring that makes its wearer invisible'\n");
+    printf("VERBATIM - (found %d matches):\n\n", vmSize);
+    for (int i = 0; i < vmSize; i++) {
+        printf("- File 1 [line %2d, word %2d]: '%s'\n", vMatches[i].line_num, vMatches[i].word_num, vMatches[i].text);
+        printf("- File 2 [line %2d, word %2d]: '%s'\n\n", vMatches[i].match_line_num, vMatches[i].match_word_num, vMatches[i].match_text);
+    }
     printf("\n");
 
-    printf("PARAPHRASING: \n Not found\n\n");
+    printf("PARAPHRASING (found %d matches):\n\n", smSize);
+    for (int i = 0; i < smSize; i++) {
+        printf("- File 1 [line %2d, word %2d]: '%s'\n", sMatches[i].line_num, sMatches[i].word_num, sMatches[i].text);
+        printf("- File 2 [line %2d, word %2d]: '%s'\n\n", sMatches[i].match_line_num, sMatches[i].match_word_num, sMatches[i].match_text);
+    }
+    printf("\n");
 
-    printf("CRYPTIC: \n Not found\n\n");
+    printf("CRYPTIC (found %d matches):\n\n", cmSize);
+        for (int i = 0; i < cmSize; i++) {
+        printf("- File 1 [line %2d, word %2d]: '%s'\n", cMatches[i].line_num, cMatches[i].word_num, cMatches[i].text);
+        printf("- File 2 [line %2d, word %2d]: '%s'\n\n", cMatches[i].match_line_num, cMatches[i].match_word_num, cMatches[i].match_text);
+    }
+
 }
