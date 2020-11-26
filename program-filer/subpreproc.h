@@ -26,7 +26,7 @@ char **preprocessing(char *ori_file)
         }
         count++;
     }
-    char **sentence_arr = (char **)malloc((sentence_count) * sizeof(char *));
+    char **sentence_arr = malloc((sentence_count) * sizeof(char *));
 
     if (sentence_arr == 0)
     {
@@ -50,7 +50,7 @@ char **preprocessing(char *ori_file)
     {
         if (ori_file[count] == '\n')
         {
-            ori_file[count] = ' ';
+            ori_file[count] = '\0';
             count++;
             for (int i = 0; i < (count - count_holder); i++)
             {
