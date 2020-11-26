@@ -20,6 +20,7 @@
 #include "subcryptic.h"
 #include "subloadfile.h"
 #include "subpreproc.h"
+#include "subverbatim.h"
 //#include "subpreproc.h"
 
 typedef struct PlagMatch
@@ -54,6 +55,9 @@ void run_checks()
     //Preprocessing
     char **pre_arr = preprocessing(fp_one);
     free(pre_arr);
+
+    //Verbatim
+    verbatim(fp_one, fp_two);
 
     // List of Verbatim Match Struct elements
     PlagMatch vMathces[4] = {

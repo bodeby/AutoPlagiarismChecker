@@ -4,23 +4,10 @@
 #include <string.h>
 #include <stdbool.h>
 
-// Gruppens Headers
-#include "subtools.h"
-#include "subcryptic.h"
-#include "subloadfile.h"
-
-void verbatim(char arr1[][40], size_t size_of_arr1, char arr2[][40], char verb_arr2[1000][40]);
-int main(void)
+void verbatim(char arr1[][40], char arr2[][40])
 {
-    char arr_test1[][40] = {"Hej mit navn er Oscar", "Jeg er 22 aar", "dfghdkjfgJeg gi", "Oscar drikker vand og aeder hele tiien"};
-    char arr_test2[][40] = {"Hej mit navn er Oscar", "Jeg gaar på uni", "Jeg er 22 aar", "Oscar drikker vand og aeder hele tiden"};
     char verb_arr2[1000][40];
-    verbatim(arr_test1, 3, arr_test2, verb_arr2);
-    return 0;
-}
-
-void verbatim(char arr1[][40], size_t size_of_arr1, char arr2[][40], char verb_arr2[1000][40])
-{
+    int size_of_arr1 = (int)strnlen(arr1);
     int i;
     int j = 0;
     int q = 0;
