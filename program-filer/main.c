@@ -58,13 +58,6 @@ void run_checks()
     char fp_one[] = "./test-files/lotr-org.txt";
     char fp_two[] = "./test-files/lotr-plag.txt";
 
-    //Preprocessing
-    char **pre_arr = preprocessing(fp_one);
-    free(pre_arr);
-
-    //Verbatim
-    verbatim(fp_one, fp_two);
-
     // List of Verbatim Match Struct elements
     PlagMatch vMathces[4] = {
         {"a magic ring that makes its wearer", 10, 5, "a magic ring that makes its wearer", 12, 4},
@@ -72,7 +65,7 @@ void run_checks()
         {"Enemy has learned of the Ring's whereabouts", 43, 5, "Enemy has learned of the Ring's whereabouts", 43, 4},
         {"a magic ring that makes its wearer", 10, 5, "a magic ring that makes its wearer", 12, 4},
     };
-    int vmSize = (int) (sizeof(vMatches) / sizeof(PlagMatch));
+    int vmSize = (int) (sizeof(vMathces) / sizeof(PlagMatch));
 
     PlagMatch sMathces[4] = {
         {"a magic ring that makes its wearer", 10, 5, "a magic ring that makes its wearer", 12, 4},
@@ -80,7 +73,7 @@ void run_checks()
         {"Enemy has learned of the Ring's whereabouts", 43, 5, "Enemy has learned of the Ring's whereabouts", 43, 4},
         {"a magic ring that makes its wearer", 10, 5, "a magic ring that makes its wearer", 12, 4},
     };
-    int smSize = (int) (sizeof(sMatches) / sizeof(PlagMatch));
+    int smSize = (int) (sizeof(sMathces) / sizeof(PlagMatch));
 
 
     PlagMatch cMathces[4] = {
@@ -89,7 +82,8 @@ void run_checks()
         {"Enemy has learned of the Ring's whereabouts", 43, 5, "Enemy has learned of the Ring's whereabouts", 43, 4},
         {"a magic ring that makes its wearer", 10, 5, "a magic ring that makes its wearer", 12, 4},
     };
-    int cmSize = (int) (sizeof(cMatches) / sizeof(PlagMatch));
+    int cmSize = (int) (sizeof(cMathces) / sizeof(PlagMatch));
+
 
     printf("-------- STRUCT TEST -----------\n");
     for (int i = 0; i < 4; i++)
@@ -103,6 +97,13 @@ void run_checks()
     //param[out]: Array with all text in txt.
     char *arr_txt1 = load_file(fp_one);
     char *arr_txt2 = load_file(fp_two);
+
+    //Preprocessing
+    char **pre_arr = preprocessing(arr_txt1);
+    char **pre_arr2 = preprocessing(arr_txt2);
+
+    //Verbatim
+    verbatim(pre_arr, pre_arr2);
 
     //param[in] : Array with all text in txt.
     //param[out]: 2-dim Array of all sentences.
@@ -134,6 +135,9 @@ void run_checks()
    // free dynamic allocated file arrays
    free(arr_txt1);
    free(arr_txt2);
+
+    free(pre_arr);
+    free(pre_arr2);
 }
 
 //param[in] : text file of type .txt
