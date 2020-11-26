@@ -65,7 +65,7 @@ void run_checks()
         {"Enemy has learned of the Ring's whereabouts", 43, 5, "Enemy has learned of the Ring's whereabouts", 43, 4},
         {"a magic ring that makes its wearer", 10, 5, "a magic ring that makes its wearer", 12, 4},
     };
-    int vmSize = (int) (sizeof(vMathces) / sizeof(PlagMatch));
+    int vmSize = (int) (sizeof(vMatches) / sizeof(PlagMatch));
 
     PlagMatch sMatches[4] = {
         {"a magic ring that makes its wearer", 10, 5, "a magic ring that makes its wearer", 12, 4},
@@ -73,7 +73,7 @@ void run_checks()
         {"Enemy has learned of the Ring's whereabouts", 43, 5, "Enemy has learned of the Ring's whereabouts", 43, 4},
         {"a magic ring that makes its wearer", 10, 5, "a magic ring that makes its wearer", 12, 4},
     };
-    int smSize = (int) (sizeof(sMathces) / sizeof(PlagMatch));
+    int smSize = (int) (sizeof(sMatches) / sizeof(PlagMatch));
 
 
     PlagMatch cMatches[4] = {
@@ -82,7 +82,7 @@ void run_checks()
         {"Enemy has learned of the Ring's whereabouts", 43, 5, "Enemy has learned of the Ring's whereabouts", 43, 4},
         {"a magic ring that makes its wearer", 10, 5, "a magic ring that makes its wearer", 12, 4},
     };
-    int cmSize = (int) (sizeof(cMathces) / sizeof(PlagMatch));
+    int cmSize = (int) (sizeof(cMatches) / sizeof(PlagMatch));
 
 
     printf("-------- STRUCT TEST -----------\n");
