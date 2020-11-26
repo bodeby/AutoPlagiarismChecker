@@ -9,19 +9,22 @@
 * - Frederik Bode Thorbensen
 */
 
-// System Headers 
+// System Headers
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
 
-// Gruppens Headers 
+// Gruppens Headers
 #include "subtools.h"
 #include "subcryptic.h"
 #include "subloadfile.h"
+#include "subpreproc.h"
+#include "subverbatim.h"
 //#include "subpreproc.h"
 
-typedef struct PlagMatch {
+typedef struct PlagMatch
+{
     char text[200];
     int line_num;
     int word_num;
@@ -43,49 +46,58 @@ void find_cryptic(char str_one[], char str_two[]);
 void find_synonym(char str_one[], char str_two[],char *synonym_res, bool *synonym_check);
 void eval_results(PlagMatch *vMatches, int vmSize, PlagMatch *sMatches, int smSize, PlagMatch *cMatches, int cmSize);
 
-
-// Main Function  
-int main(void) {
+// Main Function
+int main(void)
+{
     run_checks();
     return EXIT_SUCCESS;
 }
 
-
-void run_checks() {
+void run_checks()
+{
     char fp_one[] = "./test-files/lotr-org.txt";
     char fp_two[] = "./test-files/lotr-plag.txt";
 
-    FileInfo information;
-    strcpy(information.file_path_one, fp_one);
-    strcpy(information.file_path_two, fp_two);
+    //Preprocessing
+    char **pre_arr = preprocessing(fp_one);
+    free(pre_arr);
+
+    //Verbatim
+    verbatim(fp_one, fp_two);
 
     // List of Verbatim Match Struct elements
-    PlagMatch vMatches[5] = {
-        {"a magic ring that makes its wearer", 10, 5, "a magic ring that makes its wearer", 12,4},
-        {"ring is more than it appears", 5, 5, "ring is more than it appears", 5,4},
-        {"Enemy has learned of the Ring's whereabouts", 43, 5, "Enemy has learned of the Ring's whereabouts", 43,4},
-        {"a magic ring that makes its wearer", 10, 5, "a magic ring that makes its wearer", 12,4},
-        {"a magic ring that makes its wearer", 10, 5, "a magic ring that makes its wearer", 12,4},
+    PlagMatch vMathces[4] = {
+        {"a magic ring that makes its wearer", 10, 5, "a magic ring that makes its wearer", 12, 4},
+        {"ring is more than it appears", 5, 5, "ring is more than it appears", 5, 4},
+        {"Enemy has learned of the Ring's whereabouts", 43, 5, "Enemy has learned of the Ring's whereabouts", 43, 4},
+        {"a magic ring that makes its wearer", 10, 5, "a magic ring that makes its wearer", 12, 4},
     };
     int vmSize = (int) (sizeof(vMatches) / sizeof(PlagMatch));
 
-
-    PlagMatch sMatches[4] = {
-        {"a magic ring that makes its wearer", 10, 5, "a magic ring that makes its wearer", 12,4},
-        {"ring is more than it appears", 5, 5, "ring is more than it appears", 5,4},
-        {"Enemy has learned of the Ring's whereabouts", 43, 5, "Enemy has learned of the Ring's whereabouts", 43,4},
-        {"a magic ring that makes its wearer", 10, 5, "a magic ring that makes its wearer", 12,4},
+    PlagMatch sMathces[4] = {
+        {"a magic ring that makes its wearer", 10, 5, "a magic ring that makes its wearer", 12, 4},
+        {"ring is more than it appears", 5, 5, "ring is more than it appears", 5, 4},
+        {"Enemy has learned of the Ring's whereabouts", 43, 5, "Enemy has learned of the Ring's whereabouts", 43, 4},
+        {"a magic ring that makes its wearer", 10, 5, "a magic ring that makes its wearer", 12, 4},
     };
     int smSize = (int) (sizeof(sMatches) / sizeof(PlagMatch));
 
 
-    PlagMatch cMatches[4] = {
-        {"a magic ring that makes its wearer", 10, 5, "a magic ring that makes its wearer", 12,4},
-        {"ring is more than it appears", 5, 5, "ring is more than it appears", 5,4},
-        {"Enemy has learned of the Ring's whereabouts", 43, 5, "Enemy has learned of the Ring's whereabouts", 43,4},
-        {"a magic ring that makes its wearer", 10, 5, "a magic ring that makes its wearer", 12,4},
+    PlagMatch cMathces[4] = {
+        {"a magic ring that makes its wearer", 10, 5, "a magic ring that makes its wearer", 12, 4},
+        {"ring is more than it appears", 5, 5, "ring is more than it appears", 5, 4},
+        {"Enemy has learned of the Ring's whereabouts", 43, 5, "Enemy has learned of the Ring's whereabouts", 43, 4},
+        {"a magic ring that makes its wearer", 10, 5, "a magic ring that makes its wearer", 12, 4},
     };
     int cmSize = (int) (sizeof(cMatches) / sizeof(PlagMatch));
+
+    printf("-------- STRUCT TEST -----------\n");
+    for (int i = 0; i < 4; i++)
+    {
+        printf("- File 1: '%s' at line %d, word %d\n", vMathces[i].text, vMathces[i].line_num, vMathces[i].word_num);
+        printf("- File 2: '%s' at line %d, word %d\n\n", vMathces[i].match_text, vMathces[i].match_line_num, vMathces[i].match_word_num);
+    }
+    printf("-------- STRUCT TEST END -----------\n\n");
 
     //param[in] : File path to txt-file.
     //param[out]: Array with all text in txt.
@@ -102,7 +114,6 @@ void run_checks() {
     prep_array(Arr_one_s1);
     prep_array(Arr_two_s1);
     */
-
 
     //param[in] :
     //param[out]:
@@ -127,31 +138,34 @@ void run_checks() {
 
 //param[in] : text file of type .txt
 //param[out]: char array (pointer) with text from file in array
-char *load_file(char fp[]) {
+char *load_file(char fp[])
+{
     FILE *file = fopen(fp, "r");
 
     //param[in] : opened file in read mode
-    //param[out]: returns if file is empty or not   
+    //param[out]: returns if file is empty or not
     check_file(file);
 
     //param[in] : opened file in read mode
-    //param[out]: number of char in file as size_t    
+    //param[out]: number of char in file as size_t
     size_t size_of_arr = calc_sarray(file);
     char *txt_arr = malloc(size_of_arr * sizeof(char));
- 
+
     //param[in] : content of file, array, size of array
     //param[out]: array with content of file
     write_array(file, txt_arr, size_of_arr);
 
-    if (txt_arr != NULL) {
+    if (txt_arr != NULL)
+    {
         printf("File: %s load success\n", fp);
-    } else {
+    }
+    else
+    {
         printf("File: %s load unsuccesfull\n", fp);
     }
     fclose(file);
     return txt_arr;
 }
-
 
 /*
 void find_verbatim(char Arr_one_s1, char Arr_two_s1, char *verbatim_res[], bool *verbatim_check) {
@@ -177,7 +191,6 @@ void find_cryptic(char str_one[], char str_two[]) {
     free(wordlist_one);
 
 }
-
 
 /* 
 void find_synonym(char str_one[], char str_two[], char *synonym_res, bool *synonym_check) {
