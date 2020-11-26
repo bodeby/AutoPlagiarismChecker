@@ -5,7 +5,6 @@
 
 char **preprocessing(char *ori_file)
 {
-
     int count = 0;
     int sentence_count = 0;
     int count_holder = 0;
@@ -13,18 +12,17 @@ char **preprocessing(char *ori_file)
     int character_count = 0;
     int count2 = 0;
 
-    while (ori_file[count] != '\0')
+    while (ori_file[count] != '\0') //Indtil sætningen er slut
     {
-        character_count++;
+        character_count++; //Tæller hvor mange karakterer der er i sætningen
 
-        if (ori_file[count] == '\n')
+        if (ori_file[count] == '\n') //Hvis sætningen er slut
         {
-            sentence_count++;
-            size_of_string[count2] = character_count;
-            count2++;
-            character_count = 0;
+            sentence_count++;                         //Tilføjer et antal sætning
+            size_of_string[count2] = character_count; //Indsætter antallet af karakterer i et nyt array
+            character_count = 0;                      //Nulstiller karakterer, da der startes en ny sætning
         }
-        count++;
+        count++; //Går videre til næste karakter i filen
     }
     char **sentence_arr = malloc((sentence_count) * sizeof(char *));
 
@@ -43,19 +41,19 @@ char **preprocessing(char *ori_file)
         }
     }
 
-    sentence_count = 0;
+    sentence_count = 0; //Nulstiller
     count = 0;
     count_holder = 0;
     while (ori_file[count] != '\0')
     {
         if (ori_file[count] == '\n')
         {
-            ori_file[count] = '\0';
+            ori_file[count] = '\0'; //Indsætter \0 i slutningen er hver sætning
             count++;
-            for (int i = 0; i < (count - count_holder); i++)
+            for (int i = 0; i < (count - count_holder); i++) //Count er placeringen af den sidste karakter og count_holder er placeringen af den første
             {
                 //printf("S: %d  j: %d  B: %c\n", sentence_count, j, ori_file[j + count_holder]);
-                sentence_arr[sentence_count][i] = ori_file[i + count_holder];
+                sentence_arr[sentence_count][i] = ori_file[i + count_holder]; //Bliver placeret i et nyt array
             }
             sentence_count++;
             count_holder = count;
