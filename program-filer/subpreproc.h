@@ -11,6 +11,7 @@ char **preprocessing(char *ori_file)
     int size_of_string[100];
     int character_count = 0;
     int count2 = 0;
+    int max_size = 0;
 
     while (ori_file[count] != '\0') //Indtil sætningen er slut
     {
@@ -20,7 +21,8 @@ char **preprocessing(char *ori_file)
         {
             sentence_count++;                         //Tilføjer et antal sætning
             size_of_string[count2] = character_count; //Indsætter antallet af karakterer i et nyt array
-            character_count = 0;                      //Nulstiller karakterer, da der startes en ny sætning
+            count2++;
+            character_count = 0; //Nulstiller karakterer, da der startes en ny sætning
         }
         count++; //Går videre til næste karakter i filen
     }
@@ -41,9 +43,18 @@ char **preprocessing(char *ori_file)
         }
     }
 
+    for (int i = 0; i < sentence_count; i++)
+    {
+        if (max_size < size_of_string[i])
+        {
+            max_size = size_of_string[i];
+        }
+    }
+
     sentence_count = 0; //Nulstiller
     count = 0;
     count_holder = 0;
+    //char temp_arr[max_size];
     while (ori_file[count] != '\0')
     {
         if (ori_file[count] == '\n')
