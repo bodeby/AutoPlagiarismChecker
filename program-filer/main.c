@@ -81,6 +81,7 @@ void run_checks()
     char **pre_arr2 = preprocessing(arr_txt2, &sc_two);
 
     // Verbatim
+    //nverbatim(pre_arr, pre_arr2, sc_one, sc_two);
     //verbatim(pre_arr, pre_arr2);
 
     //param[in] :
@@ -93,21 +94,22 @@ void run_checks()
     char test_str1[] = "The quick brown fox jumps over the lazy dog";
     char test_str2[] = "The quick browп fox jumps over the lazy dog";
 
-    nverbatim(pre_arr, pre_arr2, sc_one, sc_two);
 
+    printf("Test: %c v\n", NULL);
 
     //param[in] : the two strings to be compared
     //param[out]: match on non match;
-    //find_cryptic(test_str1, test_str2, cMatches);
+    find_cryptic(test_str1, test_str2, cMatches);
 
-    //eval_results(vMatches, vmSize, sMatches, smSize, cMatches, cmSize);
+    // param[in] : all the PlagMatch arrays and their sizes
+    eval_results(vMatches, vmSize, sMatches, smSize, cMatches, cmSize);
 
     // free dynamic allocated file arrays
     free(arr_txt1);
     free(arr_txt2);
 
-    //free(pre_arr);
-    //free(pre_arr2);
+    free(pre_arr);
+    free(pre_arr2);
 }
 
 //param[in] : text file of type .txt
