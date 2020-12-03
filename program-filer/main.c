@@ -22,6 +22,7 @@
 #include "subpreproc.h"
 #include "subverbatim.h"
 //#include "subpreproc.h"
+#include "nverbatim.h"
 
 typedef struct PlagMatch {
     char text[200];
@@ -74,8 +75,10 @@ void run_checks()
     char *arr_txt2 = load_file(fp_two);
 
     //Preprocessing
-    //char **pre_arr = preprocessing(arr_txt1);
-    //char **pre_arr2 = preprocessing(arr_txt2);
+    int sc_one = 0;
+    int sc_two = 0;
+    char **pre_arr = preprocessing(arr_txt1, &sc_one);
+    char **pre_arr2 = preprocessing(arr_txt2, &sc_two);
 
     // Verbatim
     //verbatim(pre_arr, pre_arr2);
@@ -90,12 +93,14 @@ void run_checks()
     char test_str1[] = "The quick brown fox jumps over the lazy dog";
     char test_str2[] = "The quick browп fox jumps over the lazy dog";
 
+    nverbatim(pre_arr, pre_arr2, sc_one, sc_two);
+
 
     //param[in] : the two strings to be compared
     //param[out]: match on non match;
-    find_cryptic(test_str1, test_str2, cMatches);
+    //find_cryptic(test_str1, test_str2, cMatches);
 
-    eval_results(vMatches, vmSize, sMatches, smSize, cMatches, cmSize);
+    //eval_results(vMatches, vmSize, sMatches, smSize, cMatches, cmSize);
 
     // free dynamic allocated file arrays
     free(arr_txt1);

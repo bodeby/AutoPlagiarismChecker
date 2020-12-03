@@ -47,10 +47,10 @@ int count_words(char input_str[]) {
 /* ----------- LEVENSHTEIN ALGORITHM -------------
 * Made by Ben Bullock
 * link: https://www.lemoda.net/c/levenshtein */
-static int editDist (const char * word1, const char * word2)
+static int editDist (const char * string_one, const char * string_two)
 {
-    int len1 = strlen (word1);
-    int len2 = strlen (word2);
+    int len1 = strlen (string_one);
+    int len2 = strlen (string_two);
 
     int matrix[len1 + 1][len2 + 1];
     int i;
@@ -62,10 +62,10 @@ static int editDist (const char * word1, const char * word2)
     }
     for (i = 1; i <= len1; i++) {
         int j;
-        char c1 = word1[i-1];
+        char c1 = string_one[i-1];
         for (j = 1; j <= len2; j++) {
 
-            char c2 = word2[j-1];
+            char c2 = string_two[j-1];
             if (c1 == c2) {
                 matrix[i][j] = matrix[i-1][j-1];
             }

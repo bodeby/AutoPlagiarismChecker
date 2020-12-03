@@ -81,21 +81,24 @@ bool check_crypt(char **wordlist_one, int wc_one, char **wordlist_two, int wc_tw
     int len_count = sizeof(wordlist_one) / sizeof(char);
     printf("Len: %d\n", len_count);
 
-    for (int i = 0; i < len_count; i++) {
-        printf("Round: %d \n", i);
+    for (int i = 0; i < wc_one; i++) {
+        printf("\nRound: %d \n", i);
         for (int j = 0; j < (int) strlen(wordlist_one[i]); j++) {
-            int ascii_one = wordlist_one[i];
-            int ascii_two = wordlist_two[i];
+            int ascii_one = wordlist_one[i][j];
+            int ascii_two = wordlist_two[i][j];
 
             if (ascii_one < c_val_min || ascii_one > c_val_max) {
+
                 cryptic_flag = true;
-                printf("1C!%d \n", ascii_one);
+                printf("1C! %c - %d\n", ascii_one, ascii_one);
             } else if (ascii_two < c_val_min || ascii_two > c_val_max) {
+
                 cryptic_flag = true;
-                printf("2C!%d \n", ascii_two);
+                printf("2C! %c - %d\n", ascii_two, ascii_two);
             } else {
-                printf("0N!%d \n", ascii_one);
-                printf("0N!%d \n", ascii_two);
+
+                printf("0N! %c - %d\n", ascii_one, ascii_one);
+                printf("0N! %c - %d\n", ascii_two, ascii_two);
             }
             
         }
