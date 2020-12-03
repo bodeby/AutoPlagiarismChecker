@@ -57,30 +57,15 @@ void run_checks()
     char fp_two[] = "./test-files/lotr-plag.txt";
 
     // List of Verbatim Match Struct elements
-    PlagMatch vMatches[4] = {
-        {"a magic ring that makes its wearer", 10, 5, "a magic ring that makes its wearer", 12, 4},
-        {"ring is more than it appears", 5, 5, "ring is more than it appears", 5, 4},
-        {"Enemy has learned of the Ring's whereabouts", 43, 5, "Enemy has learned of the Ring's whereabouts", 43, 4},
-        {"a magic ring that makes its wearer", 10, 5, "a magic ring that makes its wearer", 12, 4},
-    };
+    PlagMatch vMatches[0];
     int vmSize = (int)(sizeof(vMatches) / sizeof(PlagMatch));
 
     // List of Parahrased Match Struct elements
-    PlagMatch sMatches[4] = {
-        {"a magic ring that makes its wearer", 10, 5, "a magic ring that makes its wearer", 12, 4},
-        {"ring is more than it appears", 5, 5, "ring is more than it appears", 5, 4},
-        {"Enemy has learned of the Ring's whereabouts", 43, 5, "Enemy has learned of the Ring's whereabouts", 43, 4},
-        {"a magic ring that makes its wearer", 10, 5, "a magic ring that makes its wearer", 12, 4},
-    };
+    PlagMatch sMatches[0];
     int smSize = (int)(sizeof(sMatches) / sizeof(PlagMatch));
 
     // Lust of Cryptic Match Struct elements
-    PlagMatch cMatches[10] = {
-        {"a magic ring that makes its wearer", 10, 5, "a magic ring that makes its wearer", 12, 4},
-        {"ring is more than it appears", 5, 5, "ring is more than it appears", 5, 4},
-        {"Enemy has learned of the Ring's whereabouts", 43, 5, "Enemy has learned of the Ring's whereabouts", 43, 4},
-        {"a magic ring that makes its wearer", 10, 5, "a magic ring that makes its wearer", 12, 4},
-    };
+    PlagMatch cMatches[1];
     int cmSize = (int) (sizeof(cMatches) / sizeof(PlagMatch));
 
     //param[in] : File path to txt-file.
@@ -105,11 +90,12 @@ void run_checks()
     char test_str1[] = "The quick brown fox jumps over the lazy dog";
     char test_str2[] = "The quick browп fox jumps over the lazy dog";
 
+
     //param[in] : the two strings to be compared
     //param[out]: match on non match;
     find_cryptic(test_str1, test_str2, cMatches);
 
-    //eval_results(vMatches, vmSize, sMatches, smSize, cMatches, cmSize);
+    eval_results(vMatches, vmSize, sMatches, smSize, cMatches, cmSize);
 
     // free dynamic allocated file arrays
     free(arr_txt1);
@@ -117,8 +103,6 @@ void run_checks()
 
     //free(pre_arr);
     //free(pre_arr2);
-
-    eval_results(vMatches, vmSize, sMatches, smSize, cMatches, cmSize);
 }
 
 //param[in] : text file of type .txt
@@ -140,14 +124,13 @@ char *load_file(char fp[])
     //param[out]: array with content of file
     write_array(file, txt_arr, size_of_arr);
 
-    if (txt_arr != NULL)
-    {
+    if (txt_arr != NULL) {
         printf("File: %s load success\n", fp);
     }
-    else
-    {
+    else {
         printf("File: %s load unsuccesfull\n", fp);
     }
+
     fclose(file);
     return txt_arr;
 }
@@ -175,13 +158,9 @@ void find_cryptic(char str_one[], char str_two[], PlagMatch *cMatches)
 
     // checking for cryptic characters
     bool result = check_crypt(wordlist_one, wc_one, wordlist_two, wc_two);
+    printf("Cryptic check result: %s \n", result ? "true" : "false");
 
-    printf("Results: %s \n", result);
-
-    printf("%s \n", str_one);
-    printf("%s \n", str_two);
-
-    if (result == true) {
+    if (result) {
         PlagMatch found_match; 
         strcpy(found_match.text, str_one);
         found_match.word_num = 0;
@@ -190,14 +169,12 @@ void find_cryptic(char str_one[], char str_two[], PlagMatch *cMatches)
         found_match.match_word_num = 0;
         found_match.match_line_num = 0;
 
-        printf("Found Match: %s \n", found_match.text);
-
-        cMatches[4] = found_match;
-    } else {
-        printf("LOL");
+        cMatches[0] = found_match;
     }
 
+
     free(wordlist_one);
+    free(wordlist_two);
 }
 
 /* 
@@ -241,7 +218,7 @@ void eval_results(PlagMatch *vMatches, int vmSize, PlagMatch *sMatches, int smSi
     printf("CRYPTIC (found %d matches):\n\n", cmSize);
     for (int i = 0; i < cmSize; i++)
     {
-        printf("- File 1 [line %2d, word %2d]: '%s'\n", cMatches[i].line_num, cMatches[i].word_num, cMatches[i].text);
-        printf("- File 2 [line %2d, word %2d]: '%s'\n\n", cMatches[i].match_line_num, cMatches[i].match_word_num, cMatches[i].match_text);
+        printf("- File 1 [line %2d, word %2d]: %s\n", cMatches[i].line_num, cMatches[i].word_num, cMatches[i].text);
+        printf("- File 2 [line %2d, word %2d]: %s\n\n", cMatches[i].match_line_num, cMatches[i].match_word_num, cMatches[i].match_text);
     }
 }

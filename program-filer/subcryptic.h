@@ -13,10 +13,12 @@ bool check_string(char str_one[], char str_two[]) {
     double threshold = 1.50;
     double len_dif = ((fabs(len_one - len_two) / ((len_one + len_two) / 2) ) * 100);
 
+    printf("--------------------\n");
     printf("len_one: %.2f\n", len_one);
     printf("len_two: %.2f\n", len_two);
     printf("procent afvigelse %.2f%%\n", len_dif);
     printf("Threshold: %.2f%%\n", threshold);
+    printf("--------------------\n");
 
     return true;
 }
@@ -65,25 +67,39 @@ bool check_crypt(char **wordlist_one, int wc_one, char **wordlist_two, int wc_tw
     int c_val_min = 32;
     int c_val_max = 126;
 
+    // UNCLEAR
     for (int i = 0; i < wc_one; i++) {
         for ( int j = 0; j < wc_two; j++) {
             int check_sum = editDist(wordlist_one[i], wordlist_two[j]);
             if( check_sum != 0) {
-                printf("Words: %s & %s dont match - checksum: %d\n", wordlist_one[i], wordlist_two[j], check_sum);
+                //printf("Words: %s & %s dont match - checksum: %d\n", wordlist_one[i], wordlist_two[j], check_sum);
             }
         }
     }
 
-    for (int i = 0; i < strlen(wordlist_two[2]); i++) {
-        int ascii_val = wordlist_two[2][i];
-        if (ascii_val < c_val_min || ascii_val > c_val_max){
-            printf("Cryptic: Found\n");
-            return true;
-        } else {
-            printf("Cyptic Not Found\n");
-            return false;
+    bool cryptic_flag = false;
+    int len_count = sizeof(wordlist_one) / sizeof(char);
+    printf("Len: %d\n", len_count);
+
+    for (int i = 0; i < len_count; i++) {
+        printf("Round: %d \n", i);
+        for (int j = 0; j < (int) strlen(wordlist_one[i]); j++) {
+            int ascii_one = wordlist_one[i];
+            int ascii_two = wordlist_two[i];
+
+            if (ascii_one < c_val_min || ascii_one > c_val_max) {
+                cryptic_flag = true;
+                printf("1C!%d \n", ascii_one);
+            } else if (ascii_two < c_val_min || ascii_two > c_val_max) {
+                cryptic_flag = true;
+                printf("2C!%d \n", ascii_two);
+            } else {
+                printf("0N!%d \n", ascii_one);
+                printf("0N!%d \n", ascii_two);
+            }
+            
         }
     }
 
-
+    return cryptic_flag;
 }
