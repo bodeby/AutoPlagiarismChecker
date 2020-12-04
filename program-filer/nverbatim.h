@@ -4,6 +4,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include "subtools.h"
+#include "prototypes.h"
 
 void nverbatim(char **sentences_one, char **sentences_two, int sc_one, int sc_two, PlagMatch verbatim[])
 {
@@ -26,5 +27,4 @@ void nverbatim(char **sentences_one, char **sentences_two, int sc_one, int sc_tw
             }
         }
     }
-    return verbatim;
 }
