@@ -24,7 +24,8 @@
 //#include "subpreproc.h"
 #include "nverbatim.h"
 
-typedef struct PlagMatch {
+typedef struct PlagMatch
+{
     char text[200];
     int line_num;
     int word_num;
@@ -33,7 +34,8 @@ typedef struct PlagMatch {
     int match_word_num;
 } PlagMatch;
 
-typedef struct FileInfo {
+typedef struct FileInfo
+{
     char file_path_one[100];
     char file_path_two[100];
 } FileInfo;
@@ -67,7 +69,7 @@ void run_checks()
 
     // Lust of Cryptic Match Struct elements
     PlagMatch cMatches[1];
-    int cmSize = (int) (sizeof(cMatches) / sizeof(PlagMatch));
+    int cmSize = (int)(sizeof(cMatches) / sizeof(PlagMatch));
 
     //param[in] : File path to txt-file.
     //param[out]: Array with all text in txt.
@@ -81,7 +83,8 @@ void run_checks()
     char **pre_arr2 = preprocessing(arr_txt2, &sc_two);
 
     // Verbatim
-    //nverbatim(pre_arr, pre_arr2, sc_one, sc_two);
+
+    nverbatim(pre_arr, pre_arr2, sc_one, sc_two, vMatches);
     //verbatim(pre_arr, pre_arr2);
 
     //param[in] :
@@ -93,7 +96,6 @@ void run_checks()
     // TEST ONLY
     char test_str1[] = "The quick brown fox jumps over the lazy dog";
     char test_str2[] = "The quick browп fox jumps over the lazy dog";
-
 
     printf("Test: %c v\n", NULL);
 
@@ -131,10 +133,12 @@ char *load_file(char fp[])
     //param[out]: array with content of file
     write_array(file, txt_arr, size_of_arr);
 
-    if (txt_arr != NULL) {
+    if (txt_arr != NULL)
+    {
         printf("File: %s load success\n", fp);
     }
-    else {
+    else
+    {
         printf("File: %s load unsuccesfull\n", fp);
     }
 
@@ -156,7 +160,7 @@ void find_cryptic(char str_one[], char str_two[], PlagMatch *cMatches)
     int wc_two = count_words(str_two); // get number of words in string 2
 
     // Create wordlist, split sentences into words and fill wordlist
-    char **wordlist_one = malloc(wc_one * sizeof(char *)); 
+    char **wordlist_one = malloc(wc_one * sizeof(char *));
     sentence_splliter(str_one, wordlist_one, wc_one);
 
     // Create wordlist, split sentences into words and fill wordlist
@@ -167,8 +171,9 @@ void find_cryptic(char str_one[], char str_two[], PlagMatch *cMatches)
     bool result = check_crypt(wordlist_one, wc_one, wordlist_two, wc_two);
     printf("Cryptic check result: %s \n", result ? "true" : "false");
 
-    if (result) {
-        PlagMatch found_match; 
+    if (result)
+    {
+        PlagMatch found_match;
         strcpy(found_match.text, str_one);
         found_match.word_num = 0;
         found_match.line_num = 0;
@@ -178,7 +183,6 @@ void find_cryptic(char str_one[], char str_two[], PlagMatch *cMatches)
 
         cMatches[0] = found_match;
     }
-
 
     free(wordlist_one);
     free(wordlist_two);
