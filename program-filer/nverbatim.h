@@ -18,12 +18,11 @@ void nverbatim(char **sentences_one, char **sentences_two, int sc_one, int sc_tw
             int diff = editDist(sentences_one[i], sentences_two[j]);
             if (diff == 0)
             {
-                strcpy(verbatim[k].text, sentences_one);
-                strcpy(verbatim[k].match_text, sentences_two);
-                verbatim[k].line_num = sc_one;
-                verbatim[k].match_line_num = sc_two;
+                strcpy(verbatim[k].text, sentences_one[i]);
+                strcpy(verbatim[k].match_text, sentences_two[j]);
+                verbatim[k].line_num = i + 1;
+                verbatim[k].match_line_num = j + 1;
                 k++;
-                //printf("Verbatim!!!!!\n");
             }
         }
     }

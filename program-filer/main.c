@@ -20,8 +20,6 @@
 #include "subcryptic.h"
 #include "subloadfile.h"
 #include "subpreproc.h"
-#include "subverbatim.h"
-//#include "subpreproc.h"
 #include "nverbatim.h"
 #include "prototypes.h"
 
@@ -30,7 +28,7 @@ char *load_file(char fp[]);
 void prep_array(char arr_one[]);
 void find_cryptic(char str_one[], char str_two[], PlagMatch *cMatches);
 void find_synonym(char str_one[], char str_two[], char *synonym_res, bool *synonym_check);
-void eval_results(PlagMatch *vMatches, int vmSize, PlagMatch *sMatches, int smSize, PlagMatch *cMatches, int cmSize);
+void eval_results(PlagMatch *vMatches, int vmSize, PlagMatch *cMatches, int cmSize);
 
 // Main Function
 int main(void)
@@ -45,14 +43,10 @@ void run_checks()
     char fp_two[] = "./test-files/lotr-plag.txt";
 
     // List of Verbatim Match Struct elements
-    PlagMatch vMatches[0];
+    PlagMatch vMatches[1];
     int vmSize = (int)(sizeof(vMatches) / sizeof(PlagMatch));
 
-    // List of Parahrased Match Struct elements
-    PlagMatch sMatches[0];
-    int smSize = (int)(sizeof(sMatches) / sizeof(PlagMatch));
-
-    // Lust of Cryptic Match Struct elements
+    // List of Cryptic Match Struct elements
     PlagMatch cMatches[1];
     int cmSize = (int)(sizeof(cMatches) / sizeof(PlagMatch));
 
@@ -66,30 +60,22 @@ void run_checks()
     int sc_two = 0;
     char **pre_arr = preprocessing(arr_txt1, &sc_one);
     char **pre_arr2 = preprocessing(arr_txt2, &sc_two);
-
+    
     // Verbatim
-
     nverbatim(pre_arr, pre_arr2, sc_one, sc_two, vMatches);
-    //verbatim(pre_arr, pre_arr2);
-
-    //param[in] :
-    //param[out]:
-    /*
-    find_verbatim(Arr_one_s1, Arr_two_s1, *verbatim_res, *verbatim_check);
-    */
 
     // TEST ONLY
     char test_str1[] = "The quick brown fox jumps over the lazy dog";
     char test_str2[] = "The quick browп fox jumps over the lazy dog";
 
-    printf("Test: %c v\n", NULL);
+    // printf("Test: %c v\n", NULL);
 
     //param[in] : the two strings to be compared
     //param[out]: match on non match;
     find_cryptic(test_str1, test_str2, cMatches);
 
     // param[in] : all the PlagMatch arrays and their sizes
-    eval_results(vMatches, vmSize, sMatches, smSize, cMatches, cmSize);
+    eval_results(vMatches, vmSize, cMatches, cmSize);
 
     // free dynamic allocated file arrays
     free(arr_txt1);
@@ -182,7 +168,7 @@ void find_synonym(char str_one[], char str_two[], char *synonym_res, bool *synon
 }
 */
 
-void eval_results(PlagMatch *vMatches, int vmSize, PlagMatch *sMatches, int smSize, PlagMatch *cMatches, int cmSize)
+void eval_results(PlagMatch *vMatches, int vmSize, PlagMatch *cMatches, int cmSize)
 {
 
     printf("\n-----------------------------------------------\n");
@@ -198,16 +184,8 @@ void eval_results(PlagMatch *vMatches, int vmSize, PlagMatch *sMatches, int smSi
     printf("VERBATIM - (found %d matches):\n\n", vmSize);
     for (int i = 0; i < vmSize; i++)
     {
-        printf("- File 1 [line %2d, word %2d]: '%s'\n", vMatches[i].line_num, vMatches[i].word_num, vMatches[i].text);
-        printf("- File 2 [line %2d, word %2d]: '%s'\n\n", vMatches[i].match_line_num, vMatches[i].match_word_num, vMatches[i].match_text);
-    }
-    printf("\n");
-
-    printf("PARAPHRASING (found %d matches):\n\n", smSize);
-    for (int i = 0; i < smSize; i++)
-    {
-        printf("- File 1 [line %2d, word %2d]: '%s'\n", sMatches[i].line_num, sMatches[i].word_num, sMatches[i].text);
-        printf("- File 2 [line %2d, word %2d]: '%s'\n\n", sMatches[i].match_line_num, sMatches[i].match_word_num, sMatches[i].match_text);
+        printf("- File 1 [line %2d, match]: '%s'\n", vMatches[i].line_num, vMatches[i].text);
+        printf("- File 2 [line %2d, match]: '%s'\n\n", vMatches[i].match_line_num, vMatches[i].match_text);
     }
     printf("\n");
 
