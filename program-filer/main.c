@@ -20,35 +20,18 @@
 #include "subcryptic.h"
 #include "subloadfile.h"
 #include "subpreproc.h"
-#include "nverbatim.h"
+#include "subverbatim.h"
 #include "prototypes.h"
 
-void run_checks();
-char *load_file(char fp[]);
-void prep_array(char arr_one[]);
-void find_cryptic(char str_one[], char str_two[], PlagMatch *cMatches);
-void find_synonym(char str_one[], char str_two[], char *synonym_res, bool *synonym_check);
-void eval_results(PlagMatch *vMatches, int vmSize, PlagMatch *cMatches, int cmSize, char fp_one[], char fp_two[]);
-
 // Main Function
-int main(void)
-{
+int main(void) {
     run_checks();
     return EXIT_SUCCESS;
 }
 
-void run_checks()
-{
+void run_checks() {
     char *fp_one = "./test-files/lotr-org.txt";
     char *fp_two = "./test-files/lotr-plag.txt";
-
-    // List of Verbatim Match Struct elements
-    PlagMatch vMatches[1];
-    int vmSize = (int)(sizeof(vMatches) / sizeof(PlagMatch));
-
-    // List of Cryptic Match Struct elements
-    PlagMatch cMatches[1];
-    int cmSize = (int)(sizeof(cMatches) / sizeof(PlagMatch));
 
     //param[in] : File path to txt-file.
     //param[out]: Array with all text in txt.
@@ -60,6 +43,14 @@ void run_checks()
     int sc_two = 0;
     char **pre_arr = preprocessing(arr_txt1, &sc_one);
     char **pre_arr2 = preprocessing(arr_txt2, &sc_two);
+
+    // free dynamic allocated file arrays
+    free(arr_txt1);
+    free(arr_txt2);
+
+    // List of PlagMatch Struct elements
+    PlagMatch vMatches[1];
+    PlagMatch cMatches[1];
     
     // Verbatim
     nverbatim(pre_arr, pre_arr2, sc_one, sc_two, vMatches);
@@ -68,18 +59,26 @@ void run_checks()
     char test_str1[] = "The quick brown fox jumps over the lazy dog";
     char test_str2[] = "The quick browп fox jumps over the lazy dog";
 
-    // printf("Test: %c v\n", NULL);
+    // check strings for potential matches.
+    int check_count = 1;
+    for (int i = 0; i < sc_one; i ++) {
+        for (int j = 0; j < sc_two; j++) {
+            printf("CHECK %d:\n", check_count);
+            check_string(pre_arr[i], pre_arr2[j]);
+            printf("String i = %s \n", pre_arr[i]);
+            printf("String j - %s\n\n", pre_arr2[j]);
+            check_count++;
+        }
+    }
 
     //param[in] : the two strings to be compared
     //param[out]: match or non-match;
-    find_cryptic(test_str1, test_str2, cMatches);
+    locate_cryptic(test_str1, test_str2, cMatches);
 
     // param[in] : all the PlagMatch arrays and their sizes
+    int vmSize = (int)(sizeof(vMatches) / sizeof(PlagMatch));
+    int cmSize = (int)(sizeof(cMatches) / sizeof(PlagMatch));
     eval_results(vMatches, vmSize, cMatches, cmSize, fp_one, fp_two);
-
-    // free dynamic allocated file arrays
-    free(arr_txt1);
-    free(arr_txt2);
 
     free(pre_arr);
     free(pre_arr2);
@@ -87,8 +86,7 @@ void run_checks()
 
 //param[in] : text file of type .txt
 //param[out]: char array (pointer) with text from file in array
-char *load_file(char fp[])
-{
+char *load_file(char fp[]) {
     FILE *file = fopen(fp, "r");
 
     //param[in] : opened file in read mode
@@ -104,12 +102,9 @@ char *load_file(char fp[])
     //param[out]: array with content of file
     write_array(file, txt_arr, size_of_arr);
 
-    if (txt_arr != NULL)
-    {
+    if (txt_arr != NULL) {
         printf("File: %s load success\n", fp);
-    }
-    else
-    {
+    } else {
         printf("File: %s load unsuccesfull\n", fp);
     }
 
@@ -117,10 +112,7 @@ char *load_file(char fp[])
     return txt_arr;
 }
 
-void find_cryptic(char str_one[], char str_two[], PlagMatch *cMatches)
-{
-    check_string(str_one, str_two); // useless so far
-
+void locate_cryptic(char str_one[], char str_two[], PlagMatch *cMatches) {
     int wc_one = count_words(str_one); // get number of words in string 1
     int wc_two = count_words(str_two); // get number of words in string 2
 
@@ -156,9 +148,7 @@ void find_cryptic(char str_one[], char str_two[], PlagMatch *cMatches)
 //param[in] : array of PlagMatches, sizes of arrays and file paths
 void eval_results(PlagMatch *vMatches, int vmSize, PlagMatch *cMatches, int cmSize, char fp_one[], char fp_two[])
 {
-
     printf("\n-----------------------------------------------\n");
-    printf("-----------------------------------------------\n");
     printf("RESULTS FROM EVALUATION:\n");
     printf("-----------------------------------------------\n");
     printf("FILE: %s\n", fp_one);
@@ -172,6 +162,9 @@ void eval_results(PlagMatch *vMatches, int vmSize, PlagMatch *cMatches, int cmSi
         printf("- File 2 [line %2d, match]: '%s'\n\n", vMatches[i].match_line_num, vMatches[i].match_text);
     }
     printf("\n");
+
+    int plagSize = sizeof(vMatches[0]);
+    printf("Size of plag obj: %d\n", plagSize);
 
     printf("CRYPTIC (found %d matches):\n\n", cmSize);
     for (int i = 0; i < cmSize; i++)

@@ -27,6 +27,9 @@ void append(char *arr, int index, char value, int *size, int *capacity) {
 }
 
 
+//void appendPlag(PlagMatch *arr, int index, PlagMatch value, int *size, int* capacity) {}
+
+
 // Count number of words in string
 int count_words(char input_str[]) {
     int word_count = 0;

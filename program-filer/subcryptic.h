@@ -2,6 +2,9 @@
 #include <stdbool.h>
 #include <string.h>
 #include <math.h>
+#define C_VAL_MIN 32
+#define C_VAL_MAX 126
+
 
 // Project Headers
 #include "subtools.h"
@@ -10,17 +13,15 @@
 bool check_string(char str_one[], char str_two[]) {
     double len_one = strlen(str_one);
     double len_two = strlen(str_two);
-    double threshold = 1.50;
     double len_dif = ((fabs(len_one - len_two) / ((len_one + len_two) / 2) ) * 100);
+    int levenDist = editDist(str_one, str_two);
 
     printf("--------------------\n");
-    printf("len_one: %.2f\n", len_one);
-    printf("len_two: %.2f\n", len_two);
     printf("procent afvigelse %.2f%%\n", len_dif);
-    printf("Threshold: %.2f%%\n", threshold);
+    printf("Levenstein: %d \n", levenDist);
     printf("--------------------\n");
 
-    return true;
+    return false;
 }
 
 // split sentences to word list
@@ -64,9 +65,6 @@ void sentence_splliter(char input_str[], char **wordlist, int wc ) {
 
 // Find Cryptic characters
 bool check_crypt(char **wordlist_one, int wc_one, char **wordlist_two, int wc_two) {
-    int c_val_min = 32;
-    int c_val_max = 126;
-
     // UNCLEAR
     for (int i = 0; i < wc_one; i++) {
         for ( int j = 0; j < wc_two; j++) {
@@ -88,17 +86,17 @@ bool check_crypt(char **wordlist_one, int wc_one, char **wordlist_two, int wc_tw
             int ascii_one = wordlist_one[i][j];
             int ascii_two = wordlist_two[i][j];
 
-            if (ascii_one < c_val_min || ascii_one > c_val_max) {
+            if (ascii_one < C_VAL_MIN || ascii_one > C_VAL_MAX) {
                 cryptic_flag = true;
                 printf("1C! %c - %d\n", ascii_one, ascii_one);
             }
         }
 
-        // Wordlist two chekc
+        // Wordlist two check
         for (int k = 0; k < (int) strlen(wordlist_two[i]); k++) {
             int ascii_two = wordlist_two[i][k];
 
-            if (ascii_two < c_val_min || ascii_two > c_val_max) {
+            if (ascii_two < C_VAL_MIN|| ascii_two > C_VAL_MAX) {
                 cryptic_flag = true;
                 printf("2C! %c - %d\n", ascii_two, ascii_two);
             }
