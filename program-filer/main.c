@@ -28,7 +28,7 @@ char *load_file(char fp[]);
 void prep_array(char arr_one[]);
 void find_cryptic(char str_one[], char str_two[], PlagMatch *cMatches);
 void find_synonym(char str_one[], char str_two[], char *synonym_res, bool *synonym_check);
-void eval_results(PlagMatch *vMatches, int vmSize, PlagMatch *cMatches, int cmSize);
+void eval_results(PlagMatch *vMatches, int vmSize, PlagMatch *cMatches, int cmSize, char fp_one[], char fp_two[]);
 
 // Main Function
 int main(void)
@@ -39,8 +39,8 @@ int main(void)
 
 void run_checks()
 {
-    char fp_one[] = "./test-files/lotr-org.txt";
-    char fp_two[] = "./test-files/lotr-plag.txt";
+    char *fp_one = "./test-files/lotr-org.txt";
+    char *fp_two = "./test-files/lotr-plag.txt";
 
     // List of Verbatim Match Struct elements
     PlagMatch vMatches[1];
@@ -71,11 +71,11 @@ void run_checks()
     // printf("Test: %c v\n", NULL);
 
     //param[in] : the two strings to be compared
-    //param[out]: match on non match;
+    //param[out]: match or non-match;
     find_cryptic(test_str1, test_str2, cMatches);
 
     // param[in] : all the PlagMatch arrays and their sizes
-    eval_results(vMatches, vmSize, cMatches, cmSize);
+    eval_results(vMatches, vmSize, cMatches, cmSize, fp_one, fp_two);
 
     // free dynamic allocated file arrays
     free(arr_txt1);
@@ -117,12 +117,6 @@ char *load_file(char fp[])
     return txt_arr;
 }
 
-/*
-void find_verbatim(char Arr_one_s1, char Arr_two_s1) {
-    printf("Find verbatim");
-}
-*/
-
 void find_cryptic(char str_one[], char str_two[], PlagMatch *cMatches)
 {
     check_string(str_one, str_two); // useless so far
@@ -159,26 +153,16 @@ void find_cryptic(char str_one[], char str_two[], PlagMatch *cMatches)
     free(wordlist_two);
 }
 
-/* 
-void find_synonym(char str_one[], char str_two[], char *synonym_res, bool *synonym_check) {
-    *synonym_check = true;
-    *synonym_res = "test";
-
-    printf("Synonym");
-}
-*/
-
-void eval_results(PlagMatch *vMatches, int vmSize, PlagMatch *cMatches, int cmSize)
+//param[in] : array of PlagMatches, sizes of arrays and file paths
+void eval_results(PlagMatch *vMatches, int vmSize, PlagMatch *cMatches, int cmSize, char fp_one[], char fp_two[])
 {
 
     printf("\n-----------------------------------------------\n");
     printf("-----------------------------------------------\n");
     printf("RESULTS FROM EVALUATION:\n");
     printf("-----------------------------------------------\n");
-    //printf("FILE: %s\n", information->file_path_one);
-    //printf("CHECKED AGAINST: %s\n", information->file_path_two);
-    printf("FILE: hej\n");
-    printf("CHECKED AGAINST: hej2\n");
+    printf("FILE: %s\n", fp_one);
+    printf("CHECKED AGAINST: %s\n", fp_two);
     printf("-----------------------------------------------\n\n");
 
     printf("VERBATIM - (found %d matches):\n\n", vmSize);
