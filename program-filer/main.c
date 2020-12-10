@@ -14,6 +14,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+#include <locale.h>
 
 // Gruppens Headers
 #include "subtools.h"
@@ -25,11 +26,17 @@
 
 // Main Function
 int main(void) {
+
+    // set local dependt information
+    // LC_TYPE for character classification
+    setlocale(LC_CTYPE, "en_GB");
+
     run_checks();
     return EXIT_SUCCESS;
 }
 
 void run_checks() {
+    // set paths to files
     char *fp_one = "./test-files/lotr-org.txt";
     char *fp_two = "./test-files/lotr-plag.txt";
 
@@ -51,25 +58,27 @@ void run_checks() {
     // List of PlagMatch Struct elements
     PlagMatch vMatches[1];
     PlagMatch cMatches[1];
+    printf("Size of Plagmatch: %d\n", (int) sizeof(PlagMatch));
     
     // Verbatim
     nverbatim(pre_arr, pre_arr2, sc_one, sc_two, vMatches);
 
+    // check strings for potential matches.
+    for (int i = 0; i < sc_one; i ++) {
+        for (int j = 0; j < sc_two; j++) {
+            printf("\nCHECK \n");
+            printf("string: %s\n", pre_arr[i]);
+            printf("string: %s\n", pre_arr2[j]);
+
+            if (check_string(pre_arr[i], pre_arr2[j])) {
+                //locate_cryptic(pre_arr[i], pre_arr2[j], cMatches);
+            }
+        }
+    }
+
     // TEST ONLY
     char test_str1[] = "The quick brown fox jumps over the lazy dog";
     char test_str2[] = "The quick browп fox jumps over the lazy dog";
-
-    // check strings for potential matches.
-    int check_count = 1;
-    for (int i = 0; i < sc_one; i ++) {
-        for (int j = 0; j < sc_two; j++) {
-            printf("CHECK %d:\n", check_count);
-            check_string(pre_arr[i], pre_arr2[j]);
-            printf("String i = %s \n", pre_arr[i]);
-            printf("String j - %s\n\n", pre_arr2[j]);
-            check_count++;
-        }
-    }
 
     //param[in] : the two strings to be compared
     //param[out]: match or non-match;
@@ -125,11 +134,13 @@ void locate_cryptic(char str_one[], char str_two[], PlagMatch *cMatches) {
     sentence_splliter(str_two, wordlist_two, wc_two);
 
     // checking for cryptic characters
+    int *crypt_loc_one;
+    int *crypt_loc_two; 
     bool result = check_crypt(wordlist_one, wc_one, wordlist_two, wc_two);
     printf("Cryptic check result: %s \n", result ? "true" : "false");
 
-    if (result)
-    {
+    // skal opdateres
+    if (result) {
         PlagMatch found_match;
         strcpy(found_match.text, str_one);
         found_match.word_num = 0;
@@ -162,9 +173,6 @@ void eval_results(PlagMatch *vMatches, int vmSize, PlagMatch *cMatches, int cmSi
         printf("- File 2 [line %2d, match]: '%s'\n\n", vMatches[i].match_line_num, vMatches[i].match_text);
     }
     printf("\n");
-
-    int plagSize = sizeof(vMatches[0]);
-    printf("Size of plag obj: %d\n", plagSize);
 
     printf("CRYPTIC (found %d matches):\n\n", cmSize);
     for (int i = 0; i < cmSize; i++)
