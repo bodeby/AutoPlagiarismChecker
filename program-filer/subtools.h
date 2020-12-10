@@ -27,7 +27,14 @@ void append(char *arr, int index, char value, int *size, int *capacity) {
 }
 
 
-//void appendPlag(PlagMatch *arr, int index, PlagMatch value, int *size, int* capacity) {}
+void appendPlag(PlagMatch *arr, int index, PlagMatch value, int *size, int* capacity) {
+    while(*size > *capacity){
+        arr = realloc(arr, sizeof(arr) + sizeof(PlagMatch));
+    }
+
+    arr[index] = value;
+    *size = *size +1;
+}
 
 
 // Count number of words in string
