@@ -21,7 +21,6 @@ void run_checks();
 char *load_file(char fp[]);
 void prep_array(char arr_one[]);
 void locate_cryptic(char str_one[], char str_two[], PlagMatch *cMatches);
-void find_synonym(char str_one[], char str_two[], char *synonym_res, bool *synonym_check);
 void eval_results(PlagMatch *vMatches, int vmSize, PlagMatch *cMatches, int cmSize, char fp_one[], char fp_two[]);
 
 #endif // PROTOTYPES.H

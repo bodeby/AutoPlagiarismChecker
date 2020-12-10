@@ -21,7 +21,8 @@
 #include "subcryptic.h"
 #include "subloadfile.h"
 #include "subpreproc.h"
-#include "subverbatim.h"
+//#include "subverbatim.h"
+#include "subverb2.h"
 #include "prototypes.h"
 
 // Main Function
@@ -56,12 +57,12 @@ void run_checks() {
     free(arr_txt2);
 
     // List of PlagMatch Struct elements
-    PlagMatch vMatches[1];
+    //PlagMatch vMatches[1];
     PlagMatch cMatches[1];
     printf("Size of Plagmatch: %d\n", (int) sizeof(PlagMatch));
     
     // Verbatim
-    nverbatim(pre_arr, pre_arr2, sc_one, sc_two, vMatches);
+    PlagMatch *vMatches = nverbatim(pre_arr, pre_arr2, sc_one, sc_two);
 
     // check strings for potential matches.
     for (int i = 0; i < sc_one; i ++) {
@@ -91,6 +92,8 @@ void run_checks() {
 
     free(pre_arr);
     free(pre_arr2);
+
+    free(vMatches);
 }
 
 //param[in] : text file of type .txt

@@ -33,7 +33,7 @@ void appendPlag(PlagMatch *arr, int index, PlagMatch value, int *size, int* capa
     }
 
     arr[index] = value;
-    *size = *size +1;
+    *size = *size + 1;
 }
 
 

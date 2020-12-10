@@ -6,8 +6,7 @@
 #include "subtools.h"
 #include "prototypes.h"
 
-void nverbatim(char **sentences_one, char **sentences_two, int sc_one, int sc_two, PlagMatch verbatim[])
-{
+void nverbatim(char **sentences_one, char **sentences_two, int sc_one, int sc_two, PlagMatch verbatim[]) {
     int k = 0;
     //printf("len 1: %d, len 2: %d\n", sc_one, sc_two);
     for (int i = 0; i < sc_one; i++)
