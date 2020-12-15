@@ -59,12 +59,10 @@ void run_checks() {
     PlagMatch *vMatches = malloc(v_init_capacity * sizeof(PlagMatch));
     
     // Find verbatim elements
-    int verb_count = nverbatim(vMatches, pre_arr, pre_arr2, sc_one, sc_two, v_size, v_capacity);
-
-    printf("VERBATIM COUT: %d", v_size);
+    int verbatim_count = nverbatim(vMatches, pre_arr, pre_arr2, sc_one, sc_two, v_size, v_capacity);
 
     // Copy dynamic elements to static
-    for (int i = 0; i < verb_count; i++) {
+    for (int i = 0; i < verbatim_count; i++) {
         printf("- File 1 [line %2d, match]: '%s'\n", vMatches[i].line_num, vMatches[i].text);
         printf("- File 2 [line %2d, match]: '%s'\n\n", vMatches[i].match_line_num, vMatches[i].match_text);
     }
@@ -81,8 +79,16 @@ void run_checks() {
     // Find cryptic elements
     int cryptic_count = cryptic_finder(cMatches, pre_arr, pre_arr2, sc_one, sc_two, c_size, c_capacity);
 
+    // Copy dynamic elements to static
+    for (int i = 0; i < verbatim_count; i++) {
+        printf("- File 1 [line %2d, match]: '%s'\n", vMatches[i].line_num, vMatches[i].text);
+        printf("- File 2 [line %2d, match]: '%s'\n\n", vMatches[i].match_line_num, vMatches[i].match_text);
+    }
+
     // Free dynamic elements
     free(cMatches);
+
+    eval_results(vMatches, verbatim_count, cMatches, cryptic_count, fp_one, fp_two);
 }
 
 //param[in] : text file of type .txt
@@ -113,39 +119,8 @@ char *load_file(char fp[]) {
     return txt_arr;
 }
 
-//param[in] : String one, String two, Array of PlagMatches, size of array, and capacity
+//param[in] : Array of PlagMatches, sentences of file one, sentences of file two, #sentences_one, #sentences_two, size of array, and capacity
 //param[out]: Updated array of PlagMatches, size and capacity.
-void locate_cryptic(char str_one[], char str_two[]) {
-    int wc_one = count_words(str_one); // get number of words in string 1
-    int wc_two = count_words(str_two); // get number of words in string 2
-
-    // Create wordlist, split sentences into words and fill wordlist
-    char **wordlist_one = malloc(wc_one * sizeof(char *));
-    split_sentences(str_one, wordlist_one, wc_one);
-
-    // Create wordlist, split sentences into words and fill wordlist
-    char **wordlist_two = malloc(wc_two * sizeof(char *));
-    split_sentences(str_two, wordlist_two, wc_two);
-
-    printf("Virker 139");
-
-    // checking for cryptic characters
-    bool result = check_cryptic(wordlist_one, wc_one, wordlist_two, wc_two);
-    printf("Cryptic check result: %s \n", result ? "true" : "false");
-
-    free(wordlist_one);
-    free(wordlist_two);
-
-    printf("Virker 148");
-    // skal opdateres
-    if (result) {
-        // Receive match from check function and append to array
-        //plagAppend(cMatches, 0, createPlagMatch(str_one, str_two, 0, 0, 0, 0), &size, &capacity);
-    }
-    printf("Virker 154");
-}
-
-
 int cryptic_finder(PlagMatch cMatches[], char **sentences_one, char **sentences_two, int sc_one, int sc_two, int size, int capacity) {
     int k = 0;
     for (int i = 0; i < sc_one; i ++) {
@@ -171,8 +146,25 @@ int cryptic_finder(PlagMatch cMatches[], char **sentences_one, char **sentences_
                 printf("--------------------\n");
                 // DEV INFO END
 
-                // EOL
-                k++;
+                // Compare words across
+                for (int i = 0; i < wc_one; i++) {
+                    int w_len_one = strlen(wordlist_one[i]);
+                    int w_len_two = strlen(wordlist_two[i]);
+                    int w_len_diff = (int) abs(w_len_one-w_len_two);
+                    int w_editDistance = editDist(wordlist_one[i], wordlist_two[i]);
+
+                    printf("%s - %s; dist - %d\n", wordlist_one[i], wordlist_two[i], editDist(wordlist_one[i], wordlist_two[i]));
+                    if(w_editDistance != 0 && w_editDistance % 2 == 0 && w_editDistance / 2 == w_len_diff) {
+                        if (check_cryptic(wordlist_one, wc_one, wordlist_two, wc_two)) {
+                            printf("found word at pos: %d\n", i+1);
+                            plagAppend(cMatches, k, createPlagMatch(sentences_one[i], sentences_two[j],0,i+1,0,j+1), &size, &capacity);
+                            k++;
+                        }
+                    }
+                }
+
+                free(wordlist_one); // free memory for wordlist_one
+                free(wordlist_two); // free memory for wordlist_two
             }
         }
     }

@@ -10,20 +10,24 @@
 
 /* Check if string is worth checking */
 bool check_string(char str_one[], char str_two[]) {
-    double len_one = strlen(str_one);
-    double len_two = strlen(str_two);
-    double len_diff = fabs(len_one - len_two) / 2;
+    int len_one = strlen(str_one);
+    int len_two = strlen(str_two);
+    int len_diff = (int) abs(len_one-len_two);
     double len_diff_percentage = ((fabs(len_one - len_two) / ((len_one + len_two) / 2) ) * 100);
     int levenDist = editDist(str_one, str_two);
 
     // TEST REPR
-    //printf("--------------------\n");
-    //printf("procent afvigelse %.2f%%\n", len_diff_percentage);
-    //printf("Levenstein: %d \n", levenDist);
-    //printf("--------------------\n");
+    printf("--------------------\n");
+    printf("procent afvigelse %.2f%%\n", len_diff_percentage);
+    printf("Levenstein: %d \n", levenDist);
+    if (len_diff_percentage < 5.00) {
+        printf("String one: %s\n", str_one);
+        printf("String two: %s\n", str_two);
+    }
+    printf("--------------------\n");
 
-    
-    if ( levenDist% 2 == 0 && len_diff == levenDist){
+
+    if (levenDist != 0 && levenDist % 2 == 0 && len_diff == levenDist){
         return true;
     }
     
@@ -100,15 +104,7 @@ bool check_cryptic(char **wordlist_one, int wc_one, char **wordlist_two, int wc_
             }
         }
     }
-
-    for (int t = 0; t < (int) (sizeof(cryptic_pos_one) / sizeof(int)); t++) {
-        printf("CP1: %d\n", cryptic_pos_one[t]);
-    }
-
-    for (int q = 0; q < (int) (sizeof(cryptic_pos_two) / sizeof(int)); q++) {
-        printf("CP2: %d\n", cryptic_pos_two[q]);
-    }
-
+    
     return cryptic_flag;
 }
 
