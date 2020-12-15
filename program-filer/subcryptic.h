@@ -10,22 +10,21 @@
 
 /* Check if string is worth checking */
 bool check_string(char str_one[], char str_two[]) {
-    int len_one = strlen(str_one);
-    int len_two = strlen(str_two);
+    double len_one = strlen(str_one);
+    double len_two = strlen(str_two);
     int len_diff = (int) abs(len_one-len_two);
     double len_diff_percentage = ((fabs(len_one - len_two) / ((len_one + len_two) / 2) ) * 100);
     int levenDist = editDist(str_one, str_two);
 
     // TEST REPR
-    printf("--------------------\n");
-    printf("procent afvigelse %.2f%%\n", len_diff_percentage);
-    printf("Levenstein: %d \n", levenDist);
-    if (len_diff_percentage < 5.00) {
-        printf("String one: %s\n", str_one);
-        printf("String two: %s\n", str_two);
-    }
-    printf("--------------------\n");
-
+    // printf("--------------------\n");
+    // printf("procent afvigelse %.2f%%\n", len_diff_percentage);
+    // printf("Levenstein: %d \n", levenDist);
+    // if (len_diff_percentage < 5.00) {
+    //     printf("String one: %s\n", str_one);
+    //     printf("String two: %s\n", str_two);
+    // }
+    // printf("--------------------\n");
 
     if (levenDist != 0 && levenDist % 2 == 0 && len_diff == levenDist){
         return true;
@@ -74,10 +73,7 @@ void split_sentences(char input_str[], char **wordlist, int wc ) {
 }
 
 // Find Cryptic characters
-bool check_cryptic(char **wordlist_one, int wc_one, char **wordlist_two, int wc_two) {
-    int len_count = sizeof(wordlist_one) / sizeof(char);
-    int cryptic_pos_one[len_count];
-    int cryptic_pos_two[len_count];
+bool check_cryptic(char **wordlist_one, int wc_one, char **wordlist_two) {
     bool cryptic_flag = false;
 
     for (int i = 0; i < wc_one; i++) {
@@ -86,9 +82,7 @@ bool check_cryptic(char **wordlist_one, int wc_one, char **wordlist_two, int wc_
             int ascii_one = wordlist_one[i][j];
             if (ascii_one < C_VAL_MIN || ascii_one > C_VAL_MAX) {
                 cryptic_flag = true;
-                cryptic_pos_one[i] = 1;
             } else {
-                cryptic_pos_one[i] = 0;
             }
             
         }
@@ -97,14 +91,12 @@ bool check_cryptic(char **wordlist_one, int wc_one, char **wordlist_two, int wc_
         for (int k = 0; k < (int) strlen(wordlist_two[i]); k++) {
             int ascii_two = wordlist_two[i][k];
             if (ascii_two < C_VAL_MIN|| ascii_two > C_VAL_MAX) {
-                cryptic_flag = true;
-                cryptic_pos_two[i] = 1;                
+                cryptic_flag = true;               
             } else {
-                cryptic_pos_two[i] = 0;
             }
         }
     }
-    
+
     return cryptic_flag;
 }
 

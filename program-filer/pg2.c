@@ -18,6 +18,8 @@ int main(void) {
     int len_diff = (int) abs(len_one-len_two);
     int editDistance = editDist(test_str1, test_str2);
 
+    printf("Levendist (M) %d\n", editDist("M", "М"));
+
     if (editDistance != 0 && editDistance %2 == 0 && editDistance / 2 == len_diff) {
         int wc_one = count_words(test_str1);
         int wc_two = count_words(test_str2);
