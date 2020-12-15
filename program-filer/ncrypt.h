@@ -30,7 +30,6 @@ bool check_string(char str_one[], char str_two[]) {
     return false;
 }
 
-// split sentences to word list
 void split_sentences(char input_str[], char **wordlist, int wc ) {
     int size = 0;
     int init_capacity = 256;
@@ -45,7 +44,6 @@ void split_sentences(char input_str[], char **wordlist, int wc ) {
     int pos_word = 0;
     char word_array[wc][word_max];
 
-    // 
     int j = 0;
     for (int i = 0; i <= (int) strlen(input_str); i++) {
         // if character is not equal to space, append to array
@@ -68,48 +66,3 @@ void split_sentences(char input_str[], char **wordlist, int wc ) {
         strcpy(wordlist[i], word_array[i]); // copy words into the wordlist
     }
 }
-
-// Find Cryptic characters
-bool check_cryptic(char **wordlist_one, int wc_one, char **wordlist_two, int wc_two) {
-    int len_count = sizeof(wordlist_one) / sizeof(char);
-    int cryptic_pos_one[len_count];
-    int cryptic_pos_two[len_count];
-    bool cryptic_flag = false;
-
-    for (int i = 0; i < wc_one; i++) {
-        // Wordlist one check
-        for (int j = 0; j < (int) strlen(wordlist_one[i]); j++) {
-            int ascii_one = wordlist_one[i][j];
-            if (ascii_one < C_VAL_MIN || ascii_one > C_VAL_MAX) {
-                cryptic_flag = true;
-                cryptic_pos_one[i] = 1;
-            } else {
-                cryptic_pos_one[i] = 0;
-            }
-            
-        }
-
-        // Wordlist two check
-        for (int k = 0; k < (int) strlen(wordlist_two[i]); k++) {
-            int ascii_two = wordlist_two[i][k];
-            if (ascii_two < C_VAL_MIN|| ascii_two > C_VAL_MAX) {
-                cryptic_flag = true;
-                cryptic_pos_two[i] = 1;                
-            } else {
-                cryptic_pos_two[i] = 0;
-            }
-        }
-    }
-
-    for (int t = 0; t < (int) (sizeof(cryptic_pos_one) / sizeof(int)); t++) {
-        printf("CP1: %d\n", cryptic_pos_one[t]);
-    }
-
-    for (int q = 0; q < (int) (sizeof(cryptic_pos_two) / sizeof(int)); q++) {
-        printf("CP2: %d\n", cryptic_pos_two[q]);
-    }
-
-    return cryptic_flag;
-}
-
-

@@ -2,7 +2,7 @@
 #define SUBTOOLS_H
 #include <stdio.h>
 #include <string.h>
-
+#include "prototypes.h"
 
 // Check if Memory has been properly allocated
 int checkMem(char *arr) {
@@ -13,29 +13,6 @@ int checkMem(char *arr) {
         return EXIT_SUCCESS;
     }
 }
-
-
-// Append character to string
-void append(char *arr, int index, char value, int *size, int *capacity) {
-    while (*size > *capacity) {
-        arr = realloc(arr, sizeof(arr) + ((int) sizeof(char) * 256));
-        *capacity = sizeof(arr);
-    }
-
-    arr[index] = value;
-    *size = *size + 1;
-}
-
-
-void appendPlag(PlagMatch *arr, int index, PlagMatch value, int *size, int* capacity) {
-    while(*size > *capacity){
-        arr = realloc(arr, sizeof(arr) + sizeof(PlagMatch));
-    }
-
-    arr[index] = value;
-    *size = *size + 1;
-}
-
 
 // Count number of words in string
 int count_words(char input_str[]) {
@@ -53,6 +30,42 @@ int count_words(char input_str[]) {
     return word_count;
 }
 
+// Append character to string
+void append(char *arr, int index, char value, int *size, int *capacity) {
+    while (*size > *capacity) {
+        arr = realloc(arr, sizeof(arr) + ((int) sizeof(char) * 256));
+        *capacity = sizeof(arr);
+    }
+    arr[index] = value;
+    *size = *size + 1;
+}
+
+// Append character to string
+void plagAppend(PlagMatch *arr, int index, PlagMatch value, int *size, int *capacity) {
+    while (*size > *capacity) {
+        arr = realloc(arr, sizeof(arr) + ((int) sizeof(PlagMatch)));
+        *capacity = sizeof(arr);
+    }
+    arr[index] = value;
+    *size = *size + 1;
+}
+
+// Create the plag match "objects"
+PlagMatch createPlagMatch(char *str_one, char *str_two, int wn_one, int ln_one, int wn_two, int ln_two) {
+    PlagMatch plag_result; // declare Stuct
+
+    // append values from original file
+    strcpy(plag_result.text, str_one);
+    plag_result.word_num = wn_one;
+    plag_result.line_num = ln_one;
+
+    // append values from test file
+    strcpy(plag_result.match_text, str_two);
+    plag_result.match_word_num = wn_two;
+    plag_result.match_line_num = ln_two;
+
+    return plag_result;
+}
 
 /* ----------- LEVENSHTEIN ALGORITHM -------------
 * Made by Ben Bullock

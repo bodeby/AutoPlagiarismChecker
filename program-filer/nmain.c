@@ -24,14 +24,10 @@
 #include "subcryptic.h"
 #include "subtools.h"
 
-
-// Main Function
 int main(void) {
-
     // set local dependt information
     // LC_TYPE for character classification
     setlocale(LC_CTYPE, "en_GB");
-
     run_checks();
     return EXIT_SUCCESS;
 }
@@ -56,51 +52,37 @@ void run_checks() {
     free(arr_txt1);
     free(arr_txt2);
 
-    // List of PlagMatch Struct elements
-    int c_size = 0;
-    int c_init_capacity = 1;
-    int c_capacity = c_init_capacity;
-    PlagMatch *cMatches = malloc(c_init_capacity * sizeof(PlagMatch));
-    
-    // Verbatim
+    // Create verbatim strcut element
     int v_size = 0;
     int v_init_capacity = 1;
     int v_capacity = v_init_capacity;
     PlagMatch *vMatches = malloc(v_init_capacity * sizeof(PlagMatch));
     
-    nverbatim(vMatches, pre_arr, pre_arr2, sc_one, sc_two, v_size, v_capacity);
+    // Find verbatim elements
+    int verb_count = nverbatim(vMatches, pre_arr, pre_arr2, sc_one, sc_two, v_size, v_capacity);
 
-    // check strings for potential matches.
-    for (int i = 0; i < sc_one; i ++) {
-        for (int j = 0; j < sc_two; j++) {
-            printf("\nCHECK \n");
-            printf("string: %s\n", pre_arr[i]);
-            printf("string: %s\n", pre_arr2[j]);
+    printf("VERBATIM COUT: %d", v_size);
 
-            if (check_string(pre_arr[i], pre_arr2[j])) {
-                locate_cryptic(pre_arr[i], pre_arr2[j], cMatches, c_size, c_capacity);
-            }
-        }
+    // Copy dynamic elements to static
+    for (int i = 0; i < verb_count; i++) {
+        printf("- File 1 [line %2d, match]: '%s'\n", vMatches[i].line_num, vMatches[i].text);
+        printf("- File 2 [line %2d, match]: '%s'\n\n", vMatches[i].match_line_num, vMatches[i].match_text);
     }
 
-    // TEST ONLY -- To be removed
-    char test_str1[] = "The quick brown fox jumps over the lazy dog";
-    char test_str2[] = "The quick browп fox jumps over the lazy dog";
-
-    //param[in] : the two strings to be compared
-    //param[out]: match or non-match;
-    locate_cryptic(test_str1, test_str2, cMatches, c_size, c_capacity);
-
-    // param[in] : all the PlagMatch arrays and their sizes
-    int vmSize = (int)(sizeof(&vMatches) / sizeof(PlagMatch));
-    int cmSize = (int)(sizeof(&cMatches) / sizeof(PlagMatch));
-    eval_results(vMatches, vmSize, cMatches, cmSize, fp_one, fp_two);
-
-    free(pre_arr);
-    free(pre_arr2);
-
-    free(cMatches);
+    // Free dynamic elements
     free(vMatches);
+
+    // Create Crypt struct array
+    int c_size = 0;
+    int c_init_capacity = 1;
+    int c_capacity = c_init_capacity;
+    PlagMatch *cMatches = malloc(c_init_capacity * sizeof(PlagMatch));
+
+    // Find cryptic elements
+    int cryptic_count = cryptic_finder(cMatches, pre_arr, pre_arr2, sc_one, sc_two, c_size, c_capacity);
+
+    // Free dynamic elements
+    free(cMatches);
 }
 
 //param[in] : text file of type .txt
@@ -131,7 +113,9 @@ char *load_file(char fp[]) {
     return txt_arr;
 }
 
-void locate_cryptic(char str_one[], char str_two[], PlagMatch *cMatches, int size, int capacity) {
+//param[in] : String one, String two, Array of PlagMatches, size of array, and capacity
+//param[out]: Updated array of PlagMatches, size and capacity.
+void locate_cryptic(char str_one[], char str_two[]) {
     int wc_one = count_words(str_one); // get number of words in string 1
     int wc_two = count_words(str_two); // get number of words in string 2
 
@@ -143,29 +127,57 @@ void locate_cryptic(char str_one[], char str_two[], PlagMatch *cMatches, int siz
     char **wordlist_two = malloc(wc_two * sizeof(char *));
     split_sentences(str_two, wordlist_two, wc_two);
 
+    printf("Virker 139");
+
     // checking for cryptic characters
     bool result = check_cryptic(wordlist_one, wc_one, wordlist_two, wc_two);
     printf("Cryptic check result: %s \n", result ? "true" : "false");
 
-    // skal opdateres
-    if (result) {
-        PlagMatch found_match;
-        strcpy(found_match.text, str_one);
-        found_match.word_num = 0;
-        found_match.line_num = 0;
-        strcpy(found_match.match_text, str_two);
-        found_match.match_word_num = 0;
-        found_match.match_line_num = 0;
-
-        cMatches[0] = found_match;
-
-        // Receive match from check function and append to array
-        PlagMatch found_match_new = found_match;
-        plagAppend(cMatches, 0, found_match_new, &size, &capacity);
-    }
-
     free(wordlist_one);
     free(wordlist_two);
+
+    printf("Virker 148");
+    // skal opdateres
+    if (result) {
+        // Receive match from check function and append to array
+        //plagAppend(cMatches, 0, createPlagMatch(str_one, str_two, 0, 0, 0, 0), &size, &capacity);
+    }
+    printf("Virker 154");
+}
+
+
+int cryptic_finder(PlagMatch cMatches[], char **sentences_one, char **sentences_two, int sc_one, int sc_two, int size, int capacity) {
+    int k = 0;
+    for (int i = 0; i < sc_one; i ++) {
+        for (int j = 0; j < sc_two; j++) {
+            if (check_string(sentences_one[i], sentences_two[j])) {
+                int wc_one = count_words(sentences_one[i]); // get number of words in string 1
+                int wc_two = count_words(sentences_two[j]); // get number of words in string 2
+
+                // Create wordlist, split sentences into words and fill wordlist
+                char **wordlist_one = malloc(wc_one * sizeof(char *));
+                split_sentences(sentences_one[i], wordlist_one, wc_one);
+
+                // Create wordlist, split sentences into words and fill wordlist
+                char **wordlist_two = malloc(wc_two * sizeof(char *));
+                split_sentences(sentences_two[j], wordlist_two, wc_two);
+                
+                // DEV INFO
+                printf("--------------------\n");
+                printf("FOUND\n");
+                printf("--------------------\n");
+                printf("string: %s\n", sentences_one[i]);
+                printf("string: %s\n", sentences_two[j]);
+                printf("--------------------\n");
+                // DEV INFO END
+
+                // EOL
+                k++;
+            }
+        }
+    }
+
+    return k;
 }
 
 //param[in] : array of PlagMatches, sizes of arrays and file paths

@@ -19,8 +19,9 @@ typedef struct FileInfo {
 // FUNCTIONS
 void run_checks();
 char *load_file(char fp[]);
-void prep_array(char arr_one[]);
-void locate_cryptic(char str_one[], char str_two[], PlagMatch *cMatches);
+//void prep_array(char arr_one[]);
+void locate_cryptic(char str_one[], char str_two[]);
+int cryptic_finder(PlagMatch cMatches[], char **sentences_one, char **sentences_two, int sc_one, int sc_two, int size, int capacity);
 void eval_results(PlagMatch *vMatches, int vmSize, PlagMatch *cMatches, int cmSize, char fp_one[], char fp_two[]);
 
 #endif // PROTOTYPES.H
