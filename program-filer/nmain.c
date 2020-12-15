@@ -34,8 +34,8 @@ int main(void) {
 
 void run_checks() {
     // set paths to files
-    char *fp_one = "./test-files/pancake-org.txt";
-    char *fp_two = "./test-files/pancake-plag.txt";
+    char *fp_one = "./test-files/lotr-org.txt";
+    char *fp_two = "./test-files/lotr-plag.txt";
 
     //param[in] : File path to txt-file.
     //param[out]: Array with all text in txt.
@@ -57,9 +57,17 @@ void run_checks() {
     int v_init_capacity = 1;
     int v_capacity = v_init_capacity;
     PlagMatch *vMatches = malloc(v_init_capacity * sizeof(PlagMatch));
+
+    checkPlagMem(vMatches);
     
     // Find verbatim elements
     int verbatim_count = nverbatim(vMatches, pre_arr, pre_arr2, sc_one, sc_two, v_size, v_capacity);
+
+    // Test print - For Dynamic - Matches Static 
+    for (int i = 0; i < verbatim_count; i++) {
+        printf("- File 1 [line %2d, match]: '%s'\n", vMatches[i].line_num, vMatches[i].text);
+        printf("- File 2 [line %2d, match]: '%s'\n\n", vMatches[i].match_line_num, vMatches[i].match_text);
+    }
 
     // Copy dynamic array elements to static array
     PlagMatch static_vMatches[verbatim_count];
@@ -72,12 +80,12 @@ void run_checks() {
         free(vMatches);
     }
 
-    // Test print
-    // printf("Verbatim test- should be (%d)\n", verbatim_count);
-    // for (int i = 0; i < verbatim_count; i++) {
-    //     printf("- File 1 [line %2d, match]: '%s'\n", static_vMatches[i].line_num, static_vMatches[i].text);
-    //     printf("- File 2 [line %2d, match]: '%s'\n\n", static_vMatches[i].match_line_num, static_vMatches[i].match_text);
-    // }
+    // Test print - For Static - Matches Dynamic 
+    printf("Verbatim test- should be (%d)\n", verbatim_count);
+    for (int i = 0; i < verbatim_count; i++) {
+        printf("- File 1 [line %2d, match]: '%s'\n", static_vMatches[i].line_num, static_vMatches[i].text);
+        printf("- File 2 [line %2d, match]: '%s'\n\n", static_vMatches[i].match_line_num, static_vMatches[i].match_text);
+    }
 
 
     // Create Crypt struct array
@@ -88,6 +96,8 @@ void run_checks() {
 
     // Find cryptic elements
     int cryptic_count = cryptic_finder(cMatches, pre_arr, pre_arr2, sc_one, sc_two, c_size, c_capacity);
+
+    printf("Cryptic_count: %d\n", cryptic_count);
 
     // Copy dynamic array elements to static array
     PlagMatch static_cMatches[cryptic_count];
@@ -158,12 +168,12 @@ int cryptic_finder(PlagMatch cMatches[], char **sentences_one, char **sentences_
                 split_sentences(sentences_two[j], wordlist_two, wc_two);
                 
                 // DEV INFO
-                // printf("--------------------\n");
-                // printf("FOUND\n");
-                // printf("--------------------\n");
-                // printf("string: %s\n", sentences_one[i]);
-                // printf("string: %s\n", sentences_two[j]);
-                // printf("--------------------\n");
+                printf("--------------------\n");
+                printf("FOUND\n");
+                printf("--------------------\n");
+                printf("string: %s\n", sentences_one[i]);
+                printf("string: %s\n", sentences_two[j]);
+                printf("--------------------\n");
                 // DEV INFO END
 
                 // Compare words across
@@ -176,8 +186,8 @@ int cryptic_finder(PlagMatch cMatches[], char **sentences_one, char **sentences_
                     printf("%s - %s; dist - %d\n", wordlist_one[i], wordlist_two[i], editDist(wordlist_one[i], wordlist_two[i]));
                     if(w_editDistance != 0 && w_editDistance % 2 == 0 && w_editDistance / 2 == w_len_diff) {
                         if (check_cryptic(wordlist_one, wc_one, wordlist_two)) {
-                            printf("found word at pos: %d\n", i+1);
-                            plagAppend(cMatches, k, createPlagMatch(sentences_one[i], sentences_two[j],0,i+1,0,j+1), &size, &capacity);
+                            printf("- found word at pos: %d\n", i+1);
+                            plagAppend(cMatches, k, createPlagMatch(sentences_one[i], sentences_two[j],i+1,i+1,i+1,j+1), &size, &capacity);
                             k++;
                         }
                     }

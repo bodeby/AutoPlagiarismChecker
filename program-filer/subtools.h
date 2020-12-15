@@ -10,6 +10,17 @@ int checkMem(char *arr) {
         fprintf(stderr, "Array memory not allocated");
         return EXIT_FAILURE;
     } else {
+        printf("\nMemory Allocated Properbly\n");
+        return EXIT_SUCCESS;
+    }
+}
+
+int checkPlagMem(PlagMatch *arr) {
+    if (arr == NULL) {
+        fprintf(stderr, "Array memory not allocated");
+        return EXIT_FAILURE;
+    } else {
+        printf("\nMemory Allocated Properbly\n");
         return EXIT_SUCCESS;
     }
 }
