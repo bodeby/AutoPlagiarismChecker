@@ -74,7 +74,7 @@ void split_sentences(char input_str[], char **wordlist, int wc ) {
 }
 
 // Find Cryptic characters
-bool check_cryptic(char **wordlist_one, int wc_one, char **wordlist_two) {
+bool check_chars(char **wordlist_one, int wc_one, char **wordlist_two) {
     bool cryptic_flag = false;
 
     for (int i = 0; i < wc_one; i++) {
@@ -83,9 +83,7 @@ bool check_cryptic(char **wordlist_one, int wc_one, char **wordlist_two) {
             int ascii_one = wordlist_one[i][j];
             if (ascii_one < C_VAL_MIN || ascii_one > C_VAL_MAX) {
                 cryptic_flag = true;
-            } else {
             }
-            
         }
 
         // Wordlist two check
@@ -93,7 +91,6 @@ bool check_cryptic(char **wordlist_one, int wc_one, char **wordlist_two) {
             int ascii_two = wordlist_two[i][k];
             if (ascii_two < C_VAL_MIN|| ascii_two > C_VAL_MAX) {
                 cryptic_flag = true;               
-            } else {
             }
         }
     }
