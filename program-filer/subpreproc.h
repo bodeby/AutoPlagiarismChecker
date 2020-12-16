@@ -72,10 +72,10 @@ char **preprocessing(char *ori_file, int *sc)
             ori_file[count] = '\0'; //Indsætter \0 i slutningen er hver sætning
             count++;
 
-            for (int i = 0; i < (count - count_holder); i++)
+            for (int j = 0; j < (count - count_holder); j++)
             { //Count er placeringen af den sidste karakter og count_holder er placeringen af den første
                 //printf("S: %d  j: %d  B: %c\n", sentence_count, j, ori_file[j + count_holder]);
-                sentence_arr[sentence_count][i] = ori_file[i + count_holder]; //Bliver placeret i et nyt array
+                sentence_arr[sentence_count][j] = ori_file[j + count_holder]; //Bliver placeret i et nyt array
             }
 
             sentence_count++;
