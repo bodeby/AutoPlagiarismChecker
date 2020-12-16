@@ -133,11 +133,11 @@ char *load_file(char fp[]) {
     //param[in] : opened file in read mode
     //param[out]: number of char in file as size_t
     size_t size_of_arr = calc_sarray(file);
-    char *txt_arr = malloc(size_of_arr * sizeof(char));
-
+    char *txt_arr = malloc((size_of_arr+1) * sizeof(char));
     //param[in] : content of file, array, size of array
     //param[out]: array with content of file
     write_array(file, txt_arr, size_of_arr);
+    
 
     if (txt_arr != NULL) {
         printf("File: %s load success\n", fp);

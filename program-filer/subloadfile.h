@@ -29,6 +29,7 @@ void write_array(FILE *text, char arr_txt[], size_t size_of_arr){
     for(int i = 0; i <= (int) size_of_arr; i++) {
         fscanf(text, "%c", &arr_txt[i]);
     }
+    arr_txt[size_of_arr-1] = '\0';
     return;
 }
 
