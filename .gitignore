@@ -3,3 +3,5 @@ program-filer/pg.c
 program-filer/pg.out
 *.exe
 *.out
+program-filer/bode.c
+program-filer/test-files/bode.txt

@@ -13,14 +13,12 @@ bool check_string(char str_one[], char str_two[]) {
     double len_one = strlen(str_one);
     double len_two = strlen(str_two);
     int len_diff = (int) fabs(len_one-len_two);
-    double len_diff_percentage = ((fabs(len_one - len_two) / ((len_one + len_two) / 2) ) * 100);
     int levenDist = editDist(str_one, str_two);
 
     // // TEST REPR
     // if (len_diff_percentage < 5.00) {
     //     printf("String 1: %s\n", str_one);
     //     printf("String 2: %s\n", str_two);
-    //     printf("\nLength diff (%%): %.2f%%\n", len_diff_percentage);
     //     printf("Length difference (int): %d\n", len_diff);
     //     printf("Levenstein: %d \n", levenDist);
     // }

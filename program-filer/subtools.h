@@ -28,16 +28,21 @@ int checkPlagMem(PlagMatch *arr) {
 // Count number of words in string
 int count_words(char input_str[]) {
     int word_count = 0;
+    int input_length = (int) strlen(input_str);
 
     // Count spaces (Eg count the numbers of words)
-    for (int i = 0; i < (int) strlen(input_str); i++) {
+    for (int i = 0; i < input_length; i++) {
         // Check for spaces in string
         if ((int) input_str[i] == 32 || (int) input_str[i] == '\t') {
-            word_count += 1;
+            // Dont add to word_count if first or last char is space or tab.
+            if (i != 0 && i != (input_length-1)) {
+                word_count += 1;
+            }
         }
     }
-    word_count += 1;
 
+    word_count += 1;
+    
     return word_count;
 }
 
@@ -54,7 +59,7 @@ void append(char *arr, int index, char value, int *size, int *capacity) {
 // Append character to string
 void plagAppend(PlagMatch *arr, int index, PlagMatch value, int *size, int *capacity) {
     while (*size > *capacity) {
-        arr = realloc(arr, sizeof(arr) + ((int) sizeof(PlagMatch)));
+        arr = realloc(arr, sizeof(arr) + sizeof(PlagMatch));
         *capacity = sizeof(arr);
     }
     arr[index] = value;
@@ -75,6 +80,7 @@ PlagMatch createPlagMatch(char *str_one, char *str_two, int wn_one, int ln_one, 
     plag_result.match_word_num = wn_two;
     plag_result.match_line_num = ln_two;
 
+    // return stuct
     return plag_result;
 }
 
