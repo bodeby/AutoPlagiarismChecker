@@ -26,6 +26,8 @@ char **preprocessing(char *ori_file, int *sc)
         }
         count++; //Går videre til næste karakter i filen
     }
+
+    //sentence_count++; // for sidste sætning - TEST
     char **sentence_arr = malloc((sentence_count) * sizeof(char *));
     *sc = sentence_count;
 

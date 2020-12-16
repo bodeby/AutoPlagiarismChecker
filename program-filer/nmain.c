@@ -34,19 +34,28 @@ int main(void) {
 
 void run_checks() {
     // set paths to files
-    char *fp_one = "./test-files/lotr-org.txt";
-    char *fp_two = "./test-files/lotr-plag.txt";
+    char *fp_one = "./test-files/bode.txt";
+    char *fp_two = "./test-files/bode-plag.txt";
 
     //param[in] : File path to txt-file.
     //param[out]: Array with all text in txt.
     char *arr_txt1 = load_file(fp_one);
     char *arr_txt2 = load_file(fp_two);
 
+    // Output seperator
+    printf("-----------------------------------------------\n");
+
     //Preprocessing
     int sc_one = 0;
     int sc_two = 0;
     char **pre_arr = preprocessing(arr_txt1, &sc_one);
     char **pre_arr2 = preprocessing(arr_txt2, &sc_two);
+
+    for (int i = 0; i < sc_one+1; i++) {
+        printf("pre_arr[%d] : %s\n", i, pre_arr[i]);
+    }
+    printf("count: %d\n", sc_one);
+    printf("pre_arr[3]: %s\n", pre_arr[sc_one]);
 
     // free dynamic allocated file arrays
     free(arr_txt1);
@@ -64,10 +73,10 @@ void run_checks() {
     int verbatim_count = nverbatim(vMatches, pre_arr, pre_arr2, sc_one, sc_two, v_size, v_capacity);
 
     // Test print - For Dynamic - Matches Static 
-    for (int i = 0; i < verbatim_count; i++) {
-        printf("- File 1 [line %2d, match]: '%s'\n", vMatches[i].line_num, vMatches[i].text);
-        printf("- File 2 [line %2d, match]: '%s'\n\n", vMatches[i].match_line_num, vMatches[i].match_text);
-    }
+    // for (int i = 0; i < verbatim_count; i++) {
+    //     printf("- File 1 [line %2d, match]: '%s'\n", vMatches[i].line_num, vMatches[i].text);
+    //     printf("- File 2 [line %2d, match]: '%s'\n\n", vMatches[i].match_line_num, vMatches[i].match_text);
+    // }
 
     // Copy dynamic array elements to static array
     PlagMatch static_vMatches[verbatim_count];
@@ -81,12 +90,11 @@ void run_checks() {
     }
 
     // Test print - For Static - Matches Dynamic 
-    printf("Verbatim test- should be (%d)\n", verbatim_count);
+    printf("\n\nVerbatim test- should be (%d)\n", verbatim_count);
     for (int i = 0; i < verbatim_count; i++) {
         printf("- File 1 [line %2d, match]: '%s'\n", static_vMatches[i].line_num, static_vMatches[i].text);
         printf("- File 2 [line %2d, match]: '%s'\n\n", static_vMatches[i].match_line_num, static_vMatches[i].match_text);
     }
-
 
     // Create Crypt struct array
     int c_size = 0;
@@ -96,8 +104,6 @@ void run_checks() {
 
     // Find cryptic elements
     int cryptic_count = cryptic_finder(cMatches, pre_arr, pre_arr2, sc_one, sc_two, c_size, c_capacity);
-
-    printf("Cryptic_count: %d\n", cryptic_count);
 
     // Copy dynamic array elements to static array
     PlagMatch static_cMatches[cryptic_count];
@@ -111,11 +117,11 @@ void run_checks() {
     }
 
     // Test Print
-    // printf("Cryptic test - should be (%d)\n", cryptic_count);
-    // for (int i = 0; i < cryptic_count; i++) {
-    //     printf("- File 1 [line %2d, match]: '%s'\n", static_cMatches[i].line_num, static_cMatches[i].text);
-    //     printf("- File 2 [line %2d, match]: '%s'\n\n", static_cMatches[i].match_line_num, static_cMatches[i].match_text);
-    // }
+    printf("Cryptic test - should be (%d)\n", cryptic_count);
+    for (int i = 0; i < cryptic_count; i++) {
+        printf("- File 1 [line %2d, match]: '%s'\n", static_cMatches[i].line_num, static_cMatches[i].text);
+        printf("- File 2 [line %2d, match]: '%s'\n\n", static_cMatches[i].match_line_num, static_cMatches[i].match_text);
+    }
 
     // pass all results to evaluate results for user output
     eval_results(static_vMatches, verbatim_count, static_cMatches, cryptic_count, fp_one, fp_two);
@@ -137,7 +143,7 @@ char *load_file(char fp[]) {
     //param[in] : content of file, array, size of array
     //param[out]: array with content of file
     write_array(file, txt_arr, size_of_arr);
-    
+
 
     if (txt_arr != NULL) {
         printf("File: %s load success\n", fp);
@@ -171,9 +177,9 @@ int cryptic_finder(PlagMatch cMatches[], char **sentences_one, char **sentences_
                 printf("--------------------\n");
                 printf("FOUND\n");
                 printf("--------------------\n");
-                printf("string: %s\n", sentences_one[i]);
-                printf("string: %s\n", sentences_two[j]);
-                printf("--------------------\n");
+                printf("string 1: %s\n", sentences_one[i]);
+                printf("\nstring 2: %s\n", sentences_two[j]);
+                printf("--------------------\n\n");
                 // DEV INFO END
 
                 // Compare words across
