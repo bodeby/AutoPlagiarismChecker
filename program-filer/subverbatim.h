@@ -9,7 +9,7 @@
 int nverbatim(PlagMatch verbatim[], char **sentences_one, char **sentences_two, int sc_one, int sc_two, int size, int capacity)
 {
     int k = 0;
-    printf("sc_one: %d, sc_two: %d\n", sc_one, sc_two);
+    printf("Verbatim: sc_one: %d, sc_two: %d\n", sc_one, sc_two);
 
     for (int i = 0; i < sc_one; i++)
     {

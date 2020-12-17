@@ -11,7 +11,6 @@ char **preprocessing(char *ori_file, int *sc)
     int sentence_count = 0;
     int character_count = 0;
     int size_of_string[100];
-    int max_size = 0;
     int size_of_ori_file = strlen(ori_file);
 
     //count chars until end of sentence
@@ -20,7 +19,7 @@ char **preprocessing(char *ori_file, int *sc)
         character_count++;
 
         //If end of sentence
-        if (ori_file[count] == '\n')
+        if (ori_file[count] == '.')
         {
             //increment nunmber of sentences found
             sentence_count++;
@@ -56,42 +55,32 @@ char **preprocessing(char *ori_file, int *sc)
         }
     }
 
-    /* for (int i = 0; i < sentence_count; i++) {
-        if (max_size < size_of_string[i]) {
-            max_size = size_of_string[i];
-        }
-    } */
-
     // Nulstiller sentence count
     sentence_count = 0;
-    count = 0;
-    count_holder = 0;
+    char temp_arr[300];
+    int j = 0;
 
-    //char temp_arr[max_size];
-    for (int i = 0; i < size_of_ori_file; i++)
-    {
-
-        printf("%c", ori_file[count]);
+    for (int i = 0; i < size_of_ori_file; i++) {  
+        temp_arr[j++]=ori_file[i];
 
         // if current char is equal to newline
-        if (ori_file[count] == '\n')
-        {
+        if (ori_file[i] == '.') {
             // replace \n with \0 at the end of each line.
-            ori_file[count] = '\0';
-            //count++; - spørg sara
-
-            // Count er placeringen af den sidste karakter og count_holder er placeringen af den første
-            for (int j = 0; j < (count - count_holder); j++)
-            {
-                //printf("S: %d  j: %d  B: %c\n", sentence_count, j, ori_file[j + count_holder]);
-                //Bliver placeret i et nyt array
-                sentence_arr[sentence_count][j] = ori_file[j + count_holder];
-            }
-            sentence_count++;
-            count_holder = count;
+            temp_arr[j] = '\0';
+            strncpy(sentence_arr[sentence_count++],temp_arr, j);
+            j=0;
+        } else {
+            //printf(" Preprocessing: %c", ori_file[i]);
         }
-        count++;
     }
+
+    //printf("Sentence %d: %s", 0, sentence_arr[0]);
+    
+    for (int i = 0; i <= sentence_count; i++)
+    {
+        //printf("Inner %d: %s\n", i, sentence_arr[i]);
+    }
+    
 
     return sentence_arr;
 }

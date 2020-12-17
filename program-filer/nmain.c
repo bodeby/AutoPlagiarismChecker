@@ -51,8 +51,27 @@ void run_checks() {
     char **pre_arr = preprocessing(arr_txt1, &sc_one);
     char **pre_arr2 = preprocessing(arr_txt2, &sc_two);
 
-    printf("Number of sentences: %d\n", sc_one);
-    printf("Sentence: %s\n", pre_arr[0]);
+    // PROBLEM START
+    printf("\n\n---------- S1 ----------\n");
+    printf("Number of sentences: %d\n\n", sc_one);
+    printf("Sentence 0: %s\n", pre_arr[0]);
+    printf("Sentence 1: %s\n", pre_arr[1]);
+    printf("Sentence 2: %s\n", pre_arr[2]);
+    printf("Sentence 3: %s\n", pre_arr[3]);
+    printf("Sentence 4: %s\n", pre_arr[4]);
+    printf("\n");
+    // PROBLEM END
+
+    // PROBLEM START
+    printf("\n\n---------- S2 ----------\n");
+    printf("Number of sentences: %d\n\n", sc_two);
+    printf("Sentence 0: %s\n", pre_arr2[0]);
+    printf("Sentence 1: %s\n", pre_arr2[1]);
+    printf("Sentence 2: %s\n", pre_arr2[2]);
+    printf("Sentence 3: %s\n", pre_arr2[3]);
+    printf("Sentence 4: %s\n", pre_arr2[4]);
+    printf("\n");
+    // PROBLEM END
 
     // free dynamic allocated file arrays
     free(arr_txt1);
