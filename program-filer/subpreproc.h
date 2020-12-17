@@ -12,7 +12,6 @@ char **preprocessing(char *ori_file, int *sc)
     int character_count = 0;
     int size_of_string[100];
     int max_size = 0;
-    int total_character = 0;
     int size_of_ori_file = strlen(ori_file);
 
     //count chars until end of sentence
@@ -27,21 +26,28 @@ char **preprocessing(char *ori_file, int *sc)
             //store number of chars in int array and increment                         
             size_of_string[count2] = character_count +1;
             count2++;
+<<<<<<< Updated upstream
 
             //update total number of chars read 
             total_character = total_character + character_count;
             
             //Nulstiller karakterer, da der startes en ny sætning
             character_count = 0;
+=======
+            character_count = 0; //Nulstiller karakterer, da der startes en ny sætning
+>>>>>>> Stashed changes
         }
         //move on to next char in file
         count++;
     }
+<<<<<<< Updated upstream
 
 
     //
     size_of_string[count2] = size_of_ori_file - total_character;
     sentence_count++;
+=======
+>>>>>>> Stashed changes
 
     //size of array of sentences memory allocated 
     char **sentence_arr = malloc((sentence_count) * sizeof(char *));
@@ -96,11 +102,14 @@ char **preprocessing(char *ori_file, int *sc)
         }
         count++;
     }
+<<<<<<< Updated upstream
 
     // 
     // for (int i = 0; i < (size_of_ori_file - count_holder); i++) {
     //     sentence_arr[sentence_count][i] = ori_file[i + count_holder];
     // }
+=======
+>>>>>>> Stashed changes
 
     return sentence_arr;
 }
