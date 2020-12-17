@@ -40,7 +40,7 @@ int main(void) {
 
             printf("%s - %s; dist - %d\n", wordlist_one[i], wordlist_two[i], editDist(wordlist_one[i], wordlist_two[i]));
             if(w_editDistance != 0 && w_editDistance % 2 == 0 && w_editDistance / 2 == w_len_diff) {
-                if (check_cryptic(wordlist_one, wc_one, wordlist_two, wc_two)) {
+                if (check_chars(wordlist_one, wc_one, wordlist_two)) {
                     printf("found word at pos: %d\n", i+1);
                 }
             }

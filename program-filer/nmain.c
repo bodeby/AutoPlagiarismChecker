@@ -34,8 +34,8 @@ int main(void) {
 
 void run_checks() {
     // set paths to files
-    char *fp_one = "./test-files/lotr-org.txt";
-    char *fp_two = "./test-files/lotr-plag.txt";
+    char *fp_one = "./test-files/pancake-org.txt";
+    char *fp_two = "./test-files/pancake-plag.txt";
 
     //param[in] : File path to txt-file.
     //param[out]: Array with all text in txt.
@@ -200,20 +200,6 @@ int cryptic_finder(PlagMatch cMatches[], char **sentences_one, char **sentences_
 
                 // Compare words across
                 for (int i = 0; i < wc_one; i++) {
-                    // int w_len_one = strlen(wordlist_one[i]);
-                    // int w_len_two = strlen(wordlist_two[i]);
-                    // int w_len_diff = (int) abs(w_len_one-w_len_two);
-                    // int w_editDistance = editDist(wordlist_one[i], wordlist_two[i]);
-
-                    // printf("%s - %s; dist - %d\n", wordlist_one[i], wordlist_two[i], editDist(wordlist_one[i], wordlist_two[i]));
-                    // if(w_editDistance != 0 && w_editDistance % 2 == 0 && w_editDistance / 2 == w_len_diff) {
-                    //     if (check_chars(wordlist_one, wc_one, wordlist_two)) {
-                    //         printf("- found word at pos: %d\n", i+1);
-                    //         plagAppend(cMatches, k, createPlagMatch(sentences_one[i], sentences_two[j],i+1,i+1,i+1,j+1), &size, &capacity);
-                    //         k++;
-                    //     }
-                    // }
-
                     if(check_string(wordlist_one[i], wordlist_two[i])) {
                         if (check_chars(wordlist_one, wc_one, wordlist_two)) {
                             printf("- found word at pos: %d\n", i+1);
