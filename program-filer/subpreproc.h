@@ -42,7 +42,7 @@ char **preprocessing(char *ori_file, int *sc)
     }
 
     //store number of sentences for later use
-    *sc = sentence_count-1;
+    *sc = sentence_count - 1;
 
     //allocate memory for each sentence with size stored in size_of_string array
     for (int i = 0; i < sentence_count; i++)
@@ -60,27 +60,30 @@ char **preprocessing(char *ori_file, int *sc)
     char temp_arr[300];
     int j = 0;
 
-    for (int i = 0; i < size_of_ori_file; i++) {  
-        temp_arr[j++]=ori_file[i];
+    for (int i = 0; i < size_of_ori_file; i++)
+    {
+        temp_arr[j++] = ori_file[i];
 
         // if current char is equal to newline
-        if (ori_file[i] == '.') {
+        if (ori_file[i] == '.')
+        {
             // replace \n with \0 at the end of each line.
             temp_arr[j] = '\0';
-            strncpy(sentence_arr[sentence_count++],temp_arr, j);
-            j=0;
-        } else {
+            strncpy(sentence_arr[sentence_count++], temp_arr, j);
+            j = 0;
+        }
+        else
+        {
             printf(" %c", ori_file[i]);
         }
     }
 
     //printf("Sentence %d: %s", 0, sentence_arr[0]);
-    
+
     for (int i = 0; i <= sentence_count; i++)
     {
         //printf("Inner %d: %s\n", i, sentence_arr[i]);
     }
-    
 
     return sentence_arr;
 }
