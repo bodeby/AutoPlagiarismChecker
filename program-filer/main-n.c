@@ -177,7 +177,7 @@ int cryptic_finder(PlagMatch cMatches[], char **sentences_one, char **sentences_
                 // Create wordlist, split sentences into words and fill wordlist
                 char **wordlist_two = malloc(wc_two * sizeof(char *));
                 split_sentences(sentences_two[j], wordlist_two, wc_two);
-
+                
                 // Compare words across
                 for (int i = 0; i < wc_one; i++) {
                     if(check_string(wordlist_one[i], wordlist_two[i])) {
@@ -188,7 +188,6 @@ int cryptic_finder(PlagMatch cMatches[], char **sentences_one, char **sentences_
                         }
                     }
                 }
-
                 free(wordlist_one); // free memory for wordlist_one
                 free(wordlist_two); // free memory for wordlist_two
             }
