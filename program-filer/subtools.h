@@ -71,13 +71,13 @@ PlagMatch createPlagMatch(char *str_one, char *str_two, int wn_one, int ln_one, 
     PlagMatch plag_result; // declare Stuct
 
     // append values from original file
-    printf("CPM - String 1: %s\n", str_one); // test only fjernes inden afl
+    //printf("CPM - String 1: %s\n", str_one); // test only fjernes inden afl
     strcpy(plag_result.text, str_one);
     plag_result.word_num = wn_one;
     plag_result.line_num = ln_one;
 
     // append values from test file
-    printf("CPM - String 2: %s\n", str_two); // test only fjernes inden afl
+    //printf("CPM - String 2: %s\n", str_two); // test only fjernes inden afl
     strcpy(plag_result.match_text, str_two);
     plag_result.match_word_num = wn_two;
     plag_result.match_line_num = ln_two;

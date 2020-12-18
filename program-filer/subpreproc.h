@@ -7,7 +7,6 @@ char **preprocessing(char *ori_file, int *sc)
 {
     int count = 0;
     int count2 = 0;
-    int count_holder = 0;
     int sentence_count = 0;
     int character_count = 0;
     int size_of_string[100];
@@ -33,21 +32,22 @@ char **preprocessing(char *ori_file, int *sc)
         count++;
     }
 
+    //store number of sentences for later use
+    *sc = sentence_count;
+
+
     //size of array of sentences memory allocated
-    char **sentence_arr = malloc((sentence_count) * sizeof(char *));
+    char **sentence_arr = malloc(sentence_count * sizeof(char *));
     if (sentence_arr == 0)
     {
         printf("Failure occured\n");
         exit(EXIT_SUCCESS);
     }
 
-    //store number of sentences for later use
-    *sc = sentence_count-1;
-
     //allocate memory for each sentence with size stored in size_of_string array
     for (int i = 0; i < sentence_count; i++)
     {
-        sentence_arr[i] = (char *)malloc(size_of_string[i] * sizeof(char));
+        sentence_arr[i] = (char *) malloc(size_of_string[i] * sizeof(char));
         if (sentence_arr == 0)
         {
             printf("Failure occured\n");
@@ -63,24 +63,21 @@ char **preprocessing(char *ori_file, int *sc)
     for (int i = 0; i < size_of_ori_file; i++) {  
         temp_arr[j++]=ori_file[i];
 
-        // if current char is equal to newline
+        // if current char is equal to .
         if (ori_file[i] == '.') {
-            // replace \n with \0 at the end of each line.
+            // replace . with \0 at the end of each line.
             temp_arr[j] = '\0';
             strncpy(sentence_arr[sentence_count++],temp_arr, j);
             j=0;
+            i++;
         } else {
-            printf(" %c", ori_file[i]);
+            //printf("%c", ori_file[i]);
         }
     }
-
-    //printf("Sentence %d: %s", 0, sentence_arr[0]);
     
-    for (int i = 0; i <= sentence_count; i++)
-    {
-        //printf("Inner %d: %s\n", i, sentence_arr[i]);
-    }
+    // for (int i = 0; i < sentence_count; i++) {
+    //     printf("\nInner %d: %s\n", i, sentence_arr[i]);
+    // }
     
-
     return sentence_arr;
 }

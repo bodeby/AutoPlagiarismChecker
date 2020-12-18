@@ -17,8 +17,11 @@ int main(void) {
     //char test_str2[] = "The quick browп fox jumps over the lazy dog browп";
 
     // TEST 2
-    char test_str1[] = "Some years later, Gandalf reveals to Frodo that the ring is in fact the One Ring, forged by Sauron the Dark Lord thousands of years before to enable him to dominate and enslave all of Middle-earth.";
-    char test_str2[] = "Some years later, Gaпdalf reveals to Frodo that the ring is in fact the One Ring, forged by Sauron the Dark Lord thousands of years before to enable him to dominate and enslave all of Мiddle-earth.";
+    //char test_str1[] = "Some years later, Gandalf reveals to Frodo that the ring is in fact the One Ring, forged by Sauron the Dark Lord thousands of years before to enable him to dominate and enslave all of Middle-earth.";
+    //char test_str2[] = "Some years later, Gaпdalf reveals to Frodo that the ring is in fact the One Ring, forged by Sauron the Dark Lord thousands of years before to enable him to dominate and enslave all of Мiddle-earth.";
+
+    char test_str1[] = " Gandalf tells Frodo that the Ring must be destroyed to defeat Sauron's evil, but he also warns him that the Enemy has learned of the Ring's whereabouts from the creature Gollum and will seek to find it and kill its bearer";
+    char test_str2[] = " Because of the difficulty Bilbo has in giving the ring away, his friend the wizard Gandalf the Grey suspects that the ring is more than it appears.";
 
     // VERBATIM START
     int vSize = 0;
@@ -34,15 +37,15 @@ int main(void) {
 
     int verbatim_count = 3;
     // Copy dynamic array elements to static array
-    PlagMatch static_vMatches[verbatim_count];
-    if (verbatim_count > 0) {
-        for (int i = 0; i < verbatim_count; i++) {
-            static_vMatches[i] = vMatches[i];
-        }
-        free(vMatches);
-    } else {
-        free(vMatches);
-    }
+    // PlagMatch static_vMatches[verbatim_count];
+    // if (verbatim_count > 0) {
+    //     for (int i = 0; i < verbatim_count; i++) {
+    //         static_vMatches[i] = vMatches[i];
+    //     }
+    //     free(vMatches);
+    // } else {
+    //     free(vMatches);
+    // }
 
     // CRYPTIC DIRECT
     int Size = 0;
@@ -80,24 +83,26 @@ int main(void) {
     }
 
     int cryptic_count = k;
-     // Copy dynamic array elements to static array
-    PlagMatch static_cMatches[cryptic_count];
-    if (cryptic_count > 0) {
-        for (int i = 0; i < cryptic_count; i++) {
-            static_cMatches[i] = cMatches[i];
-        }
-        free(cMatches);
-    } else {
-        free(cMatches);
-    }
+    //  // Copy dynamic array elements to static array
+    // PlagMatch static_cMatches[cryptic_count];
+    // if (cryptic_count > 0) {
+    //     for (int i = 0; i < cryptic_count; i++) {
+    //         static_cMatches[i] = cMatches[i];
+    //     }
+    //     free(cMatches);
+    // } else {
+    //     free(cMatches);
+    // }
 
     // Send values to eval_results
-    eval_results(static_vMatches, verbatim_count, static_cMatches, cryptic_count, fp_one, fp_two);
+    eval_results(vMatches, verbatim_count, cMatches, cryptic_count, fp_one, fp_two);
+    //eval_results(static_vMatches, verbatim_count, static_cMatches, cryptic_count, fp_one, fp_two);
+    free(vMatches);
+    free(cMatches);
 }
 
 //param[in] : array of PlagMatches, sizes of arrays and file paths
-void eval_results(PlagMatch *vMatches, int vSize, PlagMatch *cMatches, int cSize, char fp_one[], char fp_two[])
-{
+void eval_results(PlagMatch *vMatches, int vSize, PlagMatch *cMatches, int cSize, char fp_one[], char fp_two[]) {
     printf("\n-----------------------------------------------\n");
     printf("           RESULTS FROM EVALUATION:\n");
     printf("-----------------------------------------------\n");
