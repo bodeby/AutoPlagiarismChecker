@@ -51,7 +51,6 @@ void run_checks() {
     char **pre_arr = preprocessing(arr_txt1, &sc_one);
     char **pre_arr2 = preprocessing(arr_txt2, &sc_two);
 
-
     // free dynamic allocated file arrays
     free(arr_txt1);
     free(arr_txt2);
@@ -160,12 +159,12 @@ int cryptic_finder(PlagMatch cMatches[], char **sentences_one, char **sentences_
             if (check_string(sentences_one[i], sentences_two[j])) {
 
                 // DEV INFO
-                printf("--------------------\n");
-                printf("FOUND -  suspected cryptic\n");
-                printf("--------------------\n");
-                printf("string 1: %s\n", sentences_one[i]);
-                printf("string 2: %s\n", sentences_two[j]);
-                printf("--------------------\n\n");
+                // printf("--------------------\n");
+                // printf("FOUND -  suspected cryptic\n");
+                // printf("--------------------\n");
+                // printf("string 1: %s\n", sentences_one[i]);
+                // printf("string 2: %s\n", sentences_two[j]);
+                // printf("--------------------\n\n");
                 // DEV INFO END
 
                 int wc_one = count_words(sentences_one[i]); // get number of words in string 1
@@ -195,8 +194,6 @@ int cryptic_finder(PlagMatch cMatches[], char **sentences_one, char **sentences_
             }
         }
     }
-
-    return k;
 }
 
 //param[in] : array of PlagMatches, sizes of arrays and file paths

@@ -15,11 +15,6 @@ bool check_string(char str_one[], char str_two[]) {
     int len_diff = (int) fabs(len_one-len_two);
     int levenDist = editDist(str_one, str_two);
 
-    // TEST REPR
-    // printf("CS - String 1: %s\n", str_one);
-    // printf("CS - String 2: %s\n", str_two);
-    // printf("CS - Length difference (int): %d\n", len_diff);
-    // printf("CS - Levenstein: %d \n", levenDist);
 
     if (levenDist != 0 && levenDist % 2 == 0 && levenDist / 2 == len_diff){
         return true;

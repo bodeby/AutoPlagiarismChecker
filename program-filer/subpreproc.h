@@ -20,7 +20,7 @@ char **preprocessing(char *ori_file, int *sc)
         //If end of sentence
         if (ori_file[count] == '.')
         {
-            //increment nunmber of sentences found
+            //increment number of sentences found
             sentence_count++;
 
             //store number of chars in int array and increment
@@ -33,19 +33,15 @@ char **preprocessing(char *ori_file, int *sc)
     }
 
     //store number of sentences for later use
-    *sc = sentence_count;
-
+    *sc = sentence_count + 1;
 
     //size of array of sentences memory allocated
-    char **sentence_arr = malloc(sentence_count * sizeof(char *));
+    char **sentence_arr = (char **) malloc((sentence_count+1) * sizeof(char *));
     if (sentence_arr == 0)
     {
         printf("Failure occured\n");
         exit(EXIT_SUCCESS);
     }
-
-    //store number of sentences for later use
-    *sc = sentence_count - 1;
 
     //allocate memory for each sentence with size stored in size_of_string array
     for (int i = 0; i < sentence_count; i++)
