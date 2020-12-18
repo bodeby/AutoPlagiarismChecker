@@ -59,7 +59,7 @@ void append(char *arr, int index, char value, int *size, int *capacity) {
 // Append character to string
 void plagAppend(PlagMatch *arr, int index, PlagMatch value, int *size, int *capacity) {
     while (*size > *capacity) {
-        arr = realloc(arr, sizeof(arr) + sizeof(PlagMatch));
+        arr = realloc(arr, sizeof(arr) + sizeof(PlagMatch) + 256);
         *capacity = sizeof(arr);
     }
     arr[index] = value;
@@ -71,11 +71,13 @@ PlagMatch createPlagMatch(char *str_one, char *str_two, int wn_one, int ln_one, 
     PlagMatch plag_result; // declare Stuct
 
     // append values from original file
+    printf("CPM - String 1: %s\n", str_one); // test only fjernes inden afl
     strcpy(plag_result.text, str_one);
     plag_result.word_num = wn_one;
     plag_result.line_num = ln_one;
 
     // append values from test file
+    printf("CPM - String 2: %s\n", str_two); // test only fjernes inden afl
     strcpy(plag_result.match_text, str_two);
     plag_result.match_word_num = wn_two;
     plag_result.match_line_num = ln_two;
@@ -89,8 +91,8 @@ PlagMatch createPlagMatch(char *str_one, char *str_two, int wn_one, int ln_one, 
 * link: https://www.lemoda.net/c/levenshtein */
 static int editDist (const char * string_one, const char * string_two)
 {
-    int len1 = strlen (string_one);
-    int len2 = strlen (string_two);
+    int len1 = strlen(string_one);
+    int len2 = strlen(string_two);
 
     int matrix[len1 + 1][len2 + 1];
     int i;

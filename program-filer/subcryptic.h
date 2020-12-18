@@ -53,9 +53,9 @@ void split_sentences(char input_str[], char **wordlist, int wc ) {
             append(temp_arr, (int) j, input_str[i], &size, &capacity);
             j++;
         } else { // if character is equal to space
-            strncpy(word_array[pos_word], temp_arr, j);  // Add Word to list
-            word_array[pos_word][j] = '\0';         // Add \0 to word
-            pos_word++;                             // Set postion to next vacant spot
+            strncpy(word_array[pos_word], temp_arr, j); // Add Word to list
+            word_array[pos_word][j] = '\0';             // Add \0 to word
+            pos_word++;                                 // Set postion to next vacant spot
             j = 0;
         }
     }
@@ -93,5 +93,7 @@ bool check_chars(char **wordlist_one, int wc_one, char **wordlist_two) {
 
     return cryptic_flag;
 }
+
+
 
 
