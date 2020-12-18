@@ -34,8 +34,8 @@ int main(void) {
 
 void run_checks() {
     // set paths to files
-    char *fp_one = "./test-files/pancake-org.txt";
-    char *fp_two = "./test-files/pancake-plag.txt";
+    char *fp_one = "./test-files/lotr-org.txt";
+    char *fp_two = "./test-files/lotr-plag.txt";
 
     //param[in] : File path to txt-file.
     //param[out]: Array with all text in txt.
@@ -62,15 +62,13 @@ void run_checks() {
     int v_capacity = v_init_capacity;
     PlagMatch *vMatches = malloc(v_init_capacity * sizeof(PlagMatch));
 
-    checkPlagMem(vMatches);
-    
     // Find verbatim elements
     int verbatim_count = nverbatim(vMatches, pre_arr, pre_arr2, sc_one, sc_two, v_size, v_capacity);
 
     // Test print - For Dynamic - Matches Static 
     for (int i = 0; i < verbatim_count; i++) {
-        printf("- File 1 [line %2d, match]: '%s'\n", vMatches[i].line_num, vMatches[i].text);
-        printf("- File 2 [line %2d, match]: '%s'\n\n", vMatches[i].match_line_num, vMatches[i].match_text);
+        printf("+ File 1 [line %2d, match]: '%s'\n", vMatches[i].line_num, vMatches[i].text);
+        printf("+ File 2 [line %2d, match]: '%s'\n\n", vMatches[i].match_line_num, vMatches[i].match_text);
     }
 
     // Copy dynamic array elements to static array
@@ -79,10 +77,10 @@ void run_checks() {
         for (int i = 0; i < verbatim_count; i++) {
             static_vMatches[i] = vMatches[i];
         }
-        free(vMatches);
-    } else {
-        free(vMatches);
-    }
+    } 
+
+    // Free allocated memory after copying to static array
+    free(vMatches);
 
     // Test print - For Static - Matches Dynamic 
     printf("\n\nVerbatim test- should be (%d)\n", verbatim_count);
@@ -157,6 +155,16 @@ int cryptic_finder(PlagMatch cMatches[], char **sentences_one, char **sentences_
     for (int i = 0; i < sc_one; i ++) {
         for (int j = 0; j < sc_two; j++) {
             if (check_string(sentences_one[i], sentences_two[j])) {
+
+                // DEV INFO
+                printf("--------------------\n");
+                printf("FOUND - cryptic\n");
+                printf("--------------------\n");
+                printf("string 1: %s\n", sentences_one[i]);
+                printf("string 2: %s\n", sentences_two[j]);
+                printf("--------------------\n\n");
+                // DEV INFO END
+
                 int wc_one = count_words(sentences_one[i]); // get number of words in string 1
                 int wc_two = count_words(sentences_two[j]); // get number of words in string 2
 
@@ -167,15 +175,6 @@ int cryptic_finder(PlagMatch cMatches[], char **sentences_one, char **sentences_
                 // Create wordlist, split sentences into words and fill wordlist
                 char **wordlist_two = malloc(wc_two * sizeof(char *));
                 split_sentences(sentences_two[j], wordlist_two, wc_two);
-                
-                // DEV INFO
-                printf("--------------------\n");
-                printf("FOUND\n");
-                printf("--------------------\n");
-                printf("string 1: %s\n", sentences_one[i]);
-                printf("string 2: %s\n", sentences_two[j]);
-                printf("--------------------\n\n");
-                // DEV INFO END
 
                 // Compare words across
                 for (int i = 0; i < wc_one; i++) {

@@ -42,7 +42,7 @@ char **preprocessing(char *ori_file, int *sc)
     }
 
     //store number of sentences for later use
-    *sc = sentence_count;
+    *sc = sentence_count-1;
 
     //allocate memory for each sentence with size stored in size_of_string array
     for (int i = 0; i < sentence_count; i++)
@@ -70,7 +70,7 @@ char **preprocessing(char *ori_file, int *sc)
             strncpy(sentence_arr[sentence_count++],temp_arr, j);
             j=0;
         } else {
-            //printf(" Preprocessing: %c", ori_file[i]);
+            printf(" %c", ori_file[i]);
         }
     }
 
